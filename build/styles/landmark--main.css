@@ -1,0 +1,67 @@
+main {
+  grid-column:full;
+  display:grid;
+  grid-template-columns:inherit;
+}
+
+/* Only apply margin when triangles are visible */
+:root:not([data-setting--no-images="true"]) .triangles + main {
+  margin-top: -6.125rem;
+}
+
+.section--content {
+  grid-column:full;
+
+  display:grid;
+  grid-template-columns:inherit;
+}
+
+.section--content__block {
+  grid-column:small;
+}
+
+.section--content__block--inset {
+  grid-column:inset;
+}
+
+.section--content__block--medium {
+  grid-column:medium;
+}
+
+.section--content__block--large {
+  grid-column:large;
+}
+
+
+/* HERO */
+.section--content__block--hero {
+  grid-column:inset-start/medium-end;
+
+  padding:var(--grid-gap);
+  margin:calc( var(--grid-gap) * 2) 0;
+
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 2.8em, 
+      var(--line-section--content__block--hero) 0 3em
+    ), 
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 .7em, 
+      var(--line-section--content__block--hero) 0 .9em
+    ), 
+    linear-gradient(
+      155deg,
+      var(--bg1-section--content__block--hero),
+      var(--bg2-section--content__block--hero)
+    );
+}
+
+.section--content__block--hero h1 {
+  margin:1rem;
+}
+
+.section--content__block--hero p {
+  margin:1rem;
+}

@@ -1,0 +1,397 @@
+/********/
+/* FORM */
+/********/
+
+.js .details--accessibility {
+  --js:none;
+}
+
+.details--accessibility {
+  position: relative;
+
+  display:var(--js, flex);
+  flex-direction:column;
+  align-items:start;
+
+  font-weight:600;
+}
+
+.is-open .details--accessibility {
+  display:flex;
+}
+
+.details--accessibility__block {
+  margin:.5em 0 0;
+  background-color:var(--bg-form--accessibilty);
+  border:var(--border-thin--t);
+  border-radius:.5em;
+}
+
+.details--accessibility form {
+  display:grid;
+  gap:1.33em;
+  padding:1.33em;
+}
+
+
+
+
+
+/************/
+/* FIELDSET */
+/************/
+
+.details--accessibility fieldset {
+  border:none;
+  padding:0;
+  margin:.33em 0 0;
+
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+fieldset:has([type="checkbox"]) {
+  display:grid;
+  justify-items:start;
+}
+
+/* legend */
+.details--accessibility legend {
+  padding:0 .33em;
+  font-weight:400;
+  text-transform:uppercase;
+}
+
+
+
+
+
+/*********************/
+/* FONTSIZE - BUTTON */
+/*********************/
+
+.js .setting--fontsize--button {
+  --js:flex;
+}
+
+.setting--fontsize--button {
+  margin:.33em;
+  padding:.25em .67em;
+
+  display:var(--js, none);
+  align-items:center;
+  justify-content:center;
+  gap:.33em;
+
+  appearance:none;
+  border:var(--border-medium);
+  border-radius:.25em;
+}
+
+
+/* BUTTON → Aa / aA */
+
+.setting--fontsize--button > span {
+  position: relative;
+  display:grid;
+  grid-template-columns:auto auto;
+  align-items:end;
+  line-height:1;
+}
+
+.setting--fontsize--button > span span {
+  position: relative;
+  display:grid;
+  justify-items:center;
+  font-size:.75em;
+  line-height:1;
+  height:1em;
+}
+
+
+/* arrow */
+.setting--fontsize--button span span::after {
+  content:"";
+
+  position: absolute;
+  bottom:100%;
+
+  width:.45em;
+  height:.45em;
+  
+  background-color:currentColor;
+
+  clip-path:polygon(
+    40% 0, 
+    40% 0, 
+    50% 0, 
+    60% 0,
+    60% 0,
+    60% 60%,
+    100% 40%,
+    100% 40%,
+    50% 100%,
+    0% 40%,
+    0% 40%,
+    40% 60%,
+    40% 0
+  );
+}
+
+.setting--fontsize--button--plus span span::after {
+  transform:rotate(180deg);
+}
+
+
+/* INTERACTION */
+
+.setting--fontsize--button:focus-visible {
+  outline: var(--outline-thick--d);
+  outline-offset:.15em;
+}
+
+
+/* DISABLED */
+
+.setting--fontsize--button:disabled > span {
+  font-size:.875em;
+}
+
+.setting--fontsize--button:disabled > span span {
+  font-size:1em;
+}
+
+/* arrow */
+.setting--fontsize--button:disabled > span span::after {
+  clip-path:polygon(
+    10% 35%, 
+    25% 20%, 
+    50% 45%, 
+    75% 20%,
+    90% 35%,
+    65% 60%,
+    90% 85%,
+    75% 100%,
+    50% 75%,
+    25% 100%,
+    10% 85%,
+    35% 60%,
+    10% 35%
+  );
+}
+
+.setting--fontsize--button--plus:disabled span span::after {
+  transform:rotate(0deg);
+}
+
+
+/*********************/
+/* FONTSIZE -SELECT  */
+/*********************/
+
+.js .setting--fontsize {
+  --js:none;
+}
+
+.setting--fontsize {
+  display:var(--js, block);
+  margin:.33em;
+  padding:.25em;
+
+  background-color:var(--bg-select);
+  border:solid .125rem currentColor;
+  border-radius:.2em;
+  font-weight:inherit;
+
+  cursor: pointer;
+}
+
+/* INTERACTION */
+
+.setting--fontsize:focus-visible {
+  /* border-color:transparent; */
+  outline: var(--outline-thick--d);
+  outline-offset:.15em;
+}
+
+
+
+
+
+/********************/
+/* RADIO / CHECKBOX */
+/********************/
+
+/* label */
+.details--accessibility label {
+  margin:.33em;
+
+  display:inline-flex;
+  align-items:center;
+  gap:.33em;
+
+  cursor:pointer;
+}
+
+/* inputs */
+.details--accessibility input {
+  position: relative;
+
+  flex-shrink:0;
+  width:1.35em;
+  height:1.35em;
+  margin:0;
+
+  display:grid;
+  place-items:center;
+
+  appearance:none;
+  border:var(--border-medium);
+  color:var(--clr-input);
+}
+
+.details--accessibility input:checked {
+  background-color:currentColor;
+}
+
+.details--accessibility input:checked::after {
+  content:"";
+  position:absolute;
+  background-color:var(--bg-input__checked);
+}
+
+
+/* RADIO */
+
+.details--accessibility input[type="radio"] {
+  border-radius:50%;
+}
+
+.details--accessibility input[type="radio"]:checked::after {
+  width:45%;
+  height:45%;
+  border-radius:inherit;
+}
+
+
+/* CHECKBOX */
+
+.details--accessibility input[type="checkbox"] {
+  border-radius:.25em;
+}
+
+.details--accessibility input[type="checkbox"]:checked::after {
+  width:33.33%;
+  height:66.67%;
+  
+  transform:translateY(-.05em) rotate(45deg);
+
+  clip-path:polygon(
+    calc(100% - .1625em) 0,
+    100% 0,
+    100% 100%,
+    0% 100%,
+    0% calc(100% - .1625em),
+    calc(100% - .1625em) calc(100% - .1625em),
+    calc(100% - .1625em) 0
+  );
+}
+
+/* interaction */
+label:has( input:focus-visible ) {
+  position: relative;
+  z-index:1;
+  /* margin:.16em; */
+  /* padding:.17em; */
+  
+  outline:var(--outline-thick--d);
+  outline-offset:.15em;
+
+  border-radius:.25em;
+}
+
+label:has( input:focus-visible ) input {
+  outline:none;
+}
+
+
+
+
+
+
+
+/*****************/
+/* SUBMIT BUTTON */
+/*****************/
+
+.js .details--accessibility [type="submit"] {
+  --js:none;
+}
+
+.details--accessibility [type="submit"] {
+  display:var(--js, block);
+}
+
+
+
+
+
+/******************/
+/* RESPONSIVENESS */
+/******************/
+
+@container --container--body (width > 43em) {
+  .details--accessibility {
+    display:flex; /* always visible */
+
+    align-items:end;
+  }
+
+  .details--accessibility__block {
+    position: absolute;
+    top:calc(100%);
+    right:0;
+    z-index: 2;
+    box-shadow: var(--shadow);
+  }
+
+  /* fade in case of scrolling */
+  @supports (pointer-events:none) {
+    .details--accessibility__block::after {
+      content:"";
+  
+      position:absolute;
+      inset:0;
+      z-index:10;
+  
+      background-image:
+        linear-gradient(
+          var(--bg-form--accessibilty),
+          transparent 1.33em calc(100% - 1.33em),
+          var(--bg-form--accessibilty) 
+        );
+      border-radius:inherit;
+  
+      pointer-events:none;
+    }
+  }
+
+  .details--accessibility form {
+    max-height: calc(100dvh - 6em);
+    padding:1.67em;
+
+    overflow-y:auto;
+    overscroll-behavior-y: contain;
+    scrollbar-width: none;
+  }
+
+  .details--accessibility form::-webkit-scrollbar {
+    display: none;
+  }
+
+  .details--accessibility fieldset {
+    flex-wrap: nowrap;
+  }
+
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pagina niet gevonden - Lectoraat Responsible IT">
+
+  <title>Pagina niet gevonden | Lectoraat Responsible IT</title>
+
+  <script>
+    document.documentElement.classList.add("js");
+  </script>
+
+  <link rel="stylesheet" href="styles/tokens--fonts.css">
+  <link rel="stylesheet" href="styles/tokens--colors.css">
+  
+  <link rel="stylesheet" href="styles/general.css">
+  <link rel="stylesheet" href="styles/general--controls.css">
+  <link rel="stylesheet" href="styles/general--text.css">
+
+  <link rel="stylesheet" href="styles/landmark--header.css">
+  <link rel="stylesheet" href="styles/landmark--header__accessibility.css">
+
+  <link rel="stylesheet" href="styles/landmark--triangles.css">
+
+  <link rel="stylesheet" href="styles/landmark--main.css">
+
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body>
+  <header class="header--body">
+    <div class="header--body__block">
+      <a href="index.html" class="link--logo" aria-label="naar de homepage">
+        <svg class="logo--hva-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 246.207 29.653">
+          <use xlink:href="images/logo-nl.svg#logo"></use>
+        </svg>
+      </a>
+
+      <a href="#main" class="visually-hidden link--skip">direct naar hoofdinhoud</a>
+
+      <button class="button--disclosure button--menu" hidden>Menu</button>
+
+      <nav class="nav--main">
+        <ul>
+          <li><a href="/" lang="en">Home</a></li>
+          <li><a href="/projecten">Projecten</a></li>
+          <li><a href="/responsible-it">Over Responsible IT</a></li>
+        </ul>
+      </nav>
+
+      <details class="details--accessibility">
+        <summary>Toeganke&shy;lijkheid</summary>
+
+        <div class="details--accessibility__block">
+          <form >
+            <fieldset>
+              <legend>Driehoeken</legend>
+
+              <label>
+                <input type="checkbox" name="setting--no-images">
+                Driehoeken verbergen
+              </label>
+            </fieldset>
+  
+            <button type="submit">Toepassen</button>
+          </form>
+        </div>
+
+      </details>
+    </div>
+  </header>
+
+  <div class="triangles"></div>
+
+  <main id="main">
+    <section class="section--content">
+      <div class="section--content__block section--content__block--hero">
+        <h1>Pagina niet gevonden</h1>
+      </div>
+    </section>
+    <section class="section--content">
+      <div class="section--content__block wp-content">
+        <p>De pagina die u zoekt bestaat niet of is verplaatst.</p>
+        <p>U kunt teruggaan naar de <a href="/">homepage</a> of een van de andere pagina's in het menu bezoeken.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="scripts/general--helpers.js"></script>
+
+  <script defer src="scripts/landmark--header.js"></script>
+  <script defer src="scripts/landmark--header__accessibility.js"></script>
+
+  <script defer src="scripts/landmark--triangles.js"></script>
+
+</body>
+</html> 

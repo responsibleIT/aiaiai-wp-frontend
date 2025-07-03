@@ -1,0 +1,22 @@
+{
+  "name": "responsible-wp-frontend",
+  "version": "1.0.0",
+  "description": "Static site generator for Responsible IT WordPress frontend",
+  "main": "build.js",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "node build.js",
+    "build:force": "rm -rf cache && node serverBuilder.js",
+    "check": "node serverBuilder.js"
+  },
+  "dependencies": {
+    "cheerio": "1.0.0-rc.10",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
