@@ -36,8 +36,8 @@ async function fetchWordPressContent(endpoint) {
   try {
     // Special handling for home page
     if (endpoint === "homepage") {
-      // Fetch page with ID 2 which is set as the front page
-      const response = await fetch(`${WP_API_URL}/pages/2`);
+      // Fetch the current front page via the public /frontpage endpoint provided by the WP REST-API Frontpage plugin
+      const response = await fetch(`${WP_API_URL}/frontpage`);
       if (!response.ok) {
         throw new Error(`WP API ${response.status} when fetching homepage`);
       }
@@ -74,7 +74,10 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName) {
     // Set page title and h1
     let pageTitle;
     if (pageName === "index") {
-      pageTitle = "Home";
+      // For the homepage use the WordPress title when available, otherwise default to "Home"
+      pageTitle = capitalizeFirstLetter(
+        wpContent.title?.rendered || "Home"
+      );
     } else {
       // Use WordPress title if available, otherwise use default
       pageTitle = capitalizeFirstLetter(
@@ -149,6 +152,7 @@ export async function buildSite() {
 
     // First, handle the homepage specially since it needs to be index.html
     const homepage = await fetchWordPressContent("homepage");
+    const frontPageId = homepage?.id; // store ID to avoid duplicating the front page later
     const homeTemplate = await findTemplate("index");
     await processTemplate(
       homeTemplate,
@@ -164,7 +168,7 @@ export async function buildSite() {
     const pages = await fetchWordPressContent("pages");
     if (Array.isArray(pages)) {
       // Skip the homepage since we already handled it
-      const otherPages = pages.filter((page) => page.id !== 2);
+      const otherPages = pages.filter((page) => page.id !== frontPageId);
 
       // Process each page using its slug
       for (const page of otherPages) {
