@@ -18,6 +18,11 @@ const BUILD_DIR = process.env.BUILD_DIR || "build";
 const TEMPLATES_DIR = process.env.TEMPLATES_DIR || "static/templates";
 const WP_API_URL = process.env.WP_API_URL;
 
+if (!WP_API_URL) {
+  console.error('ERROR: build.js requires the WP_API_URL environment variable to be set.');
+  process.exit(1);
+}
+
 // Ensure build directory exists
 async function ensureDir(dir) {
   try {
@@ -33,19 +38,21 @@ async function fetchWordPressContent(endpoint) {
     if (endpoint === "homepage") {
       // Fetch page with ID 2 which is set as the front page
       const response = await fetch(`${WP_API_URL}/pages/2`);
-      const data = await response.json();
-
-      return data;
+      if (!response.ok) {
+        throw new Error(`WP API ${response.status} when fetching homepage`);
+      }
+      return await response.json();
     }
 
     // Regular page/content fetching
     const response = await fetch(`${WP_API_URL}/${endpoint}`);
-    const data = await response.json();
-
-    return data;
+    if (!response.ok) {
+      throw new Error(`WP API ${response.status} when fetching ${endpoint}`);
+    }
+    return await response.json();
   } catch (error) {
     console.error(`Error fetching WordPress content from ${endpoint}:`, error);
-    return null;
+    throw error;
   }
 }
 

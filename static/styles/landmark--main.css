@@ -1,6 +1,5 @@
 main {
   grid-column:full;
-  background-color: red !important;
   display:grid;
   grid-template-columns:inherit;
 }

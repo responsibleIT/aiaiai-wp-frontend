@@ -1,2 +1,3 @@
-# aiaiai-wp-frontend
-Statische frontend voor aiaiai.art
+# ResponsibleIT-experiment
+
+## Front-end voor de wordpress website
