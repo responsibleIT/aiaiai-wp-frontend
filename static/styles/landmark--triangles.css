@@ -25,6 +25,17 @@
 /* TRIANGLES CONTAINER */
 /***********************/
 
+:root {
+  --number-triangles:4;
+  --max-width-triangles:108em;
+
+  --width-triangle: calc( min(var(--max-width-triangles), 100vw + 4px) / var(--number-triangles) );
+  --height-triangle: calc( var(--width-triangle) / .866 );
+
+  --width-triangle--l: calc( var(--width-triangle) * 2 );
+  --hgth-triangle--l: calc( var(--height-triangle) * 2 );
+}
+
 .triangles {
   --number-triangles:4;
   --max-width-triangles:108em;

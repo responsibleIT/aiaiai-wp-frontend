@@ -1,91 +1,114 @@
+@view-transition {
+  navigation: auto;
+}
+
+
 *,
 *::before,
 *::after {
-  box-sizing:border-box;
+  box-sizing: border-box;
 
-  font-family:'Open Sans', Arial, sans-serif;
+  font-family: Atkinson, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-smooth: auto;
-  line-height:1.6;
+  line-height: 1.6;
 }
 
 *::selection {
   background-color: var(--bg-selection);
-  color:var(--clr-selection);
+  color: var(--clr-selection);
 }
-
-
 
 /********/
 /* HTML */
 /********/
 
 html {
-  background-color:var(--bg);
-  
-  color:var(--clr);
-  font-size:calc(1em * (1 + var(--setting-fontsize-factor)) );
+  scrollbar-gutter: stable;
+  background-color: var(--bg);
+  scroll-behavior: smooth;
+  color: var(--clr);
+  font-size: calc(1em * (1 + var(--setting-fontsize-factor)));
 }
 
 [data-reduced-motion="no-preference"] {
-  transition:font-size .2s;
+  transition: font-size 0.2s;
 }
 
 body {
-  container-type:inline-size;
-  container-name:--container--body;
-  
-  margin:0;
+  container-type: inline-size;
+  container-name: --container--body;
 
-  font-size:clamp(1em, .75em + .75vw, 1.2em);
+  margin: 0;
+
+  font-size: clamp(1em, 0.75em + 0.75vw, 1.2em);
 }
 
+/********/
+/* IMAGES */
+/********/
 
+figure{
+  padding: 0;
+  margin: 0;
+}
 
-
-
+img{
+  width: 100%;
+}
 
 /********/
 /* GRID */
 /********/
 
 body {
-  
-  --grid-padding: clamp(1em, 5vw, 3.125em);
-  --grid-gap: clamp(1em, 4vw, 2em);
-  --grid-inset:3em;
-  --grid-small:40em;
-  --grid-side:10em;
-  
+  margin: 0 auto;
+  --grid-columns: 4;
+  --grid-gap: 1rem;
+  font-size: 1rem;
 
-  display: grid;
-
-  grid-template-columns:
-      [full-start]
-    minmax(var(--grid-padding), 1fr)
-      [xlarge-start large-start medium-start small-start] 
-    minmax(0, var(--grid-inset))
-      [inset-start] 
-    min( 
-      var(--grid-small) - var(--grid-inset), 
-      100% - var(--grid-padding) * 2 
-    )
-      [small-end]
-    minmax(0, var(--grid-gap))
-      [side-start side-left-start] 
-    minmax(0, var(--grid-side)) 
-      [inset-end medium-end side-left-end] 
-    minmax(0, var(--grid-gap))
-      [side-right-start]
-    minmax(0, var(--grid-side)) 
-      [large-end side-end side-right-end]  
-    minmax(var(--grid-padding), 1fr) 
-      [full-end];
+  /* 1640px + 4rem (padding) */
+  --max-width: 1704px;
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gap);
+  max-width: var(--max-width);
+  padding: 0 2rem;
+  margin: 0 auto;
 
+  @media (min-width: 768px) {
+    --grid-columns: 12;
+  }
+}
 
+h1,
+.h1-placeholder {
+  margin: 0;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
 
+h2,
+.h2-placeholder {
+  font-size: clamp(2.25rem, 4vw, 3rem);
+}
+
+h3,
+.h3-placeholder {
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+}
+
+h3,
+.h3-placeholder {
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+}
+
+p, a {
+  font-size: 1.625rem;
+  line-height: 1.65;
+}
 
 /****************/
 /* SCREENREADER */
@@ -99,4 +122,57 @@ body {
   position: absolute;
   white-space: nowrap;
   width: 1px;
+}
+
+/*************/
+/* ITEM LIST */
+/*************/
+
+aside.sidebar .item-list:nth-child(2) {
+  border-top: none;
+}
+
+.item-list {
+  margin: unset;
+  padding: unset;
+  border: 0.125rem solid var(--clr);
+  border-left: none;
+  border-right: none;
+}
+
+.item-list li {
+  transition: 0.3s ease;
+  list-style-type: none;
+  font-size: 1.875rem;
+}
+
+.item-list li + li {
+  border-top: 0.125rem solid var(--clr);
+}
+
+.item-list li a {
+  display: block;
+  color: unset;
+  text-decoration: none;
+  padding: 2.125rem 1.125rem 1.625rem 1.125rem;
+  transition: color 0.2s ease-out, background 0.3s ease-in;
+  font-weight: 500;
+}
+
+.item-list li a[data-selected="true"]{
+  background: var(--clr);
+  color: var(--bg);
+}
+
+:root[data-color-scheme="dark"] .item-list li:hover a {
+  color: var(--black);
+}
+
+.sidebar .item-list li a {
+  padding: 1.25rem 0.875rem;
+}
+
+.item-list li:hover a:not([data-selected="true"]) {
+  transition: 0s ease;
+  background: var(--selection);
 }

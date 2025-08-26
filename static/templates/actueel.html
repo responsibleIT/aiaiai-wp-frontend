@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Lectoraat Responsible IT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Lectoraat Responsible IT" />
 
-  <title>Homepage - Lectoraat Responsible IT</title>
+    <title>Homepage - Lectoraat Responsible IT</title>
 
-  <script>
-    document.documentElement.classList.add("js");
-  </script>
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
 
-  <link rel="stylesheet" href="styles/tokens--fonts.css">
-  <link rel="stylesheet" href="styles/tokens--colors.css">
-  
-  <link rel="stylesheet" href="styles/general.css">
-  <link rel="stylesheet" href="styles/general--controls.css">
-  <link rel="stylesheet" href="styles/general--text.css">
+    <link rel="stylesheet" href="styles/tokens--fonts.css" />
+    <link rel="stylesheet" href="styles/tokens--colors.css" />
 
-  <link rel="stylesheet" href="styles/landmark--header.css">
-  <link rel="stylesheet" href="styles/landmark--header__accessibility.css">
+    <link rel="stylesheet" href="styles/general.css" />
+    <link rel="stylesheet" href="styles/general--controls.css" />
+    <link rel="stylesheet" href="styles/general--text.css" />
 
-  <link rel="stylesheet" href="styles/landmark--triangles.css">
+    <link rel="stylesheet" href="styles/landmark--header.css" />
+    <link rel="stylesheet" href="styles/landmark--header__accessibility.css" />
 
-  <link rel="stylesheet" href="styles/landmark--main.css">
+    <link rel="stylesheet" href="styles/landmark--triangles.css" />
 
-  <link rel="stylesheet" href="styles/testing.css">
-  <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/actueel--main.css" />
 
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="styles/testing.css" />
+    <link rel="stylesheet" href="styles/sidebar.css" />
 
-  <script src="scripts/general--helpers.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
 
-  <script defer src="scripts/landmark--header.js" defer></script>
-  <script defer src="scripts/landmark--header__accessibility.js" defer></script>
+    <script src="scripts/general--helpers.js" defer></script>
+    <script src="scripts/active--setter.js" defer></script>
 
-  <script defer src="scripts/landmark--triangles.js" defer></script>
-</head>
-<body>
-  <header class="header--body">
+    <script defer src="scripts/landmark--header.js" defer></script>
+    <script defer src="scripts/landmark--header__accessibility.js" defer></script>
+
+    <script defer src="scripts/landmark--triangles.js" defer></script>
+  </head>
+  <body>
+    <header class="header--body">
     <div class="header--body__block">
       <a href="/" class="link--logo" aria-label="naar de homepage">
         <svg class="logo--hva-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 246.207 29.653">
@@ -53,8 +54,8 @@
       <nav class="nav--main">
         <ul>
           <li><a href="./responsible-it" lang="en">Responsible IT</a></li>
-          <li><a href="./projecten">Projecten</a></li>
-          <li><a href="./onderzoek">Onderzoek</a></li>
+          <li><a href="./projecten.html">Projecten</a></li>
+          <li><a href="./onderzoek.html">Onderzoek</a></li>
           <li><a href="./onderwijs">Onderwijs</a></li>
           <li><a href="./actueel">Actueel</a></li>
         </ul>
@@ -174,25 +175,27 @@
     </div>
   </header>
 
-  <div class="triangles"></div>
+    <div class="triangles"></div>
 
-  <main id="main" class="grid-container">
-    <div class="main-content">
+    <main id="main" class="grid-container">
       <section class="section--content">
         <div class="section--content__block section--content__block--hero">
           <h1>Responsible IT Amsterdam</h1>
         </div>
       </section>
-      <section class="section--content">
-        <div class="section--content__block wp-content" data-wp-content="content">
-          <!-- WordPress content will be inserted here -->
-        </div>
-      </section>
-    </div>
-    <aside class="sidebar">
-      <!-- WordPress sidebar will be inserted here -->
-    </aside>
-  </main>
-
-</body>
+      <div class="main-content">
+        <section class="section--content">
+          <div
+            class="section--content__block wp-content"
+            data-wp-content="content"
+          >
+            <!-- WordPress content will be inserted here -->
+          </div>
+        </section>
+      </div>
+      <div class="actueel-layout">
+        <!-- WordPress posts will be inserted here -->
+      </div>
+    </main>
+  </body>
 </html>

@@ -127,3 +127,7 @@ a:focus-visible {
   outline: .2rem solid var(--brdr-clr-outline);
   outline-offset: .15em;
 }
+
+a:hover{
+  color: var(--link-hover);
+}

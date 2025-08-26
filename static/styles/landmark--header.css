@@ -3,13 +3,8 @@
 /**********/
 
 .header--body {
-  grid-column:full;
-
   padding:1em 0;
-
-  display:grid;
-  grid-template-columns:inherit;
-
+  view-transition-name: header;
   background-color:var(--bg-header);
 }
 
@@ -19,7 +14,9 @@
 }
 
 .header--body__block {
-  grid-column:large;
+  padding: 0 2rem;
+  margin: 0 auto;
+  max-width: var(--max-width);
 
   display:flex;
   flex-wrap:wrap;
@@ -139,6 +136,7 @@ a.link--skip {
   text-decoration:none;
   color:var(--clr-nav--main);
   background-color: var(--bg-nav--main);
+  border-color: transparent;
 }
 
 .nav--main a::after {
@@ -155,6 +153,7 @@ a.link--skip {
 
 .nav--main a[aria-current="page"]::after {
   opacity:1;
+  view-transition-name: line;
 }
 
 /* interaction */

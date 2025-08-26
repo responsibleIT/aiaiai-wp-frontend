@@ -32,6 +32,90 @@ async function ensureDir(dir) {
   }
 }
 
+async function fetchAllPages() {
+  let allPages = [];
+  let currentPage = 1;
+  let hasMorePages = true;
+
+  while (hasMorePages) {
+    try {
+      const response = await fetch(`${WP_API_URL}/pages?per_page=50&page=${currentPage}`);
+      
+      if (!response.ok) {
+        if (response.status === 400) {
+          // We've reached the end of available pages
+          hasMorePages = false;
+          break;
+        }
+        throw new Error(`WP API ${response.status} when fetching pages page ${currentPage}`);
+      }
+
+      const pages = await response.json();
+      if (pages.length === 0) {
+        hasMorePages = false;
+        break;
+      }
+
+      allPages = [...allPages, ...pages];
+      currentPage++;
+
+      const totalPages = parseInt(response.headers.get('X-WP-TotalPages'));
+      if (currentPage > totalPages) {
+        hasMorePages = false;
+      }
+
+      console.log(`Fetched page ${currentPage - 1} of ${totalPages || 'unknown'} (${pages.length} items)`);
+    } catch (error) {
+      console.error(`Error fetching page ${currentPage}:`, error);
+      hasMorePages = false;
+    }
+  }
+
+  return allPages;
+}
+
+async function fetchAllPosts() {
+  let allPosts = [];
+  let currentPage = 1;
+  let hasMorePages = true;
+
+  while (hasMorePages) {
+    try {
+      const response = await fetch(`${WP_API_URL}/posts?per_page=12&page=${currentPage}&_embed`);
+      
+      if (!response.ok) {
+        if (response.status === 400) {
+          // We've reached the end of available posts
+          hasMorePages = false;
+          break;
+        }
+        throw new Error(`WP API ${response.status} when fetching posts page ${currentPage}`);
+      }
+
+      const posts = await response.json();
+      if (posts.length === 0) {
+        hasMorePages = false;
+        break;
+      }
+
+      allPosts = [...allPosts, ...posts];
+      currentPage++;
+
+      const totalPages = parseInt(response.headers.get('X-WP-TotalPages'));
+      if (currentPage > totalPages) {
+        hasMorePages = false;
+      }
+
+      console.log(`Fetched posts page ${currentPage - 1} of ${totalPages || 'unknown'} (${posts.length} items)`);
+    } catch (error) {
+      console.error(`Error fetching posts page ${currentPage}:`, error);
+      hasMorePages = false;
+    }
+  }
+
+  return allPosts;
+}
+
 async function fetchWordPressContent(endpoint) {
   try {
     // Special handling for home page
@@ -42,6 +126,16 @@ async function fetchWordPressContent(endpoint) {
         throw new Error(`WP API ${response.status} when fetching homepage`);
       }
       return await response.json();
+    }
+
+    // Special handling for pages endpoint to include pagination
+    if (endpoint === "pages") {
+      return await fetchAllPages();
+    }
+
+    // Special handling for posts endpoint to include pagination
+    if (endpoint === "posts") {
+      return await fetchAllPosts();
     }
 
     // Regular page/content fetching
@@ -90,13 +184,72 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName) {
     $(".section--content__block--hero h1").text(pageTitle);
     $("title").text(`${pageTitle} | Lectoraat Responsible IT`);
 
+    // Set active state for navigation
+    $(".nav--main a").each((i, elem) => {
+      const $link = $(elem);
+      const href = $link.attr("href");
+      // Remove leading ./ if present for comparison
+      const cleanHref = href.replace(/^\.\//, "");
+      // For homepage, check if it's index
+      if ((pageName === "index" && (cleanHref === "" || cleanHref === "/")) || 
+          // For other pages, check if the href matches the page name
+          (pageName !== "index" && cleanHref === pageName)) {
+        $link.attr("aria-current", "page");
+      } else {
+        $link.removeAttr("aria-current");
+      }
+    });
+
     // Replace content markers with WordPress content
     $(".wp-content").each((i, elem) => {
       const contentType = $(elem).data("wp-content");
       if (contentType === "content" && wpContent.content) {
-        $(elem).html($content.html());
+        // First extract the sidebars from the content
+        const $wpContent = $content;
+        const sidebars = $wpContent('.wp-sidebar').toArray();
+        
+        // Remove sidebars from the main content
+        $wpContent('.wp-sidebar').remove();
+        
+        // Insert the main content
+        $(elem).html($wpContent.html());
+        
+        // Insert sidebars into our designated aside.sidebar element
+        if (sidebars.length > 0) {
+          const $sidebar = $('.sidebar');
+          sidebars.forEach(sidebar => {
+            $sidebar.append(cheerio.load(sidebar).html());
+          });
+        }
       }
     });
+
+    // Handle posts for actueel page
+    if (pageName === "actueel" && wpContent.posts) {
+      // Create the anchor links list and put it in the wp-content block
+      const anchorLinks = wpContent.posts.map(post => {
+        const postId = post.slug || post.title.rendered.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        return `<li><a href="#${postId}" data-selected="false">${post.title.rendered}</a></li>`;
+      }).join('');
+      
+      $(".wp-content").html(`<ul class="post-links item-list">${anchorLinks}</ul>`);
+      
+      // Render the posts in actueel-layout
+      const $actueel = $(".actueel-layout");
+      wpContent.posts.forEach(post => {
+        const postId = post.slug || post.title.rendered.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const article = `
+          <article class="post" id="${postId}">
+              <h2 class="post__title">
+                ${post.title.rendered}
+              </h2>
+              ${post.content.rendered}
+          </article>
+        `;
+        
+        $actueel.append(article);
+      });
+    }
 
     // Write processed file
     await writeFile(outputPath, $.html());
@@ -164,6 +317,21 @@ export async function buildSite() {
       "index"
     );
 
+    // Handle actueel page specially
+    const posts = await fetchWordPressContent("posts");
+    const actueel = {
+      content: { rendered: "" }, // Empty content since we're using posts
+      title: { rendered: "Actueel" },
+      posts: posts
+    };
+    const actueelTemplate = await findTemplate("actueel");
+    await processTemplate(
+      actueelTemplate,
+      join(BUILD_DIR, "actueel.html"),
+      actueel,
+      "actueel"
+    );
+
     // Get all other pages
     const pages = await fetchWordPressContent("pages");
     if (Array.isArray(pages)) {
@@ -172,6 +340,9 @@ export async function buildSite() {
 
       // Process each page using its slug
       for (const page of otherPages) {
+        // Skip actueel since we already handled it
+        if (page.slug === "actueel") continue;
+
         const outputPath = join(BUILD_DIR, `${page.slug}.html`);
         const pageTemplate = await findTemplate(page.slug);
         await processTemplate(
@@ -183,6 +354,7 @@ export async function buildSite() {
           },
           page.slug
         );
+        console.log(page.slug);
       }
     }
 

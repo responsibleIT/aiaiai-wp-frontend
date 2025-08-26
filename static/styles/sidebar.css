@@ -1,0 +1,28 @@
+aside.sidebar {
+  grid-column: -1 / 1;
+}
+
+.wp-sidebar + .wp-sidebar {
+  margin-top: clamp(10vh, 5vh + 5rem, 10rem);
+}
+.wp-sidebar h3 {
+  margin: 0;
+  padding-bottom: 1rem;
+  border-bottom: 0.625rem solid var(--clr);
+}
+.wp-sidebar p,
+.wp-sidebar a {
+  line-height: 1.45;
+  font-size: 1.375rem;
+}
+
+.main-content + .sidebar{
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 64rem) {
+  aside.sidebar {
+    grid-column: 10 / -1;
+  }
+}
+
