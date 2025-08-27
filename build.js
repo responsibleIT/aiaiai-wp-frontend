@@ -32,90 +32,6 @@ async function ensureDir(dir) {
   }
 }
 
-async function fetchAllPages() {
-  let allPages = [];
-  let currentPage = 1;
-  let hasMorePages = true;
-
-  while (hasMorePages) {
-    try {
-      const response = await fetch(`${WP_API_URL}/pages?per_page=50&page=${currentPage}`);
-      
-      if (!response.ok) {
-        if (response.status === 400) {
-          // We've reached the end of available pages
-          hasMorePages = false;
-          break;
-        }
-        throw new Error(`WP API ${response.status} when fetching pages page ${currentPage}`);
-      }
-
-      const pages = await response.json();
-      if (pages.length === 0) {
-        hasMorePages = false;
-        break;
-      }
-
-      allPages = [...allPages, ...pages];
-      currentPage++;
-
-      const totalPages = parseInt(response.headers.get('X-WP-TotalPages'));
-      if (currentPage > totalPages) {
-        hasMorePages = false;
-      }
-
-      console.log(`Fetched page ${currentPage - 1} of ${totalPages || 'unknown'} (${pages.length} items)`);
-    } catch (error) {
-      console.error(`Error fetching page ${currentPage}:`, error);
-      hasMorePages = false;
-    }
-  }
-
-  return allPages;
-}
-
-async function fetchAllPosts() {
-  let allPosts = [];
-  let currentPage = 1;
-  let hasMorePages = true;
-
-  while (hasMorePages) {
-    try {
-      const response = await fetch(`${WP_API_URL}/posts?per_page=12&page=${currentPage}&_embed`);
-      
-      if (!response.ok) {
-        if (response.status === 400) {
-          // We've reached the end of available posts
-          hasMorePages = false;
-          break;
-        }
-        throw new Error(`WP API ${response.status} when fetching posts page ${currentPage}`);
-      }
-
-      const posts = await response.json();
-      if (posts.length === 0) {
-        hasMorePages = false;
-        break;
-      }
-
-      allPosts = [...allPosts, ...posts];
-      currentPage++;
-
-      const totalPages = parseInt(response.headers.get('X-WP-TotalPages'));
-      if (currentPage > totalPages) {
-        hasMorePages = false;
-      }
-
-      console.log(`Fetched posts page ${currentPage - 1} of ${totalPages || 'unknown'} (${posts.length} items)`);
-    } catch (error) {
-      console.error(`Error fetching posts page ${currentPage}:`, error);
-      hasMorePages = false;
-    }
-  }
-
-  return allPosts;
-}
-
 async function fetchWordPressContent(endpoint) {
   try {
     // Special handling for home page
@@ -126,16 +42,6 @@ async function fetchWordPressContent(endpoint) {
         throw new Error(`WP API ${response.status} when fetching homepage`);
       }
       return await response.json();
-    }
-
-    // Special handling for pages endpoint to include pagination
-    if (endpoint === "pages") {
-      return await fetchAllPages();
-    }
-
-    // Special handling for posts endpoint to include pagination
-    if (endpoint === "posts") {
-      return await fetchAllPosts();
     }
 
     // Regular page/content fetching
@@ -184,22 +90,6 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName) {
     $(".section--content__block--hero h1").text(pageTitle);
     $("title").text(`${pageTitle} | Lectoraat Responsible IT`);
 
-    // Set active state for navigation
-    $(".nav--main a").each((i, elem) => {
-      const $link = $(elem);
-      const href = $link.attr("href");
-      // Remove leading ./ if present for comparison
-      const cleanHref = href.replace(/^\.\//, "");
-      // For homepage, check if it's index
-      if ((pageName === "index" && (cleanHref === "" || cleanHref === "/")) || 
-          // For other pages, check if the href matches the page name
-          (pageName !== "index" && cleanHref === pageName)) {
-        $link.attr("aria-current", "page");
-      } else {
-        $link.removeAttr("aria-current");
-      }
-    });
-
     // Replace content markers with WordPress content
     $(".wp-content").each((i, elem) => {
       const contentType = $(elem).data("wp-content");
@@ -210,6 +100,30 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName) {
         
         // Remove sidebars from the main content
         $wpContent('.wp-sidebar').remove();
+
+        // For assignment pages, handle special content placement
+        if (wpContent.class_list?.includes("category-oefening")) {
+          const $firstP = $wpContent('p').first();
+          if ($firstP.length) {
+            // Store the paragraph content
+            const introText = $firstP.html();
+            // Remove it from the main content
+            $firstP.remove();
+            // Add it to the intro section
+            $('.section--content__block--intro').html(`<p>${introText}</p>`);
+          }
+
+          // Find and extract the assignment block
+          const $assignmentBlock = $wpContent('.wp-block-group.assignment');
+          if ($assignmentBlock.length) {
+            // Store the assignment content
+            const assignmentContent = $assignmentBlock.clone();
+            // Remove it from the main content
+            $assignmentBlock.remove();
+            // Add it after the wp-content block
+            $('.wp-content').after(assignmentContent);
+          }
+        }
         
         // Insert the main content
         $(elem).html($wpContent.html());
@@ -224,31 +138,24 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName) {
       }
     });
 
-    // Handle posts for actueel page
-    if (pageName === "actueel" && wpContent.posts) {
-      // Create the anchor links list and put it in the wp-content block
-      const anchorLinks = wpContent.posts.map(post => {
-        const postId = post.slug || post.title.rendered.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-        return `<li><a href="#${postId}" data-selected="false">${post.title.rendered}</a></li>`;
-      }).join('');
+    // Check if sidebar is empty and remove it if it has no content
+    const $sidebar = $('aside.sidebar');
+    if ($sidebar.length) {
+      const sidebarContent = $sidebar.html().trim();
+      const contentWithoutComments = sidebarContent.replace(/<!--[\s\S]*?-->/g, '').trim();
       
-      $(".wp-content").html(`<ul class="post-links item-list">${anchorLinks}</ul>`);
-      
-      // Render the posts in actueel-layout
-      const $actueel = $(".actueel-layout");
-      wpContent.posts.forEach(post => {
-        const postId = post.slug || post.title.rendered.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-        const article = `
-          <article class="post" id="${postId}">
-              <h2 class="post__title">
-                ${post.title.rendered}
-              </h2>
-              ${post.content.rendered}
-          </article>
-        `;
-        
-        $actueel.append(article);
+      console.log(`[${pageName}] Sidebar content check:`, {
+        hasContent: !!sidebarContent,
+        rawContent: sidebarContent,
+        contentWithoutComments: contentWithoutComments,
+        willBeRemoved: !sidebarContent || contentWithoutComments === ''
       });
+
+      // Check if empty or only contains HTML comments
+      if (!sidebarContent || contentWithoutComments === '') {
+        $sidebar.remove();
+        console.log(`[${pageName}] Removed empty sidebar`);
+      }
     }
 
     // Write processed file
@@ -277,18 +184,30 @@ async function copyStaticAssets() {
 }
 
 // Helper function to find the most specific template for a page
-async function findTemplate(pageName) {
+async function findTemplate(pageName, wpContent) {
   const baseTemplate = join(TEMPLATES_DIR, "template.html");
   const normalizedPageName = pageName.toLowerCase().replace(/ /g, "-");
-  const specificTemplate = join(TEMPLATES_DIR, `${normalizedPageName}.html`);
+  
+  // First check for category-specific template
+  if (wpContent.class_list?.includes("category-oefening")) {
+    const categoryTemplate = join(TEMPLATES_DIR, "assignment.html");
+    try {
+      await readFile(categoryTemplate, "utf8");
+      console.log(`[${pageName}] Using category template: ${categoryTemplate}`);
+      return categoryTemplate;
+    } catch (error) {
+      console.log(`[${pageName}] Category template not found, falling back to specific/base template`);
+    }
+  }
 
+  // Then check for page-specific template
+  const specificTemplate = join(TEMPLATES_DIR, `${normalizedPageName}.html`);
   try {
-    // Check if specific template exists
     await readFile(specificTemplate, "utf8");
     console.log(`[${pageName}] Using specific template: ${specificTemplate}`);
     return specificTemplate;
   } catch (error) {
-    // If specific template doesn't exist, use base template
+    // If no specific template exists, use base template
     console.log(`[${pageName}] Using base template: ${baseTemplate}`);
     return baseTemplate;
   }
@@ -306,30 +225,16 @@ export async function buildSite() {
     // First, handle the homepage specially since it needs to be index.html
     const homepage = await fetchWordPressContent("homepage");
     const frontPageId = homepage?.id; // store ID to avoid duplicating the front page later
-    const homeTemplate = await findTemplate("index");
+    const homeTemplate = await findTemplate("index", homepage);
     await processTemplate(
       homeTemplate,
       join(BUILD_DIR, "index.html"),
       {
         content: homepage?.content?.rendered,
         title: homepage?.title,
+        class_list: homepage?.class_list,
       },
       "index"
-    );
-
-    // Handle actueel page specially
-    const posts = await fetchWordPressContent("posts");
-    const actueel = {
-      content: { rendered: "" }, // Empty content since we're using posts
-      title: { rendered: "Actueel" },
-      posts: posts
-    };
-    const actueelTemplate = await findTemplate("actueel");
-    await processTemplate(
-      actueelTemplate,
-      join(BUILD_DIR, "actueel.html"),
-      actueel,
-      "actueel"
     );
 
     // Get all other pages
@@ -340,21 +245,18 @@ export async function buildSite() {
 
       // Process each page using its slug
       for (const page of otherPages) {
-        // Skip actueel since we already handled it
-        if (page.slug === "actueel") continue;
-
         const outputPath = join(BUILD_DIR, `${page.slug}.html`);
-        const pageTemplate = await findTemplate(page.slug);
+        const pageTemplate = await findTemplate(page.slug, page);
         await processTemplate(
           pageTemplate,
           outputPath,
           {
             content: page.content?.rendered,
             title: page.title,
+            class_list: page.class_list,
           },
           page.slug
         );
-        console.log(page.slug);
       }
     }
 

@@ -1,0 +1,48 @@
+h1 {
+  font-size: clamp(2rem, 6vw, 4rem);
+}
+
+.section--content__block--intro,
+.section--content__block--intro p {
+  font-size: clamp(1.5rem, 5vw, 1.875rem);
+  line-height: 1.2;
+  margin: 0;
+  margin-top: 1rem;
+}
+
+.wp-content > p:first-of-type {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: bold;
+}
+
+.wp-content h2:first-of-type {
+  font-size: clamp(1.5rem, 5vw, 1.875rem);
+  font-weight: 600;
+}
+
+.section--content:last-child {
+  margin-top: 6.25rem;
+}
+
+.main-content {
+  display: inherit;
+  grid-template-columns: inherit;
+}
+
+.main-content,
+.section--content {
+  grid-column: 1 / -1;
+}
+
+.section--content:last-child {
+  grid-template-columns: inherit;
+  display: inherit;
+}
+
+.section--content:last-child > div.section--content__block {
+  grid-column: 1 / 4;
+}
+
+.assignment {
+  grid-column: 5 / -1;
+}
