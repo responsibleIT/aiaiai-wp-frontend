@@ -1,0 +1,133 @@
+@page {
+  size: A5;
+  margin: 20mm 10mm;
+}
+
+@page {
+  size: A4;
+  margin: 25mm 15mm;
+}
+
+
+@media print {
+  .no-print,
+  .assignment button,
+  body > header,
+  body > footer,
+  .section--content__block--intro,
+  .section--content__block--intro p{
+  /* .description h2 { */
+    display: none !important;
+  }
+
+  .section--content:last-child,
+  .assignment :first-child + p,
+  .assignment :first-child + ol,
+  .assignment :first-child + ul {
+    margin-top: 0.75rem;
+  }
+
+  .assignment p + ol,
+  .assignment p + ul {
+    margin-top: 0.75rem !important;
+  }
+
+  li + li {
+    margin-top: 0.5rem !important;
+  }
+
+  h1 {
+    font-size: 1.375rem !important;
+  }
+
+  h2 {
+    font-size: 1.25rem !important;
+  }
+
+  h3 {
+    font-size: 1.125rem !important;
+  }
+
+  h4 {
+    font-size: 1.075rem !important;
+  }
+
+  .wp-content > p:first-of-type {
+    font-size: 1rem !important;
+  }
+
+  .assignment,
+  .description {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .assignment{
+    break-inside: avoid;
+  }
+
+  .assignment {
+    break-after: avoid;
+    break-before: page !important;
+  }
+
+  .description p,
+  .description a,
+  .assignment a,
+  .assignment p,
+  .assignment li {
+    font-size: 1rem !important;
+  }
+
+  p {
+    font-weight: 400 !important;
+  }
+
+  a {
+    font-weight: 500 !important;
+  }
+}
+
+
+@media print and (min-width: 210mm) and (max-width: 297mm) {
+  h1 {
+    font-size: 1.75rem !important;
+  }
+  h2 {
+    font-size: 1.375rem !important;
+  }
+  h3 {
+    font-size: 1.25rem !important;
+  }
+  h4 {
+    font-size: 1.125rem !important;
+  }
+  .assignment,
+  .description {
+    padding: 1.5rem !important;
+    margin: 0 !important;
+  }
+  .description p,
+  .description a,
+  .assignment a,
+  .assignment p,
+  .assignment li {
+    font-size: 1.125rem !important;
+  }
+  .wp-content > p:first-of-type {
+    font-size: 1.125rem !important;
+  }
+  li + li {
+    margin-top: 0.75rem !important;
+  }
+  .assignment p + ol,
+  .assignment p + ul {
+    margin-top: 1rem !important;
+  }
+  .section--content:last-child,
+  .assignment :first-child + p,
+  .assignment :first-child + ol,
+  .assignment :first-child + ul {
+    margin-top: 1rem;
+  }
+}

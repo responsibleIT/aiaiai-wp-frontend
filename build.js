@@ -34,22 +34,30 @@ async function ensureDir(dir) {
 
 async function fetchWordPressContent(endpoint) {
   try {
-    // Special handling for home page
-    if (endpoint === "homepage") {
-      // Fetch the current front page via the public /frontpage endpoint provided by the WP REST-API Frontpage plugin
+    if (endpoint === "frontpage") {
       const response = await fetch(`${WP_API_URL}/frontpage`);
       if (!response.ok) {
-        throw new Error(`WP API ${response.status} when fetching homepage`);
+        throw new Error(`WP API ${response.status} when fetching frontpage`);
       }
-      return await response.json();
+      return await response.json(); // single object
     }
 
-    // Regular page/content fetching
-    const response = await fetch(`${WP_API_URL}/${endpoint}`);
-    if (!response.ok) {
-      throw new Error(`WP API ${response.status} when fetching ${endpoint}`);
+    // Default: paginated fetch for arrays
+    let allItems = [];
+    let page = 1;
+    const perPage = 100;
+    while (true) {
+      const response = await fetch(`${WP_API_URL}/${endpoint}?per_page=${perPage}&page=${page}`);
+      if (!response.ok) {
+        throw new Error(`WP API ${response.status} when fetching ${endpoint}`);
+      }
+      const data = await response.json();
+      if (!Array.isArray(data) || data.length === 0) break;
+      allItems = allItems.concat(data);
+      if (data.length < perPage) break;
+      page++;
     }
-    return await response.json();
+    return allItems;
   } catch (error) {
     console.error(`Error fetching WordPress content from ${endpoint}:`, error);
     throw error;
@@ -223,7 +231,7 @@ export async function buildSite() {
     await copyStaticAssets();
 
     // First, handle the homepage specially since it needs to be index.html
-    const homepage = await fetchWordPressContent("homepage");
+    const homepage = await fetchWordPressContent("frontpage");
     const frontPageId = homepage?.id; // store ID to avoid duplicating the front page later
     const homeTemplate = await findTemplate("index", homepage);
     await processTemplate(

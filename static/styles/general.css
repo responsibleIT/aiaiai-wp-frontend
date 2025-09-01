@@ -100,8 +100,8 @@ h3,
   font-size: clamp(1.75rem, 3.5vw, 2.25rem);
 }
 
-h3,
-.h3-placeholder {
+h4,
+.h4-placeholder {
   font-size: clamp(1.5rem, 3vw, 1.875rem);
 }
 
