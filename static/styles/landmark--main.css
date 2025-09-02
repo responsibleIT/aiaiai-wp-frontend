@@ -10,23 +10,12 @@ main.grid-container {
   gap: var(--grid-gap);
 }
 
-.main-content {
-  grid-column: 1 / -1;
-
-  @media (min-width: 64rem) {
-    grid-column: 1 / 9;
-  }
-
-  @media (min-width: 75rem) {
-    grid-column: 2 / 9;
-  }
-}
-
-/* Only apply margin when triangles are visible */
-/* :root:not([data-setting--no-images="true"]) .triangles + main {
-  margin-top: -6.125rem;
-} */
-
+.main-content,
 .section--content__block {
   grid-column: 1 / -1;
 }
+
+.section--content + .section--content {
+  margin-top: 3.125rem;
+}
+
