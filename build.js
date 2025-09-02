@@ -70,14 +70,26 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function cleanWordPressUrls(content) {
+  if (!content) return content;
+  
+  // Convert WordPress URLs to relative paths
+  return content
+    // Convert to root
+    .replace(/https?:\/\/(?:wordpress\.)?aiaiai\.art\/homepage\/?(?=["'\s>]|$)/g, './')
+    // convert to relative paths
+    .replace(/https?:\/\/(?:wordpress\.)?aiaiai\.art\/homepage\/([^/"]+)\/?/g, './$1');
+}
+
 async function processTemplate(templatePath, outputPath, wpContent, pageName) {
   try {
     // Read template
     const template = await readFile(templatePath, "utf8");
     const $ = cheerio.load(template);
 
-    // Parse WordPress content
-    const $content = cheerio.load(wpContent.content || "");
+    // Parse WordPress content (clean URLs first)
+    const cleanedContent = cleanWordPressUrls(wpContent.content || "");
+    const $content = cheerio.load(cleanedContent);
 
     // Set page title and h1
     let pageTitle;
