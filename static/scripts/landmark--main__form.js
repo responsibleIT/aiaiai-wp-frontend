@@ -1,4 +1,5 @@
 const items = $$("[name=weergave]");
+const list = $("[data-display]")
 // Check for has support; in case it is not supported we fallback to js
 const hasSupport = CSS.supports("selector(:has(*))");
 let initialItem;
@@ -9,7 +10,7 @@ items.forEach((item) => {
     console.log(e.target, initialItem);
     
     storeItem("view", e.target.value);
-
+    list.dataset.display = retrieveItem("view");
     if (!hasSupport) {        
       initialItem.parentElement.classList.toggle("selected");
       initialItem = e.target;

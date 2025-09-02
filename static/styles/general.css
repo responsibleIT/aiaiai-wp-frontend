@@ -132,7 +132,10 @@ aside.sidebar .item-list:nth-child(2) {
   border-top: none;
 }
 
-.item-list {
+.item-list,
+.item-list ul,
+[data-display="list"],
+[data-display="list"] ul {
   margin: unset;
   padding: unset;
   border: 0.125rem solid var(--clr);
@@ -140,17 +143,22 @@ aside.sidebar .item-list:nth-child(2) {
   border-right: none;
 }
 
-.item-list li {
+div.item-list, div[data-display="list"] {
+  border-top: none;
+  border-bottom: none;
+}
+
+.item-list li, [data-display="list"] li {
   transition: 0.3s ease;
   list-style-type: none;
   font-size: 1.875rem;
 }
 
-.item-list li + li {
+.item-list li + li, [data-display="list"] li + li {
   border-top: 0.125rem solid var(--clr);
 }
 
-.item-list li a {
+.item-list li a, [data-display="list"] li a {
   display: block;
   color: unset;
   text-decoration: none;
@@ -159,20 +167,16 @@ aside.sidebar .item-list:nth-child(2) {
   font-weight: 500;
 }
 
-.item-list li a[data-selected="true"] {
+.item-list li a[data-selected="true"], [data-display="list"] li a[data-selected="true"] {
   background: var(--clr);
   color: var(--bg);
 }
 
-:root[data-color-scheme="dark"] .item-list li:hover a {
+:root[data-color-scheme="dark"] .item-list li:hover a, :root[data-color-scheme="dark"] [data-display="list"] li:hover a {
   color: var(--black);
 }
 
-.sidebar .item-list li a {
-  padding: 1.25rem 0.875rem;
-}
-
-.item-list li:hover a:not([data-selected="true"]) {
+.item-list li:hover a:not([data-selected="true"]), [data-display=list] li:hover a:not([data-selected="true"]) {
   transition: 0s ease;
   background: var(--selection);
 }
