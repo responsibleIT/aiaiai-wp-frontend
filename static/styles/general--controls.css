@@ -113,7 +113,7 @@ input:focus-visible {
 a {
   display:inline-block;
   color:var(--clr-link);
-
+  overflow-wrap: anywhere;
   text-decoration-thickness:.1em;;
   text-underline-offset:.15em;
 }
