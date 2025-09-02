@@ -1,11 +1,18 @@
-.testing{
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+.testing {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 }
+
+.testing ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
 .testing li::before {
   content: "";
   display: block;
@@ -14,7 +21,7 @@
   background: rgb(185, 185, 185);
 }
 
-.testing a{
-    font-size: 1.375rem;
-    line-height: 1.45;
-}   
+.testing a {
+  font-size: 1.375rem;
+  line-height: 1.45;
+}
