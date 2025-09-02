@@ -14,7 +14,7 @@ button, input, textarea, select {
 button,
 summary {
   padding:.5em .67em;
-
+  cursor: pointer;
   appearance:none;
   background-color:var(--bg-button);
   border:var(--border-thick);
