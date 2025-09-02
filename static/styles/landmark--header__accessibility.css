@@ -98,6 +98,9 @@ fieldset:has([type="checkbox"]) {
   grid-template-columns:auto auto;
   align-items:end;
   line-height:1;
+
+  /* Dit icoon blokkeert interactie */
+  pointer-events: none;
 }
 
 .setting--fontsize--button > span span {
