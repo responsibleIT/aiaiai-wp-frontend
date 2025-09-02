@@ -8,10 +8,27 @@
 }
 
 .testing ul {
+  grid-column: 1 / -1;
   list-style-type: none;
   padding: 0;
   margin: 0;
+  display: inherit;
+  grid-template-columns: 1fr;
+  gap: 1.5rem 1rem;
 }
+
+@media (min-width: 35rem) {
+  .testing ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 55rem) {
+  .testing ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 
 .testing li::before {
   content: "";
