@@ -12,6 +12,23 @@ import { join } from "path";
 import * as cheerio from "cheerio";
 import { fileURLToPath } from 'url';
 
+// Function to decode HTML entities
+function decodeHtmlEntities(text) {
+  if (!text) return text;
+  return text
+    .replace(/&#8211;/g, '—')  // em dash
+    .replace(/&#8212;/g, '—')  // em dash
+    .replace(/&#8220;/g, '"')  // left double quote
+    .replace(/&#8221;/g, '"')  // right double quote
+    .replace(/&#8217;/g, "'")  // right single quote
+    .replace(/&#8216;/g, "'")  // left single quote
+    .replace(/&amp;/g, '&')    // ampersand
+    .replace(/&lt;/g, '<')     // less than
+    .replace(/&gt;/g, '>')     // greater than
+    .replace(/&quot;/g, '"')   // quote
+    .replace(/&nbsp;/g, ' ');  // non-breaking space
+}
+
 config();
 
 const BUILD_DIR = process.env.BUILD_DIR || "build";
@@ -96,12 +113,12 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName) {
     if (pageName === "index") {
       // For the homepage use the WordPress title when available, otherwise default to "Home"
       pageTitle = capitalizeFirstLetter(
-        wpContent.title?.rendered || "Home"
+        decodeHtmlEntities(wpContent.title?.rendered) || "Home"
       );
     } else {
       // Use WordPress title if available, otherwise use default
       pageTitle = capitalizeFirstLetter(
-        wpContent.title?.rendered || "Responsible IT Amsterdam"
+        decodeHtmlEntities(wpContent.title?.rendered) || "Responsible IT Amsterdam"
       );
     }
     console.log(`[${pageName}] Final page title:`, pageTitle);
