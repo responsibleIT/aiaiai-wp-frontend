@@ -1,0 +1,75 @@
+.view-setter--form :is(fieldset, legend, input) {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.view-setter--form{
+    display: none;
+}
+
+html.js .view-setter--form{
+    display: block;
+}
+.view-setter--form {
+  background: var(--bg-form--accessibilty);
+}
+
+.view-setter--form + div {
+  margin-top: 1rem;
+}
+
+.view-setter--form svg {
+  height: 1.75em;
+  width: 1.75em;
+}
+
+.view-setter--form fieldset {
+  display: flex;
+}
+
+.view-setter--form legend {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.view-setter--form label {
+  display: flex;
+  flex-direction: row-reverse;
+  cursor: pointer;
+  gap: 0.33em;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em 0.67em;
+  border-radius: 0.5em;
+  border: var(--border-medium);
+}
+
+.view-setter--form label:first-of-type {
+  border-right: unset;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.view-setter--form label:last-of-type {
+  border-left: unset;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.view-setter--form :is(label:has(input:checked), .selected) {
+  background-color: var(--clr);
+}
+
+.view-setter--form svg {
+  color: var(--clr);
+}
+
+.view-setter--form :is(label:has(input:checked), .selected) :is(span, svg rect) {
+  color: var(--bg);
+}
+
+.view-setter--form input[type="radio"] {
+  appearance: none;
+  position: fixed;
+}
