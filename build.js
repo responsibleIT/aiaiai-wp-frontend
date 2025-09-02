@@ -102,12 +102,7 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName) {
     $(".wp-content").each((i, elem) => {
       const contentType = $(elem).data("wp-content");
       if (contentType === "content" && wpContent.content) {
-        // First extract the sidebars from the content
         const $wpContent = $content;
-        const sidebars = $wpContent('.wp-sidebar').toArray();
-        
-        // Remove sidebars from the main content
-        $wpContent('.wp-sidebar').remove();
 
         // For assignment pages, handle special content placement
         if (wpContent.class_list?.includes("category-oefening")) {
@@ -135,36 +130,8 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName) {
         
         // Insert the main content
         $(elem).html($wpContent.html());
-        
-        // Insert sidebars into our designated aside.sidebar element
-        if (sidebars.length > 0) {
-          const $sidebar = $('.sidebar');
-          sidebars.forEach(sidebar => {
-            $sidebar.append(cheerio.load(sidebar).html());
-          });
-        }
       }
     });
-
-    // Check if sidebar is empty and remove it if it has no content
-    const $sidebar = $('aside.sidebar');
-    if ($sidebar.length) {
-      const sidebarContent = $sidebar.html().trim();
-      const contentWithoutComments = sidebarContent.replace(/<!--[\s\S]*?-->/g, '').trim();
-      
-      console.log(`[${pageName}] Sidebar content check:`, {
-        hasContent: !!sidebarContent,
-        rawContent: sidebarContent,
-        contentWithoutComments: contentWithoutComments,
-        willBeRemoved: !sidebarContent || contentWithoutComments === ''
-      });
-
-      // Check if empty or only contains HTML comments
-      if (!sidebarContent || contentWithoutComments === '') {
-        $sidebar.remove();
-        console.log(`[${pageName}] Removed empty sidebar`);
-      }
-    }
 
     // Write processed file
     await writeFile(outputPath, $.html());
