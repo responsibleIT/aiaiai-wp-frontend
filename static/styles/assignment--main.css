@@ -43,6 +43,32 @@ p {
   grid-column: 1 / -1;
 }
 
+.section--content__block--hero:has(img) {
+  margin-inline: -2rem;
+  position: relative;
+}
+
+.section--content__block--hero img {
+  height: 100%;
+  width: 100%;
+  max-height: calc(50vh - 5vw);
+  object-fit: contain;
+
+}
+
+.section--content__block--hero:has(img) h1{
+  /* just a test */
+  mix-blend-mode: difference;
+
+  padding-inline: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+}
+
 .section--content:last-child {
   grid-template-columns: inherit;
   display: inherit;
