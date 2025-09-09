@@ -3,16 +3,22 @@
   margin: 0; /* Remove margins so we can control positioning manually */
 }
 
-
 @media print {
-  /* Hide unnecessary elements */
-  .no-print,
-  .assignment button,
-  body > header,
-  body > footer,
-  .section--content__block--intro,
-  .section--content__block--intro p {
-    display: none !important;
+  /* Force each main (assignment) to start on a new page */
+  main {
+    page-break-before: always;
+    page-break-inside: avoid;
+  }
+
+  /* Don't break before the first main */
+  main:first-child {
+    page-break-before: auto;
+  }
+
+  /* Force assignment content (2nd element in 2nd section) to start on new page */
+  .wp-block-group.assignment {
+    page-break-before: always;
+    page-break-inside: auto; /* Allow breaking across pages */
   }
 
   /* Body layout for A5 content on A4 paper */
@@ -25,7 +31,10 @@
   }
 
   /* Reset only specific elements that might interfere */
-  html, body, main, .grid-container {
+  html,
+  body,
+  main,
+  .grid-container {
     margin: 0 !important;
     padding: 0 !important;
   }
@@ -63,13 +72,11 @@
     padding: 15mm !important; /* Internal padding for content */
     box-sizing: border-box !important;
     position: relative !important;
-    
+
     /* Center the A5 block on A4 - slightly to the left and up */
     margin: 35mm 0 !important; /* Reduced top margin, moved up from 43.5mm */
     left: 48% !important; /* Moved slightly left from 50% */
     transform: translateX(-50%) !important; /* Perfect horizontal centering */
-    
-
   }
 
   /* Ensure ALL content (including overflow) follows A5 layout */
@@ -106,13 +113,11 @@
     display: block !important;
     grid-column: unset !important;
     position: relative !important;
-    
+
     /* Center the A5 block on A4 - slightly to the left and up */
     margin: 35mm 0 !important; /* Reduced top margin, moved up from 43.5mm */
     left: 48% !important; /* Moved slightly left from 50% */
     transform: translateX(-50%) !important; /* Perfect horizontal centering */
-    
-
   }
 
   /* Typography adjustments for A5 */
@@ -157,11 +162,11 @@
 
   .assignment p + ol,
   .assignment p + ul {
-    margin-top: 0.75rem !important;
+    margin-top: 0.1rem !important;
   }
 
   li + li {
-    margin-top: 0.5rem !important;
+    margin-top: -0.125rem !important;
   }
 
   p {
@@ -174,7 +179,7 @@
   }
 
   /* Responsive text sizing using clamp() based on available space */
-  
+
   /* Scale text based on container height using viewport units as proxy */
   .assignment h1,
   .description h1,
@@ -182,21 +187,21 @@
     font-size: clamp(0.85rem, 1.375rem - 0.5vb, 1.375rem) !important;
     margin-bottom: clamp(0.4rem, 1rem - 0.25vb, 1rem) !important;
   }
-  
+
   .assignment h2,
   .description h2,
   .main-content h2 {
     font-size: clamp(0.75rem, 1.25rem - 0.4vb, 1.25rem) !important;
     margin-bottom: clamp(0.3rem, 0.75rem - 0.2vb, 0.75rem) !important;
   }
-  
+
   .assignment h3,
   .description h3,
   .main-content h3 {
     font-size: clamp(0.7rem, 1.125rem - 0.35vb, 1.125rem) !important;
     margin-bottom: clamp(0.25rem, 0.5rem - 0.15vb, 0.5rem) !important;
   }
-  
+
   .assignment p,
   .assignment li,
   .description p,
@@ -205,7 +210,7 @@
   .main-content li {
     font-size: clamp(0.65rem, 1rem - 0.3vb, 1rem) !important;
     line-height: clamp(1.15, 1.4 - 0.1vb, 1.4) !important;
-    margin-bottom: clamp(0.3rem, 0.75rem - 0.2vb, 0.75rem) !important;
+    margin-bottom: clamp(0.2rem, 0.5rem - 0.2vb, 0.5rem) !important;
   }
 
   /* Make links the same size as their parent text */
@@ -216,7 +221,6 @@
     line-height: inherit !important;
   }
 }
-
 
 @media print and (min-width: 210mm) and (max-width: 297mm) {
   h1 {
@@ -241,23 +245,38 @@
   .assignment a,
   .assignment p,
   .assignment li {
-    font-size: 1.125rem !important;
+    font-size: 0.75rem !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Reduce excessive spacing in assignments */
+  .assignment {
+    margin: 0 !important;
+    padding: 0.75rem !important;
+  }
+
+  .assignment > * {
+    margin-top: 0.25rem !important;
+  }
+
+  .assignment > *:first-child {
+    margin-top: 0 !important;
   }
   .wp-content > p:first-of-type {
     font-size: 1.125rem !important;
   }
   li + li {
-    margin-top: 0.75rem !important;
+    margin-top: 0.25rem !important;
   }
   .assignment p + ol,
   .assignment p + ul {
-    margin-top: 1rem !important;
+    margin-top: 0.5rem !important;
   }
   .section--content:last-child,
   .assignment :first-child + p,
   .assignment :first-child + ol,
   .assignment :first-child + ul {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
   }
 }
 
@@ -266,12 +285,12 @@
   /* Cut lines to show A5 boundaries on A4 paper */
   body::before,
   body::after {
-    content: '';
+    content: "";
     position: fixed;
     z-index: 1000;
     background: transparent;
   }
-  
+
   /* Horizontal cut lines (top and bottom) */
   body::before {
     left: 31mm; /* Start from A5 left boundary */
@@ -280,7 +299,7 @@
     top: 43.5mm; /* Top A5 boundary */
     border-top: 0.5mm dashed #000;
   }
-  
+
   body::after {
     left: 31mm; /* Start from A5 left boundary */
     right: 31mm; /* End at A5 right boundary */
@@ -288,11 +307,11 @@
     bottom: 43.5mm; /* Bottom A5 boundary */
     border-bottom: 0.5mm dashed #000;
   }
-  
+
   /* Vertical cut lines (left and right) */
   html::before,
   html::after {
-    content: '';
+    content: "";
     position: fixed;
     width: 0.5mm;
     top: 43.5mm; /* Start from A5 top boundary */
@@ -301,16 +320,33 @@
     border-left: 0.5mm dashed #000;
     z-index: 1000;
   }
-  
+
   html::before {
     left: 31mm; /* Left A5 boundary: (210-148)/2 = 31mm */
   }
-  
+
   html::after {
     right: 31mm; /* Right A5 boundary */
     border-left: none;
     border-right: 0.5mm dashed #000;
   }
 
+  /* Hide unnecessary elements */
+  .no-print,
+  .assignment button,
+  body > header,
+  body > footer,
+  body > .no-print,
+  .section--content__block--intro,
+  .section--content__block--intro p {
+    display: none !important;
+  }
 
+  .print-all {
+    display: block !important;
+  }
+
+  .print-all.no-print {
+    display: none !important;
+  }
 }
