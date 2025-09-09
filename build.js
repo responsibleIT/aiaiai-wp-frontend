@@ -247,6 +247,9 @@ export async function buildSite() {
       // Skip the homepage since we already handled it
       const otherPages = pages.filter((page) => page.id !== frontPageId);
 
+      // Collect assignment pages for a print-all manifest
+      const assignmentPages = [];
+
       // Process each page using its slug
       for (const page of otherPages) {
         const outputPath = join(BUILD_DIR, `${page.slug}.html`);
@@ -261,6 +264,23 @@ export async function buildSite() {
           },
           page.slug
         );
+
+        // Build up assignment manifest entry when applicable
+        if (page.class_list?.includes("category-oefening")) {
+          assignmentPages.push({
+            slug: page.slug,
+            path: `./${page.slug}.html`,
+          });
+        }
+      }
+
+      // Write the assignments manifest to the build directory
+      try {
+        const manifestPath = join(BUILD_DIR, "assignments.json");
+        await writeFile(manifestPath, JSON.stringify(assignmentPages, null, 2));
+        console.log(`Wrote assignments manifest: ${manifestPath} (${assignmentPages.length} items)`);
+      } catch (manifestError) {
+        console.error("Failed to write assignments manifest:", manifestError);
       }
     }
 
