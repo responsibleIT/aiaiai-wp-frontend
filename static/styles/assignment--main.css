@@ -2,7 +2,7 @@ h1 {
   font-size: clamp(2rem, 6vw, 4rem);
 }
 
-p{
+p {
   margin: 0;
 }
 
@@ -47,12 +47,22 @@ p{
   grid-template-columns: inherit;
   display: inherit;
 }
+
+.section--content__block + .assignment {
+  margin-top: calc(3rem + 2vw);
+}
+
 @media (min-width: 75rem) {
   .section--content:last-child > div.section--content__block {
     grid-column: 1 / 4;
   }
+
   .assignment {
     grid-column: 5 / -1;
+  }
+
+  .section--content__block + .assignment {
+    margin-top: unset;
   }
 }
 
@@ -155,4 +165,8 @@ p{
 li::marker {
   font-size: calc(1em * 1.15);
   font-weight: 600;
+}
+
+.print-all {
+  display: none;
 }
