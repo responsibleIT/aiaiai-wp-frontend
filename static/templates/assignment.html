@@ -1,185 +1,239 @@
 <!DOCTYPE html>
 <html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Lectoraat Responsible IT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Lectoraat Responsible IT" />
 
-  <title>Homepage - Lectoraat Responsible IT</title>
+    <title>Homepage - Lectoraat Responsible IT</title>
 
-  <script>
-    document.documentElement.classList.add("js");
-  </script>
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
 
-  <link rel="stylesheet" href="styles/tokens--fonts.css">
-  <link rel="stylesheet" href="styles/tokens--colors.css">
-  
-  <link rel="stylesheet" href="styles/general.css">
-  <link rel="stylesheet" href="styles/general--controls.css">
+    <link rel="stylesheet" href="styles/tokens--fonts.css" />
+    <link rel="stylesheet" href="styles/tokens--colors.css" />
 
-  <link rel="stylesheet" href="styles/general--text.css">
-  <link rel="stylesheet" href="styles/landmark--header.css">
+    <link rel="stylesheet" href="styles/general.css" />
+    <link rel="stylesheet" href="styles/general--controls.css" />
 
-  <link rel="stylesheet" href="styles/landmark--header__accessibility.css">
+    <link rel="stylesheet" href="styles/general--text.css" />
+    <link rel="stylesheet" href="styles/landmark--header.css" />
 
-  <link rel="stylesheet" href="styles/landmark--main.css">
-  <link rel="stylesheet" href="styles/testing.css">
+    <link rel="stylesheet" href="styles/landmark--header__accessibility.css" />
 
-  <link rel="stylesheet" href="styles/assignment--main.css">
+    <link rel="stylesheet" href="styles/landmark--main.css" />
+    <link rel="stylesheet" href="styles/testing.css" />
 
-  <link rel="stylesheet" href="styles/print.css">
+    <link rel="stylesheet" href="styles/assignment--main.css" />
 
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="styles/print.css" />
 
-  <script src="scripts/general--helpers.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
 
-  <script defer src="scripts/landmark--header.js" defer></script>
-  <script defer src="scripts/landmark--header__accessibility.js" defer></script>
+    <script src="scripts/general--helpers.js" defer></script>
 
-  <script src="scripts/printer.js" defer></script>
-</head>
-<body>
-  <header class="header--body">
-    <div class="header--body__block">
-      <a href="/" class="link--logo" aria-label="naar de homepage">
-        <svg class="logo--hva-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 246.207 29.653">
-          <use xlink:href="images/logo-nl.svg#logo"></use>
-        </svg>
-      </a>
+    <script defer src="scripts/landmark--header.js" defer></script>
+    <script
+      defer
+      src="scripts/landmark--header__accessibility.js"
+      defer
+    ></script>
 
-      <a href="#main" class="visually-hidden link--skip">direct naar hoofdinhoud</a>
+    <script type="module" src="scripts/printer.js" defer></script>
+  </head>
+  <body>
+    <header class="header--body">
+      <div class="header--body__block">
+        <a href="/" class="link--logo" aria-label="naar de homepage">
+          <svg
+            class="logo--hva-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 246.207 29.653"
+          >
+            <use xlink:href="images/logo-nl.svg#logo"></use>
+          </svg>
+        </a>
 
-      <button class="button--disclosure button--menu" hidden>Menu</button>
+        <a href="#main" class="visually-hidden link--skip"
+          >direct naar hoofdinhoud</a
+        >
 
-      <nav class="nav--main">
-        <ul>
-          <li><a href="./" lang="en">Homepage</a></li>
-        </ul>
-      </nav>
+        <button class="button--disclosure button--menu" hidden>Menu</button>
 
-      <details class="details--accessibility">
-        <summary>Toeganke&shy;lijkheid</summary>
+        <nav class="nav--main">
+          <ul>
+            <li><a href="./" lang="en">Homepage</a></li>
+          </ul>
+        </nav>
+        <button data-type="printAll">
+          <svg
+            fill="currentColor"
+            version="1.1"
+            baseProfile="tiny"
+            id="Layer_1"
+            xmlns:x="&amp;ns_extend;"
+            xmlns:i="&amp;ns_ai;"
+            xmlns:graph="&amp;ns_graphs;"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+            viewBox="-0.5 0.5 42 42"
+            xml:space="preserve"
+          >
+            <path
+              d="M12.5,30.504V33.5h15v-2.996H12.5z M12.5,25.504V28.5h15v-2.996H12.5z M3.5,28.5h3v8.002c-0.01,2.43,0.548,2.998,3,2.998h21
+	c2.452,0,3-0.452,3-2.998V28.5h3c2.55,0.04,3.029-0.527,3-2.998v-11c0-2.35-0.38-3.002-3-3.002h-3V6.502
+	c0.029-2.47-0.45-3.002-3-3.002h-21c-2.4,0-3.01,0.572-3,3.002V11.5h-3c-2.58,0-3,0.562-3,3.002v11C0.49,27.932,1.1,28.54,3.5,28.5z
+	 M30.5,36.5h-21v-13h21V36.5z M32.38,18.002c0-0.9,0.72-1.619,1.62-1.619s1.62,0.719,1.62,1.619s-0.72,1.62-1.62,1.62
+	S32.38,18.902,32.38,18.002z M9.5,6.5h21v5.004h-21V6.5z"
+            ></path>
+          </svg>
+          Print all
+        </button>
+        <details class="details--accessibility">
+          <summary>Toeganke&shy;lijkheid</summary>
 
-        <div class="details--accessibility__block">
-          <form >
-            <fieldset>
-              <legend>Lettergrootte</legend>
-  
-              <button 
-                type="button"
-                name="setting--fontsize--min" 
-                class="setting--fontsize--button setting--fontsize--button--min" 
-                value="min" 
-                hidden
-              >
-                <span aria-hidden="true">
-                  A<span>A</span>
-                </span> 
-                Kleiner
-              </button>
-  
-              <select name="setting--fontsize" class="setting--fontsize">
-                <option value="-.2">-20%</option>
-                <option value="-.1">-10%</option>
-                <hr>
-                <option value="0" selected>standaard</option>
-                <hr>
-                <option value=".1">+10%</option>
-                <option value=".2">+20%</option>
-                <option value=".3">+30%</option>
-                <option value=".4">+40%</option>
-                <option value=".5">+50%</option>
-              </select>
-              
-              <button 
-                type="button" 
-                name="setting--fontsize--plus" 
-                class="setting--fontsize--button setting--fontsize--button--plus"
-                value="plus"
-                hidden
-              >
-                <span aria-hidden="true">
-                  <span>A</span>A
-                </span>
-                Groter
-              </button>
-            </fieldset>
-  
-            <fieldset>
-              <legend>Alle of minder animaties</legend>
-              
-              <label aria-label="volg het systeem qua animaties">
-                <input type="radio" name="setting--motion" value="system" checked>
-                Auto
-              </label>
+          <div class="details--accessibility__block">
+            <form>
+              <fieldset>
+                <legend>Lettergrootte</legend>
 
-              <label aria-label="minder animaties">
-                <input type="radio" name="setting--motion" value="reduce">
-                Rustig&nbsp;aan
-              </label>
+                <button
+                  type="button"
+                  name="setting--fontsize--min"
+                  class="setting--fontsize--button setting--fontsize--button--min"
+                  value="min"
+                  hidden
+                >
+                  <span aria-hidden="true"> A<span>A</span> </span>
+                  Kleiner
+                </button>
 
-              <label aria-label="alle animaties">
-                <input type="radio" name="setting--motion" value="no-preference">
-                Animaties
-              </label>
-  
-            </fieldset>
-  
-            <fieldset>
-              <legend>Lichte of donkere kleuren</legend>
-  
-              <label aria-label="kleurenthema van het systeem">
-                <input type="radio" name="setting--color-theme" value="system" checked>
-                Auto
-              </label>
+                <select name="setting--fontsize" class="setting--fontsize">
+                  <option value="-.2">-20%</option>
+                  <option value="-.1">-10%</option>
+                  <hr />
+                  <option value="0" selected>standaard</option>
+                  <hr />
+                  <option value=".1">+10%</option>
+                  <option value=".2">+20%</option>
+                  <option value=".3">+30%</option>
+                  <option value=".4">+40%</option>
+                  <option value=".5">+50%</option>
+                </select>
 
-              <label aria-label="donker kleurenthema">
-                <input type="radio" name="setting--color-theme" value="dark">
-                Donker
-              </label>
+                <button
+                  type="button"
+                  name="setting--fontsize--plus"
+                  class="setting--fontsize--button setting--fontsize--button--plus"
+                  value="plus"
+                  hidden
+                >
+                  <span aria-hidden="true"> <span>A</span>A </span>
+                  Groter
+                </button>
+              </fieldset>
 
-              <label aria-label="licht kleurenthema">
-                <input type="radio" name="setting--color-theme" value="light">
-                Licht
-              </label>
-            </fieldset>
-  
-            <fieldset>
-              <legend>Contrast</legend>
+              <fieldset>
+                <legend>Alle of minder animaties</legend>
 
-              <label>
-                <input type="checkbox" name="setting--contrast">
-                Meer contrast
-              </label>
+                <label aria-label="volg het systeem qua animaties">
+                  <input
+                    type="radio"
+                    name="setting--motion"
+                    value="system"
+                    checked
+                  />
+                  Auto
+                </label>
 
-            </fieldset>
-  
-            <button type="submit">Toepassen</button>
-          </form>
-        </div>
+                <label aria-label="minder animaties">
+                  <input type="radio" name="setting--motion" value="reduce" />
+                  Rustig&nbsp;aan
+                </label>
 
-      </details>
+                <label aria-label="alle animaties">
+                  <input
+                    type="radio"
+                    name="setting--motion"
+                    value="no-preference"
+                  />
+                  Animaties
+                </label>
+              </fieldset>
+
+              <fieldset>
+                <legend>Lichte of donkere kleuren</legend>
+
+                <label aria-label="kleurenthema van het systeem">
+                  <input
+                    type="radio"
+                    name="setting--color-theme"
+                    value="system"
+                    checked
+                  />
+                  Auto
+                </label>
+
+                <label aria-label="donker kleurenthema">
+                  <input
+                    type="radio"
+                    name="setting--color-theme"
+                    value="dark"
+                  />
+                  Donker
+                </label>
+
+                <label aria-label="licht kleurenthema">
+                  <input
+                    type="radio"
+                    name="setting--color-theme"
+                    value="light"
+                  />
+                  Licht
+                </label>
+              </fieldset>
+
+              <fieldset>
+                <legend>Contrast</legend>
+
+                <label>
+                  <input type="checkbox" name="setting--contrast" />
+                  Meer contrast
+                </label>
+              </fieldset>
+
+              <button type="submit">Toepassen</button>
+            </form>
+          </div>
+        </details>
+      </div>
+    </header>
+
+    <main id="main" class="grid-container">
+      <div class="main-content">
+        <section class="section--content">
+          <div class="section--content__block section--content__block--hero">
+            <h1>Responsible IT Amsterdam</h1>
+          </div>
+          <div class="section--content__block section--content__block--intro">
+            <!-- Subtitle will be inserted here -->
+          </div>
+        </section>
+        <section class="section--content">
+          <div
+            class="section--content__block wp-content"
+            data-wp-content="content"
+          >
+            <!-- WordPress content will be inserted here -->
+          </div>
+          <!-- Assignment content will be inserted here -->
+        </section>
+      </div>
+    </main>
+    <div class="print-all">
+      <!-- Print all content will be inserted here -->
     </div>
-  </header>
-
-  <main id="main" class="grid-container">
-    <div class="main-content">
-      <section class="section--content">
-        <div class="section--content__block section--content__block--hero">
-          <h1>Responsible IT Amsterdam</h1>
-        </div>
-        <div class="section--content__block section--content__block--intro">
-          <!-- Subtitle will be inserted here -->
-        </div>
-      </section>
-      <section class="section--content">
-        <div class="section--content__block wp-content" data-wp-content="content">
-          <!-- WordPress content will be inserted here -->
-        </div>
-        <!-- Assignment content will be inserted here -->
-      </section>
-    </div>
-  </main>
-
-</body>
+  </body>
 </html>
