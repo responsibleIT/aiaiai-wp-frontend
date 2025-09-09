@@ -11,6 +11,7 @@ import {
 import { join } from "path";
 import * as cheerio from "cheerio";
 import { fileURLToPath } from 'url';
+import { imageCollection } from './imageCollection.js';
 
 // Function to decode HTML entities
 function decodeHtmlEntities(text) {
@@ -98,6 +99,41 @@ function cleanWordPressUrls(content) {
     .replace(/https?:\/\/(?:wordpress\.)?aiaiai\.art\/homepage\/([^/"]+)\/?/g, './$1');
 }
 
+function createHeroImageHTML(imageData) {
+  if (!imageData || !imageData.downloads) return '';
+  
+  // Sort downloads by width for proper srcset order
+  const sortedDownloads = imageData.downloads
+    .filter(d => d.width && d.height)
+    .sort((a, b) => a.width - b.width);
+  
+  if (sortedDownloads.length === 0) return '';
+  
+  // Use medium as default src, fallback to first available
+  const defaultSrc = sortedDownloads.find(d => d.size === 'medium') || sortedDownloads[0];
+  const basePath = `./assets/collection/${imageData.slug}`;
+  
+  // Build srcset string
+  const srcset = sortedDownloads
+    .map(d => `${basePath}/${d.filename} ${d.width}w`)
+    .join(', ');
+  
+  return `
+    <figure class="hero-image">
+      <img 
+        src="${basePath}/${defaultSrc.filename}"
+        srcset="${srcset}"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+        alt="${imageData.altText || ''}"
+        width="${defaultSrc.width}"
+        height="${defaultSrc.height}"
+        loading="eager"
+        decoding="async"
+      />
+    </figure>
+  `;
+}
+
 async function processTemplate(templatePath, outputPath, wpContent, pageName) {
   try {
     // Read template
@@ -126,6 +162,12 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName) {
     // Set the h1 content and page title
     $(".section--content__block--hero h1").text(pageTitle);
     $("title").text(`${pageTitle} | Lectoraat Responsible IT`);
+
+    // Add hero image if available
+    if (wpContent.featured_image) {
+      const heroImage = createHeroImageHTML(wpContent.featured_image);
+      $(".section--content__block--hero").append(heroImage);
+    }
 
     // Replace content markers with WordPress content
     $(".wp-content").each((i, elem) => {
@@ -254,6 +296,34 @@ export async function buildSite() {
       for (const page of otherPages) {
         const outputPath = join(BUILD_DIR, `${page.slug}.html`);
         const pageTemplate = await findTemplate(page.slug, page);
+        
+        // Download featured image for assignment pages
+        let featuredImage = null;
+         if (page.class_list?.includes("category-oefening") && page.featured_media) {
+           console.log(`[${page.slug}] Downloading featured image (ID: ${page.featured_media})`);
+           featuredImage = await imageCollection(page.featured_media, WP_API_URL);
+           
+           // Log image sizes to verify they're coming through
+           console.log(`[${page.slug}] Image sizes:`, featuredImage.downloads.map(data => 
+             `${data.size}: ${data.width}x${data.height}`
+           ).join(', '));
+           
+           // Download the image files
+           const imageFolder = join(BUILD_DIR, "assets", "collection", featuredImage.slug);
+           await ensureDir(imageFolder);
+           
+           for (const download of featuredImage.downloads) {
+             try {
+               const response = await fetch(download.url);
+               const buffer = await response.arrayBuffer();
+               await writeFile(join(imageFolder, download.filename), Buffer.from(buffer));
+               console.log(`[${page.slug}] Downloaded: ${featuredImage.slug}/${download.filename}`);
+             } catch (error) {
+               console.error(`[${page.slug}] Error downloading ${download.url}:`, error);
+             }
+           }
+         }
+        
         await processTemplate(
           pageTemplate,
           outputPath,
@@ -261,6 +331,7 @@ export async function buildSite() {
             content: page.content?.rendered,
             title: page.title,
             class_list: page.class_list,
+            featured_image: featuredImage,
           },
           page.slug
         );
@@ -270,6 +341,7 @@ export async function buildSite() {
           assignmentPages.push({
             slug: page.slug,
             path: `./${page.slug}.html`,
+            featured_image: featuredImage?.slug || null,
           });
         }
       }
