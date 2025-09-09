@@ -274,9 +274,11 @@ export async function buildSite() {
         }
       }
 
-      // Write the assignments manifest to the build directory
+      // Write the assignments manifest to the assets/json directory
       try {
-        const manifestPath = join(BUILD_DIR, "assignments.json");
+        const assetsJsonDir = join(BUILD_DIR, "assets", "json");
+        await ensureDir(assetsJsonDir);
+        const manifestPath = join(assetsJsonDir, "assignments.json");
         await writeFile(manifestPath, JSON.stringify(assignmentPages, null, 2));
         console.log(`Wrote assignments manifest: ${manifestPath} (${assignmentPages.length} items)`);
       } catch (manifestError) {
