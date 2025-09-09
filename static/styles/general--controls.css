@@ -29,6 +29,17 @@ button:not([disabled], [inert]) {
   cursor:pointer;
 }
 
+button[data-type="printAll"] {
+  display: flex;
+  flex-direction: row;
+  gap: .33em;
+  align-items: center;
+}
+
+button[data-type="printAll"] svg{
+  height: 1.125em;
+}
+
 summary::-webkit-details-marker {
   display: none;
 }
