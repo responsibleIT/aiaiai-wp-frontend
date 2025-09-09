@@ -56,9 +56,12 @@ p {
 
 }
 
+:root[data-color-scheme="dark"] .section--content__block--hero:has(img) h1{
+  mix-blend-mode: difference;
+}
+
 .section--content__block--hero:has(img) h1{
   /* just a test */
-  mix-blend-mode: difference;
 
   padding-inline: 2rem;
   position: absolute;
