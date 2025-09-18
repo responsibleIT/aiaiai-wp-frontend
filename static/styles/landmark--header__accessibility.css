@@ -1,11 +1,6 @@
 /********/
 /* FORM */
 /********/
-
-.js .details--accessibility {
-  --js:none;
-}
-
 .details--accessibility {
   position: relative;
 
@@ -25,6 +20,7 @@
   background-color:var(--bg-form--accessibilty);
   border:var(--border-thin--t);
   border-radius:.5em;
+  z-index: 100;
 }
 
 .details--accessibility form {
@@ -344,7 +340,7 @@ label:has( input:focus-visible ) input {
 /* RESPONSIVENESS */
 /******************/
 
-@container --container--body (width > 43em) {
+@container --container--body (width > 30em) {
   .details--accessibility {
     display:flex; /* always visible */
 
@@ -356,6 +352,7 @@ label:has( input:focus-visible ) input {
     top:calc(100%);
     right:0;
     z-index: 2;
+    max-width: 80vw;
     box-shadow: var(--shadow);
   }
 
