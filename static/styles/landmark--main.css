@@ -1,6 +1,5 @@
 p:first-of-type {
   font-weight: 500;
-  font-size: clamp(1.5rem, 3vw, 2rem);
   line-height: 1.33;
 }
 
