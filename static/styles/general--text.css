@@ -2,6 +2,15 @@ h1 {
   color:var(--clr-h1);
   font-size:2em;
   font-size:clamp(2em, 5vw, 3.125em);
+  font-family: Pinky, Arial, sans-serif;
+}
+
+span{
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  line-height: inherit;
 }
 
 h2 {

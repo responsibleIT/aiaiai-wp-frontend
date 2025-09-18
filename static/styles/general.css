@@ -41,11 +41,14 @@ body {
   margin: 0;
 
   font-size: clamp(1em, 0.75em + 0.75vw, 1.2em);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.087) 1px, transparent 1px);
+  background-size: 8px 8px;
+  background-repeat: repeat;
 }
 
-/********/
+/**********/
 /* IMAGES */
-/********/
+/**********/
 
 figure {
   padding: 0;
