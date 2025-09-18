@@ -30,34 +30,17 @@
 
     <script src="scripts/general--helpers.js" defer></script>
 
-    <script src="scripts/landmark--header.js" defer></script>
     <script src="scripts/landmark--header__accessibility.js" defer></script>
     <script src="scripts/landmark--main__form.js" defer></script>
   </head>
   <body>
     <header class="header--body">
       <div class="header--body__block">
-        <a href="/" class="link--logo" aria-label="naar de homepage">
-          <svg
-            class="logo--hva-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 246.207 29.653"
-          >
-            <use xlink:href="images/logo-nl.svg#logo"></use>
-          </svg>
-        </a>
+        <a href="/" class="link--logo" aria-label="naar de homepage"> About </a>
 
         <a href="#main" class="visually-hidden link--skip"
-          >direct naar hoofdinhoud</a
-        >
-
-        <button class="button--disclosure button--menu" hidden>Menu</button>
-
-        <nav class="nav--main">
-          <ul>
-            <li><a href="./" lang="en">Homepage</a></li>
-          </ul>
-        </nav>
+          >direct naar hoofdinhoud
+        </a>
 
         <details class="details--accessibility">
           <summary>Toeganke&shy;lijkheid</summary>
@@ -183,11 +166,11 @@
       <div class="main-content">
         <section class="section--content">
           <div class="section--content__block section--content__block--hero">
-            <h1>Responsible IT Amsterdam</h1>
+            <h1>AIAIAI</h1>
           </div>
         </section>
         <section class="section--content">
-          <form class="view-setter--form ">
+          <form class="view-setter--form">
             <fieldset>
               <legend>Weergave</legend>
               <label>
@@ -215,7 +198,7 @@
                     fill="currentColor"
                   />
                 </svg>
-                <input type="radio" name="weergave" value="list" />
+                <input type="radio" name="weergave" checked value="list" />
               </label>
               <label>
                 <span>grid</span>
