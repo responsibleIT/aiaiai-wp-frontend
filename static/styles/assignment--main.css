@@ -24,6 +24,10 @@ p {
   font-size: clamp(1.25rem, 3vw, 1.5rem);
   font-weight: 700;
   line-height: 1;
+  display: flex;
+  color: var(--bg);
+  background: var(--blue);
+  flex-direction: column;
 }
 
 .description h2:first-of-type {
