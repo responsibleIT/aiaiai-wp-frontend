@@ -5,6 +5,8 @@
 }
 
 .view-setter--form {
+  display: flex;
+  justify-content: end;
   margin-bottom: 1rem;
 }
 
@@ -14,6 +16,7 @@
 }
 
 .view-setter--form fieldset {
+  text-align: center;
   display: flex;
 }
 
