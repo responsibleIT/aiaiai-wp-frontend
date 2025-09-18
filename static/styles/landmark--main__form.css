@@ -4,19 +4,8 @@
   border: none;
 }
 
-.view-setter--form{
-    display: none;
-}
-
-html.js .view-setter--form{
-    display: block;
-}
 .view-setter--form {
-  background: var(--bg-form--accessibilty);
-}
-
-.view-setter--form + div {
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .view-setter--form svg {
@@ -34,6 +23,7 @@ html.js .view-setter--form{
 }
 
 .view-setter--form label {
+  background: var(--bg-form--accessibilty);
   display: flex;
   flex-direction: row-reverse;
   cursor: pointer;
@@ -65,7 +55,9 @@ html.js .view-setter--form{
   color: var(--clr);
 }
 
-.view-setter--form :is(label:has(input:checked), .selected) :is(span, svg rect) {
+.view-setter--form
+  :is(label:has(input:checked), .selected)
+  :is(span, svg rect) {
   color: var(--bg);
 }
 
