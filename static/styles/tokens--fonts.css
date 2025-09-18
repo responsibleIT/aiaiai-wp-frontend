@@ -6,3 +6,12 @@
   font-style: normal;
   font-display: fallback;
 }
+
+@font-face {
+  font-family: "Pinky";
+  src: local("Pinky"), 
+       url('../fonts/Pinky.woff') format("truetype-variations"),
+       url('../fonts/Pinky.woff') format("truetype");
+  font-style: normal;
+  font-display: fallback;
+}
