@@ -11,7 +11,7 @@
     "build": "node build.js",
     "build:force": "rm -rf cache && node serverBuilder.js",
     "check": "node serverBuilder.js",
-    "serve-build": "browser-sync start --server \"build\" --files \"build/**/*.*\" --host 0.0.0.0 --port 3000"
+    "dev": "browser-sync start --server \"build\" --files \"build/**/*.*\" --host 0.0.0.0 --port 3000"
   },
   "dependencies": {
     "cheerio": "1.0.0-rc.10",
