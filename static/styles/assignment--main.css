@@ -26,7 +26,7 @@ p {
   line-height: 1;
   display: flex;
   color: var(--bg);
-  background: var(--blue);
+  background: var(--assignment-color, var(--blue));
   flex-direction: column;
 }
 
@@ -52,19 +52,24 @@ p {
   position: relative;
 }
 
+@media (min-width: 900px) {
+  .section--content__block--hero:has(img) {
+    margin-top: -10rem;
+  }
+}
+
 .section--content__block--hero img {
   height: 100%;
   width: 100%;
-  max-height: calc(50vh - 5vw);
+  max-height: 80vh;
   object-fit: contain;
-
 }
 
-:root[data-color-scheme="dark"] .section--content__block--hero:has(img) h1{
+:root[data-color-scheme="dark"] .section--content__block--hero:has(img) h1 {
   mix-blend-mode: difference;
 }
 
-.section--content__block--hero:has(img) h1{
+.section--content__block--hero:has(img) h1 {
   /* just a test */
 
   padding-inline: 2rem;
@@ -100,16 +105,19 @@ p {
 }
 
 .assignment {
-  background: hsl(201, 100%, 86%);
+  background: var(--assignment-color, #b8e6ff);
   padding-left: 2.25rem; /* 36px */
   padding-right: 2.25rem; /* 36px */
   padding-top: max(3rem, 4.375rem); /* min 3rem, up to 70px */
   padding-bottom: max(2.5rem, 7.5rem); /* min 2.5rem, up to 120px */
   height: fit-content;
+  border-radius: 0.625rem;
+  border: 2px solid var(--assignment-color-d);
 }
 
 :root[data-color-scheme="dark"] .assignment {
-  background: hsl(201, 100%, 23%);
+  background: var(--assignment-color, #134384);
+  border-color: var(--assignment-color-l);
 }
 
 .assignment > * {
@@ -202,4 +210,38 @@ li::marker {
 
 .print-all {
   display: none;
+}
+
+/* INSPIRED BLOCK */
+.inspired {
+  text-transform: uppercase;
+  font-size: clamp(1.625rem, 5vw, 3.125rem);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  flex-direction: column;
+}
+
+.inspired p {
+  font-size: inherit;
+  display: inline;
+  font-family: inherit;
+  text-align: center;
+  line-height: normal;
+}
+
+.inspired p:last-child {
+  background: var(--blue-d);
+  color: var(--white);
+  font-size: clamp(1.5rem, 6vw, 3.75rem);
+  border-radius: 4rem;
+  padding: 3.125rem 1.5rem 2.5rem 1.5rem;
+}
+
+@media (min-width: 32rem) and (max-width: 75rem) {
+  .inspired {
+    width: fit-content;
+    flex-direction: row;
+  }
 }
