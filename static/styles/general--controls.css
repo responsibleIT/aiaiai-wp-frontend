@@ -2,10 +2,12 @@
 /* CONTROLS */
 /************/
 
-button, input, textarea, select {
-  font-size:1em;
+button,
+input,
+textarea,
+select {
+  font-size: 1em;
 }
-
 
 /********************/
 /* BUTTON / SUMMARY */
@@ -13,30 +15,31 @@ button, input, textarea, select {
 
 button,
 summary {
-  padding:.5em .67em;
+  padding: 0.25rem 0.75rem;
   cursor: pointer;
-  appearance:none;
-  background-color:var(--bg-button);
-  border:var(--border-thick);
-  border-radius:.5em;
-  outline:none;
-
-  font-weight:600;
-  color:var(--clr-button);
+  appearance: none;
+  background-color: var(--bg-button);
+  border: var(--border-thin);
+  border-radius: 4rem;
+  border-color: inherit;
+  outline: none;
+  font-family: Pinky;
+  font-weight: 600;
+  color: var(--clr-button);
 }
 
 button:not([disabled], [inert]) {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 button[data-type="printAll"] {
   display: flex;
   flex-direction: row;
-  gap: .33em;
+  gap: 0.33em;
   align-items: center;
 }
 
-button[data-type="printAll"] svg{
+button[data-type="printAll"] svg {
   height: 1.125em;
 }
 
@@ -50,15 +53,14 @@ summary:focus-visible {
   position: relative;
   z-index: 1;
 
-  border-style:dashed;
+  border-style: dashed;
 }
 
 button:disabled,
 summary:disabled {
-  color:var(--clr-button--disabled);
-  border-color:var(--brdr-clr-button--disabled);
+  color: var(--clr-button--disabled);
+  border-color: var(--brdr-clr-button--disabled);
 }
-
 
 /***************************/
 /* BUTTON TOGGLE / SUMMARY */
@@ -66,38 +68,34 @@ summary:disabled {
 
 .button--disclosure,
 summary {
-  display:inline-flex;
-  gap:.33em;
-  align-items:baseline;
-  justify-content:center;
+  display: inline-flex;
+  gap: 0.33em;
+  align-items: baseline;
+  justify-content: center;
 }
 
 /* marker */
 .button--disclosure::after,
 summary::after {
-  content:"";
-  display:block;
-  width:.625rem;
-  height:.5625rem;
-  background-color:currentColor;
+  content: "";
+  display: block;
+  width: 0.625rem;
+  height: 0.5625rem;
+  background-color: currentColor;
   clip-path: polygon(0 0, 100% 0, 50% 100%);
-  transform-origin:50% .25rem;
+  transform-origin: 50% 0.25rem;
 }
 
 /* interaction */
 [data-reduced-motion="no-preference"] .button--disclosure::after,
 [data-reduced-motion="no-preference"] summary::after {
-  transition:transform .3s;
+  transition: transform 0.3s;
 }
 
 .is-open .button--disclosure::after,
 [open] summary::after {
-  transform:rotate(180deg);
+  transform: rotate(180deg);
 }
-
-
-
-
 
 /*********/
 /* INPUT */
@@ -105,40 +103,36 @@ summary::after {
 
 input[type="radio"],
 input[type="checkbox"] {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 input:focus-visible {
   outline: var(--outline-thick--d);
-  outline-offset:.15em;
+  outline-offset: 0.15em;
 }
-
-
-
-
 
 /********/
 /* LINK */
 /********/
 
 a {
-  display:inline-block;
-  color:var(--clr-link);
+  display: inline-block;
+  color: var(--clr-link);
   overflow-wrap: anywhere;
-  text-decoration-thickness:.1em;;
-  text-underline-offset:.15em;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.15em;
 }
 
 a:focus-visible {
   position: relative;
   z-index: 1;
-  
+
   background-color: var(--bg-outline);
-  box-shadow:0 0 0 .15em var(--bg-outline);
-  outline: .2rem solid var(--brdr-clr-outline);
-  outline-offset: .15em;
+  box-shadow: 0 0 0 0.15em var(--bg-outline);
+  outline: 0.2rem solid var(--brdr-clr-outline);
+  outline-offset: 0.15em;
 }
 
-a:hover{
+a:hover {
   color: var(--link-hover);
 }
