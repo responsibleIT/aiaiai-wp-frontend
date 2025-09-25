@@ -162,10 +162,10 @@ function createGridImageHTML(imageData) {
       .filter((d) => d.width && d.height)
       .sort((a, b) => a.width - b.width);
     if (fallbackDownloads.length === 0) return "";
-    
+
     const fallbackSrc = fallbackDownloads[0];
     const basePath = `./assets/collection/${imageData.slug}`;
-    
+
     return `
       <figure class="grid-image">
         <img 
@@ -206,7 +206,13 @@ function createGridImageHTML(imageData) {
   `;
 }
 
-async function processTemplate(templatePath, outputPath, wpContent, pageName, assignmentImages = null) {
+async function processTemplate(
+  templatePath,
+  outputPath,
+  wpContent,
+  pageName,
+  assignmentImages = null
+) {
   try {
     // Read template
     const template = await readFile(templatePath, "utf8");
@@ -215,6 +221,7 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName, as
     // Parse WordPress content (clean URLs first)
     const cleanedContent = cleanWordPressUrls(wpContent.content || "");
     const $content = cheerio.load(cleanedContent);
+    const isAssignment = wpContent.class_list?.includes("category-oefening");
 
     // Set page title and h1
     let pageTitle;
@@ -224,8 +231,7 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName, as
     } else {
       // Use WordPress title if available, otherwise use default
       pageTitle = capitalizeFirstLetter(
-        decodeHtmlEntities(wpContent.title?.rendered) ||
-          "No title"
+        decodeHtmlEntities(wpContent.title?.rendered) || "No title"
       );
     }
     console.log(`[${pageName}] Final page title:`, pageTitle);
@@ -237,6 +243,24 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName, as
     } else {
       $(".section--content__block--hero h1").text(pageTitle);
       $("title").text(`${pageTitle} | Lectoraat Responsible IT`);
+    }
+
+    // Set body data-color for assignment pages, derived from category-<suffix> (fallback: purple)
+    if (isAssignment) {
+      const colorCandidates = (wpContent.class_list || [])
+        .map((cls) => {
+          const match = cls.match(/^category-(.+)$/);
+          return match ? match[1] : null;
+        })
+        .filter((name) => name && name !== "oefening");
+
+      const color = (colorCandidates[0] || "lilia").toLowerCase();
+      const $body = $("body");
+
+      const previousStyle = $body.attr("style") || "";
+      const needsSemicolon = previousStyle && !previousStyle.trim().endsWith(";");
+      const updatedStyle = `${previousStyle}${needsSemicolon ? ";" : ""}${previousStyle ? " " : ""}--assignment-color: var(--${color}); --assignment-color-l: var(--${color}-l); --assignment-color-d: var(--${color}-d);`;
+      $body.attr("style", updatedStyle);
     }
 
     // Add hero image if available
@@ -252,7 +276,7 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName, as
         const $wpContent = $content;
 
         // For assignment pages, handle special content placement
-        if (wpContent.class_list?.includes("category-oefening")) {
+        if (isAssignment) {
           const $firstP = $wpContent("p").first();
           if ($firstP.length) {
             // Store the paragraph content
@@ -274,9 +298,8 @@ async function processTemplate(templatePath, outputPath, wpContent, pageName, as
             $(".wp-content").after(assignmentContent);
           }
         } else {
-          console.log($wpContent.html(), "content");
+          console.log("hoi");
         }
-
         // For homepage, enhance assignment links with grid images
         if (pageName === "index" && assignmentImages) {
           enhanceHomepageAssignmentLinks($wpContent, assignmentImages);
@@ -300,13 +323,13 @@ function enhanceHomepageAssignmentLinks($content, assignmentImages) {
   $content("li.wp-block-pages-list__item").each((i, listItem) => {
     const $listItem = $content(listItem);
     const $link = $listItem.find("a.wp-block-pages-list__item__link");
-    
+
     if ($link.length) {
       // Wrap existing text content in a <p> tag
       const linkText = $link.text().trim();
-      $link.text(''); // Clear the text
+      $link.text(""); // Clear the text
       $link.append(`<p>${linkText}</p>`); // Add text wrapped in <p>
-      
+
       const href = $link.attr("href");
       if (href) {
         // Extract slug from href (e.g., "./assignment-slug" -> "assignment-slug")
@@ -314,13 +337,15 @@ function enhanceHomepageAssignmentLinks($content, assignmentImages) {
         if (slugMatch) {
           const slug = slugMatch[1];
           const imageData = assignmentImages[slug];
-          
+
           if (imageData) {
             // Create grid image HTML and prepend it to the link
             const gridImageHTML = createGridImageHTML(imageData);
             if (gridImageHTML) {
               $link.prepend(gridImageHTML);
-              console.log(`[homepage] Added grid image for assignment: ${slug}`);
+              console.log(
+                `[homepage] Added grid image for assignment: ${slug}`
+              );
             }
           }
         }
@@ -394,7 +419,7 @@ export async function buildSite() {
     // Get all other pages to collect assignment images
     const pages = await fetchWordPressContent("pages");
     let assignmentImages = {};
-    
+
     if (Array.isArray(pages)) {
       // Skip the homepage since we'll handle it later
       const otherPages = pages.filter((page) => page.id !== frontPageId);
@@ -477,7 +502,7 @@ export async function buildSite() {
             path: `./${page.slug}.html`,
             featured_image: featuredImage?.slug || null,
           });
-          
+
           // Store featured image data for homepage grid
           if (featuredImage) {
             assignmentImages[page.slug] = featuredImage;
