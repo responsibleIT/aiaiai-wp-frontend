@@ -15,7 +15,7 @@
   box-shadow: var(--shadow);
 }
 
-.header--body__block {
+.header--body__block ul{
   margin: 0 auto;
   max-width: var(--max-width);
 
@@ -24,6 +24,14 @@
   justify-content: end;
   align-items: top;
   gap: var(--grid-gap) 1em;
+}
+
+.header--body__block ul{
+  display: flex;
+}
+
+.header--body__block li{
+  display: inline;
 }
 
 /*************/
