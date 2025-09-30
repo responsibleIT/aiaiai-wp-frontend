@@ -4,6 +4,16 @@
 }
 
 @media print {
+  *{
+    border: none !important;
+    background: none !important;
+    font-family: Atkinson !important;
+    color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+
   /* Force each main (assignment) to start on a new page */
   main {
     page-break-before: always;
