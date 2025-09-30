@@ -227,7 +227,9 @@ async function processTemplate(
     let pageTitle;
     if (pageName === "index") {
       // For the homepage use the WordPress title when available, otherwise default to "Home"
-      pageTitle = "<span>AI,</span><span>AI,</span><span>AI</span>";
+      pageTitle = "<span style='--index:0'>AI,</span><span style='--index:1'>AI,</span><span style='--index:2'>AI</span>";
+      console.log($content.html());
+      
     } else {
       // Use WordPress title if available, otherwise use default
       pageTitle = capitalizeFirstLetter(
@@ -261,6 +263,7 @@ async function processTemplate(
       const needsSemicolon = previousStyle && !previousStyle.trim().endsWith(";");
       const updatedStyle = `${previousStyle}${needsSemicolon ? ";" : ""}${previousStyle ? " " : ""}--assignment-color: var(--${color}); --assignment-color-l: var(--${color}-l); --assignment-color-d: var(--${color}-d);`;
       $body.attr("style", updatedStyle);
+      $body.attr("data-color_theme", color)
     }
 
     // Add hero image if available
