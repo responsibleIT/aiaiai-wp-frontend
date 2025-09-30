@@ -1,18 +1,12 @@
-[data-display="grid"],
-#main:has(.view-setter--form label:nth-of-type(2) > input[type="radio"]:checked)
-  div[data-wp-content="content"] {
+[data-display="grid"] {
   padding: 0;
   margin: 0;
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
-[data-display="grid"] ul,
-#main:has(.view-setter--form label:nth-of-type(2) > input[type="radio"]:checked)
-  div[data-wp-content="content"]
-  ul {
+[data-display="grid"] ul {
   grid-column: 1 / -1;
   list-style-type: none;
   padding: 0;
@@ -23,32 +17,18 @@
 }
 
 @media (min-width: 35rem) {
-  [data-display="grid"] ul,
-  #main:has(
-      .view-setter--form label:nth-of-type(2) > input[type="radio"]:checked
-    )
-    div[data-wp-content="content"]
-    ul {
+  [data-display="grid"] ul {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 55rem) {
-  [data-display="grid"] ul,
-  #main:has(
-      .view-setter--form label:nth-of-type(2) > input[type="radio"]:checked
-    )
-    div[data-wp-content="content"]
-    ul {
+  [data-display="grid"] ul {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-[data-display="grid"] li:not(:has(img)) a::before,
-#main:has(.view-setter--form label:nth-of-type(2) > input[type="radio"]:checked)
-  div[data-wp-content="content"]
-  li:not(:has(img))
-  a::before {
+[data-display="grid"] li:not(:has(img)) a::before {
   content: "";
   display: block;
   position: absolute;
@@ -61,10 +41,7 @@
   background: rgb(185, 185, 185);
 }
 
-[data-display="grid"] a,
-#main:has(.view-setter--form label:nth-of-type(2) > input[type="radio"]:checked)
-  div[data-wp-content="content"]
-  a {
+[data-display="grid"] a {
   font-size: 1.375rem;
   line-height: 1.45;
   position: relative;
@@ -78,45 +55,20 @@
   margin: unset;
 }
 
-[data-display="grid"] a > *,
-#main:has(.view-setter--form label:nth-of-type(2) > input[type="radio"]:checked)
-  div[data-wp-content="content"]
-  a
-  > * {
+[data-display="grid"] a > * {
   grid-area: 1 / -1;
 }
 
-#main:has(
-    :not(.view-setter--form label:nth-of-type(2) > input[type="radio"]:checked)
-  )
-  [data-display="list"]
-  a
-  figure {
-  display: none;
-}
-
-[data-display="grid"] a figure,
-#main:has(.view-setter--form label:nth-of-type(2) > input[type="radio"]:checked)
-  div[data-wp-content="content"]
-  a
-  figure {
+[data-display="grid"] a figure {
   display: block;
 }
 
-[data-display="grid"] a img,
-#main:has(.view-setter--form label:nth-of-type(2) > input[type="radio"]:checked)
-  div[data-wp-content="content"]
-  a
-  img {
+[data-display="grid"] a img {
   object-fit: fill;
   height: 100%;
 }
 
-[data-display="grid"] a p,
-#main:has(.view-setter--form label:nth-of-type(2) > input[type="radio"]:checked)
-  div[data-wp-content="content"]
-  a
-  p {
+[data-display="grid"] a p {
   grid-area: 1 / 1;
   text-align: center;
   display: flex;
@@ -127,11 +79,7 @@
   z-index: 1;
 }
 
-[data-display="grid"] li:hover a,
-#main:has(.view-setter--form label:nth-of-type(2) > input[type="radio"]:checked)
-  div[data-wp-content="content"]
-  li:hover
-  a {
+[data-display="grid"] li:hover a {
   background: transparent;
   color: var(--link-hover);
 }

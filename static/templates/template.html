@@ -20,7 +20,8 @@
 
     <link rel="stylesheet" href="styles/landmark--header.css" />
     <link rel="stylesheet" href="styles/landmark--header__accessibility.css" />
-
+    <link rel="stylesheet" href="styles/home--general.css">
+    <link rel="stylesheet" href="styles/animations/home--animations.css">
     <link rel="stylesheet" href="styles/landmark--main.css" />
 
     <link rel="stylesheet" href="styles/testing.css" />
@@ -31,18 +32,13 @@
     <script src="scripts/general--helpers.js" defer></script>
 
     <script src="scripts/landmark--header__accessibility.js" defer></script>
-    <script src="scripts/landmark--main__form.js" defer></script>
   </head>
   <body>
     <header class="header--body">
-      <div class="header--body__block">
-        <a href="/" class="link--logo" aria-label="naar de homepage"> About </a>
-
-        <a href="#main" class="visually-hidden link--skip"
-          >direct naar hoofdinhoud
-        </a>
-
-        <details class="details--accessibility">
+      <nav class="header--body__block">
+        <ul>
+          <li><a style="--index: 2" href="/" class="link--logo" aria-label="naar de homepage"> About </a></li>
+          <li><details style="--index: 1" class="details--accessibility">
           <summary>Toeganke&shy;lijkheid</summary>
 
           <div class="details--accessibility__block">
@@ -158,8 +154,16 @@
               <button type="submit">Toepassen</button>
             </form>
           </div>
-        </details>
-      </div>
+        </details></li>
+        </ul>
+        
+
+        <a href="#main" class="visually-hidden link--skip"
+          >direct naar hoofdinhoud
+        </a>
+
+        
+      </nav>
     </header>
 
     <main id="main" class="grid-container">
@@ -170,10 +174,11 @@
           </div>
         </section>
         <section class="section--content">
+          <h2>assignments</h2>
           <div
             class="section--content__block wp-content"
             data-wp-content="content"
-            data-display="list"
+            data-display="grid"
           >
             <!-- WordPress content will be inserted here -->
           </div>

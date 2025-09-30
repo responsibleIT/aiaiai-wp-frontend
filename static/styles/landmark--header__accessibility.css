@@ -83,6 +83,7 @@ fieldset:has([type="checkbox"]) {
   appearance:none;
   border:var(--border-medium);
   border-radius:.25em;
+  font-family: Atkinson;
 }
 
 

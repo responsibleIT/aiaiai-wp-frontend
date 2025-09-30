@@ -43,131 +43,143 @@
   </head>
   <body>
     <header class="header--body">
-      <div class="header--body__block">
-        <a href="/" aria-label="naar de homepagina"> AI, AI, AI </a>
-        <a href="/" class="link--logo" aria-label="naar de about pagina"> About </a>
+      <nav class="header--body__block">
+        <ul>
+          <li><a href="/" aria-label="naar de homepagina"> AI, AI, AI </a></li>
+          <li>
+            <a href="/" aria-label="naar de about pagina">
+              About
+            </a>
+          </li>
+          <li>
+            <details class="details--accessibility">
+              <summary>Toeganke&shy;lijkheid</summary>
+
+              <div class="details--accessibility__block">
+                <form>
+                  <fieldset>
+                    <legend>Lettergrootte</legend>
+
+                    <button
+                      type="button"
+                      name="setting--fontsize--min"
+                      class="setting--fontsize--button setting--fontsize--button--min"
+                      value="min"
+                      hidden
+                    >
+                      <span aria-hidden="true"> A<span>A</span> </span>
+                      Kleiner
+                    </button>
+
+                    <select name="setting--fontsize" class="setting--fontsize">
+                      <option value="-.2">-20%</option>
+                      <option value="-.1">-10%</option>
+                      <hr />
+                      <option value="0" selected>standaard</option>
+                      <hr />
+                      <option value=".1">+10%</option>
+                      <option value=".2">+20%</option>
+                      <option value=".3">+30%</option>
+                      <option value=".4">+40%</option>
+                      <option value=".5">+50%</option>
+                    </select>
+
+                    <button
+                      type="button"
+                      name="setting--fontsize--plus"
+                      class="setting--fontsize--button setting--fontsize--button--plus"
+                      value="plus"
+                      hidden
+                    >
+                      <span aria-hidden="true"> <span>A</span>A </span>
+                      Groter
+                    </button>
+                  </fieldset>
+
+                  <fieldset>
+                    <legend>Alle of minder animaties</legend>
+
+                    <label aria-label="volg het systeem qua animaties">
+                      <input
+                        type="radio"
+                        name="setting--motion"
+                        value="system"
+                        checked
+                      />
+                      Auto
+                    </label>
+
+                    <label aria-label="minder animaties">
+                      <input
+                        type="radio"
+                        name="setting--motion"
+                        value="reduce"
+                      />
+                      Rustig&nbsp;aan
+                    </label>
+
+                    <label aria-label="alle animaties">
+                      <input
+                        type="radio"
+                        name="setting--motion"
+                        value="no-preference"
+                      />
+                      Animaties
+                    </label>
+                  </fieldset>
+
+                  <fieldset>
+                    <legend>Lichte of donkere kleuren</legend>
+
+                    <label aria-label="kleurenthema van het systeem">
+                      <input
+                        type="radio"
+                        name="setting--color-theme"
+                        value="system"
+                        checked
+                      />
+                      Auto
+                    </label>
+
+                    <label aria-label="donker kleurenthema">
+                      <input
+                        type="radio"
+                        name="setting--color-theme"
+                        value="dark"
+                      />
+                      Donker
+                    </label>
+
+                    <label aria-label="licht kleurenthema">
+                      <input
+                        type="radio"
+                        name="setting--color-theme"
+                        value="light"
+                      />
+                      Licht
+                    </label>
+                  </fieldset>
+
+                  <fieldset>
+                    <legend>Contrast</legend>
+
+                    <label>
+                      <input type="checkbox" name="setting--contrast" />
+                      Meer contrast
+                    </label>
+                  </fieldset>
+
+                  <button type="submit">Toepassen</button>
+                </form>
+              </div>
+            </details>
+          </li>
+        </ul>
+
         <a href="#main" class="visually-hidden link--skip"
           >direct naar hoofdinhoud</a
         >
-
-        <details class="details--accessibility">
-          <summary>Toeganke&shy;lijkheid</summary>
-
-          <div class="details--accessibility__block">
-            <form>
-              <fieldset>
-                <legend>Lettergrootte</legend>
-
-                <button
-                  type="button"
-                  name="setting--fontsize--min"
-                  class="setting--fontsize--button setting--fontsize--button--min"
-                  value="min"
-                  hidden
-                >
-                  <span aria-hidden="true"> A<span>A</span> </span>
-                  Kleiner
-                </button>
-
-                <select name="setting--fontsize" class="setting--fontsize">
-                  <option value="-.2">-20%</option>
-                  <option value="-.1">-10%</option>
-                  <hr />
-                  <option value="0" selected>standaard</option>
-                  <hr />
-                  <option value=".1">+10%</option>
-                  <option value=".2">+20%</option>
-                  <option value=".3">+30%</option>
-                  <option value=".4">+40%</option>
-                  <option value=".5">+50%</option>
-                </select>
-
-                <button
-                  type="button"
-                  name="setting--fontsize--plus"
-                  class="setting--fontsize--button setting--fontsize--button--plus"
-                  value="plus"
-                  hidden
-                >
-                  <span aria-hidden="true"> <span>A</span>A </span>
-                  Groter
-                </button>
-              </fieldset>
-
-              <fieldset>
-                <legend>Alle of minder animaties</legend>
-
-                <label aria-label="volg het systeem qua animaties">
-                  <input
-                    type="radio"
-                    name="setting--motion"
-                    value="system"
-                    checked
-                  />
-                  Auto
-                </label>
-
-                <label aria-label="minder animaties">
-                  <input type="radio" name="setting--motion" value="reduce" />
-                  Rustig&nbsp;aan
-                </label>
-
-                <label aria-label="alle animaties">
-                  <input
-                    type="radio"
-                    name="setting--motion"
-                    value="no-preference"
-                  />
-                  Animaties
-                </label>
-              </fieldset>
-
-              <fieldset>
-                <legend>Lichte of donkere kleuren</legend>
-
-                <label aria-label="kleurenthema van het systeem">
-                  <input
-                    type="radio"
-                    name="setting--color-theme"
-                    value="system"
-                    checked
-                  />
-                  Auto
-                </label>
-
-                <label aria-label="donker kleurenthema">
-                  <input
-                    type="radio"
-                    name="setting--color-theme"
-                    value="dark"
-                  />
-                  Donker
-                </label>
-
-                <label aria-label="licht kleurenthema">
-                  <input
-                    type="radio"
-                    name="setting--color-theme"
-                    value="light"
-                  />
-                  Licht
-                </label>
-              </fieldset>
-
-              <fieldset>
-                <legend>Contrast</legend>
-
-                <label>
-                  <input type="checkbox" name="setting--contrast" />
-                  Meer contrast
-                </label>
-              </fieldset>
-
-              <button type="submit">Toepassen</button>
-            </form>
-          </div>
-        </details>
-      </div>
+      </nav>
     </header>
 
     <main id="main" class="grid-container">
