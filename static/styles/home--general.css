@@ -1,0 +1,30 @@
+h1 {
+  text-transform: lowercase;
+  font-size: clamp(6.25rem, 35vw, 28.125rem);
+  line-height: 100%;
+  display: flex;
+  gap: clamp(0.25rem, 2vw, 1rem);
+}
+
+.section--content__block--hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h2:first-of-type {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(3rem, 14vw, 200px);
+  line-height: 1;
+  text-transform: uppercase;
+  font-family: Pinky;
+  width: fit-content;
+}
+
+.main-content .section--content + .section--content {
+  margin-top: -4.5vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
