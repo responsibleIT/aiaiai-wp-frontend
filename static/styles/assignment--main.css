@@ -33,11 +33,14 @@ p {
 .description h2:first-of-type {
   font-size: clamp(1.5rem, 5vw, 1.875rem);
   font-weight: 600;
+  margin: 0;
+  margin-bottom: .875rem;
 }
 
 .main-content {
   display: inherit;
   grid-template-columns: inherit;
+  gap: inherit;
 }
 
 .main-content,
@@ -80,7 +83,16 @@ p {
 
 .section--content:last-child {
   grid-template-columns: inherit;
+  gap: inherit;
   display: inherit;
+}
+
+.wp-content {
+  text-align: center;
+  padding: 4.3125rem 2.75rem;
+  background: var(--bg);
+  border-radius: 0.625rem;
+  height: fit-content;
 }
 
 .section--content__block + .assignment {
@@ -89,7 +101,7 @@ p {
 
 @media (min-width: 75rem) {
   .section--content:last-child > div.section--content__block {
-    grid-column: 1 / 4;
+    grid-column: 1 / 5;
   }
 
   .assignment {
@@ -214,6 +226,7 @@ li::marker {
   text-transform: uppercase;
   font-size: clamp(1.625rem, 5vw, 3.125rem);
   width: 100%;
+  gap: .75rem;
 }
 
 .inspired p {
@@ -222,6 +235,14 @@ li::marker {
   font-family: inherit;
   text-align: center;
   line-height: normal;
+}
+
+.inspired p{
+  line-height: 1;
+}
+
+.inspired + .description{
+  margin: 1.75rem 0;
 }
 
 .inspired p:last-child {
@@ -234,18 +255,16 @@ li::marker {
 
 @media (min-width: 32rem) and (max-width: 75rem) {
   .inspired {
-    width: fit-content;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
-
   .inspired p {
-    display: inline;
-  }
-
-  .inspired p:last-of-type{
-    display: inline-block;
+    display: block;
+    width: fit-content;
   }
 }
 
-:root[data-color-scheme="dark"] :is(h1, .assignment, .assignment button)  {
+:root[data-color-scheme="dark"] :is(h1, .assignment, .assignment button) {
   color: var(--bg);
 }
