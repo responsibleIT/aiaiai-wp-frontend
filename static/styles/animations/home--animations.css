@@ -1,0 +1,157 @@
+body {
+  /* General h1 animation timings */
+  --general-delay: 0.2s;
+  --h1-individual-delay: 0.175s;
+  --general-animation-duration: 0.65s;
+
+  /* How many span items are in the h1 */
+  --h1-count: 3;
+
+  --h1-total-duration: calc(
+    var(--general-animation-duration) +
+      ((var(--h1-count) - 1) * var(--h1-individual-delay))
+  );
+
+  /* List item timings */
+  --list-item-delay: .3s;
+
+  --bouncy-bezier: cubic-bezier(0.33, 1.65, 0.66, 1) forwards;
+}
+
+.header--body {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+/* MARK: Insert animations here
+IF NO PREFERENCE IS SET */
+@media (prefers-reduced-motion: no-preference) {
+  /* Heading (h1) */
+  h1 span {
+    scale: 0.2 0;
+    opacity: 0;
+    transform: translateY(30%) rotateX(5deg);
+    animation: h1--bounce-in var(--general-animation-duration)
+      calc(var(--general-delay) + (var(--h1-individual-delay) * var(--index)))
+      var(--bouncy-bezier);
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+
+  h1 span:nth-child(2) {
+    transform: translateY(-30%) rotateX(-5deg);
+  }
+
+  /* Subheading (h2) */
+  h2 {
+    scale: 0.4 0;
+    opacity: 0;
+    animation: h2--scale-in var(--general-animation-duration)
+      var(--h1-total-duration) var(--bouncy-bezier);
+  }
+
+  /* Header */
+  .header--body .header--body__block li {
+    transform: translateX(-30%);
+    animation: li--slide-in var(--general-animation-duration)
+      calc(var(--h1-total-duration) + (var(--list-item-delay) * 2)) var(--bouncy-bezier);
+  }
+
+  .header--body .header--body__block :is(a, details) {
+    /* opacity: 0; */
+    scale: 0.2 0;
+    transform: translateY(30%);
+    animation: a--slide-up var(--general-animation-duration)
+      calc(var(--h1-total-duration) + (var(--index) * var(--list-item-delay)))
+      var(--bouncy-bezier);
+  }
+}
+
+/* MARK: Overwrite system no-preference */
+:root[data-reduced-motion="reduce"] {
+  /* Timings */
+  body {
+    --general-animation-duration: 0.8s;
+  }
+  /* Heading (h1) */
+  h1 span {
+    scale: 0.8 0.8;
+    opacity: 0;
+    transform: translateY(10%) rotateX(5deg);
+    animation: h1--soft-bounce-in var(--general-animation-duration)
+      calc(var(--general-delay) + (var(--h1-individual-delay) * var(--index)))
+      ease forwards;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+
+  h1 span:nth-child(2) {
+    transform: translateY(-10%) rotateX(-5deg);
+  }
+
+  /* Subheading (h2) */
+}
+
+/* MARK: keyframes
+ */
+
+/* heading (h1) */
+@keyframes h1--bounce-in {
+  40% {
+    scale: 0.8 1.2;
+  }
+  85% {
+    transform: translateY(0) rotateX(0deg);
+  }
+  100% {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+    scale: 1 1;
+  }
+}
+
+@keyframes h1--soft-bounce-in {
+  40% {
+    scale: 0.8 1.2;
+  }
+  85% {
+    transform: translateY(0) rotateX(0deg);
+  }
+  100% {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+    scale: 1 1;
+  }
+}
+
+/* subheading (h2) */
+
+@keyframes h2--scale-in {
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    scale: 1 1;
+  }
+}
+
+@keyframes h2--soft-scale-in {
+}
+
+@keyframes li--slide-in {
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes a--slide-up {
+  40% {
+    scale: 1.1 0.8;
+  }
+  100% {
+    scale: 1 1;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
