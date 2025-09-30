@@ -25,7 +25,7 @@ p {
   font-weight: 700;
   line-height: 1;
   display: flex;
-  color: var(--bg);
+  color: var(--clr);
   background: var(--assignment-color, var(--blue));
   flex-direction: column;
 }
@@ -62,11 +62,9 @@ p {
   height: 100%;
   width: 100%;
   max-height: 80vh;
+  max-width: 102.5rem;
+  margin-inline: auto;
   object-fit: contain;
-}
-
-:root[data-color-scheme="dark"] .section--content__block--hero:has(img) h1 {
-  mix-blend-mode: difference;
 }
 
 .section--content__block--hero:has(img) h1 {
@@ -78,7 +76,6 @@ p {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  width: 100%;
 }
 
 .section--content:last-child {
@@ -216,16 +213,12 @@ li::marker {
 .inspired {
   text-transform: uppercase;
   font-size: clamp(1.625rem, 5vw, 3.125rem);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
   width: 100%;
-  flex-direction: column;
 }
 
 .inspired p {
   font-size: inherit;
-  display: inline;
+  display: block;
   font-family: inherit;
   text-align: center;
   line-height: normal;
@@ -242,6 +235,17 @@ li::marker {
 @media (min-width: 32rem) and (max-width: 75rem) {
   .inspired {
     width: fit-content;
-    flex-direction: row;
   }
+
+  .inspired p {
+    display: inline;
+  }
+
+  .inspired p:last-of-type{
+    display: inline-block;
+  }
+}
+
+:root[data-color-scheme="dark"] :is(h1, .assignment, .assignment button)  {
+  color: var(--bg);
 }
