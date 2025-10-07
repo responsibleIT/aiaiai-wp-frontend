@@ -4,7 +4,31 @@
 }
 
 @media print {
-  *{
+  head,
+  head * {
+    display: none !important;
+  }
+  .section--content__block--hero:has(img) {
+    margin-top: unset !important;
+  }
+
+  h1 {
+    position: relative !important;
+    top: unset !important;
+    left: unset !important;
+    transform: unset !important;
+  }
+
+  ol li, ul li{
+    display: list-item !important;
+  }
+
+  figure {
+    display: none !important;
+  }
+
+  * {
+    text-align: left !important;
     border: none !important;
     background: none !important;
     font-family: Atkinson !important;
@@ -78,14 +102,14 @@
   /* Main content container sized for A5 */
   .main-content {
     width: 148mm !important; /* A5 width */
-    max-width: 148mm !important; /* Ensure content doesn't exceed A5 width */
+    max-width: calc(148mm * .8) !important; /* Ensure content doesn't exceed A5 width */
     padding: 15mm !important; /* Internal padding for content */
     box-sizing: border-box !important;
     position: relative !important;
 
     /* Center the A5 block on A4 - slightly to the left and up */
     margin: 35mm 0 !important; /* Reduced top margin, moved up from 43.5mm */
-    left: 48% !important; /* Moved slightly left from 50% */
+    left: 50% !important; /* Moved slightly left from 50% */
     transform: translateX(-50%) !important; /* Perfect horizontal centering */
   }
 
@@ -117,7 +141,7 @@
   /* Assignment gets same A5 treatment as main content */
   .assignment {
     width: 148mm !important; /* A5 width */
-    max-width: 148mm !important; /* Ensure content doesn't exceed A5 width */
+    max-width: calc(148mm * .8) !important; /* Ensure content doesn't exceed A5 width */
     padding: 15mm !important; /* Internal padding for content */
     box-sizing: border-box !important;
     display: block !important;
@@ -126,7 +150,7 @@
 
     /* Center the A5 block on A4 - slightly to the left and up */
     margin: 35mm 0 !important; /* Reduced top margin, moved up from 43.5mm */
-    left: 48% !important; /* Moved slightly left from 50% */
+    left: 50% !important; /* Moved slightly left from 50% */
     transform: translateX(-50%) !important; /* Perfect horizontal centering */
   }
 
@@ -154,7 +178,7 @@
   .assignment a,
   .assignment p,
   .assignment li {
-    font-size: 1rem !important;
+    font-size: .875rem !important;
     line-height: 1.4 !important;
   }
 
@@ -226,9 +250,12 @@
   /* Make links the same size as their parent text */
   .assignment a,
   .description a,
-  .main-content a {
+  .main-content a,
+  span, strong, em {
     font-size: inherit !important;
     line-height: inherit !important;
+    display: inline !important;
+    overflow-wrap: normal !important;
   }
 }
 
