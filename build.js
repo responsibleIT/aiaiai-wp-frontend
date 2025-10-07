@@ -227,7 +227,7 @@ async function processTemplate(
     let pageTitle;
     if (pageName === "index") {
       // For the homepage use the WordPress title when available, otherwise default to "Home"
-      pageTitle = "<span style='--index:0'>AI,</span><span style='--index:1'>AI,</span><span style='--index:2'>AI</span>";
+      pageTitle = "<span style='--index:0'>AI</span><span style='--index:1'>AI</span><span style='--index:2'>AI</span>";
       console.log($content.html());
       
     } else {
