@@ -10,7 +10,8 @@
   "scripts": {
     "build": "node build.js",
     "build:force": "rm -rf cache && node serverBuilder.js",
-    "check": "node serverBuilder.js"
+    "check": "node serverBuilder.js",
+    "dev": "npx serve build"
   },
   "dependencies": {
     "cheerio": "1.0.0-rc.10",
