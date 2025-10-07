@@ -1,13 +1,16 @@
 @page {
   size: A4;
-  margin: 0; /* Remove margins so we can control positioning manually */
+  margin: 0;
 }
 
 @media print {
+  /* Hide header elements */
   head,
   head * {
     display: none !important;
   }
+
+  /* Reset hero blocks */
   .section--content__block--hero:has(img) {
     margin-top: unset !important;
   }
@@ -19,14 +22,18 @@
     transform: unset !important;
   }
 
-  ol li, ul li{
+  /* Show list items properly */
+  ol li,
+  ul li {
     display: list-item !important;
   }
 
+  /* Hide figures */
   figure {
     display: none !important;
   }
 
+  /* Global resets */
   * {
     text-align: left !important;
     border: none !important;
@@ -38,33 +45,61 @@
     display: block !important;
   }
 
-  /* Force each main (assignment) to start on a new page */
-  main {
+  /* Make inline elements actually inline */
+  span,
+  strong,
+  em,
+  a {
+    display: inline !important;
+  }
+
+  /* PAGE BREAK LOGIC */
+  /* First section (heading) should be within A5 bounds and group with first content */
+  .main-content > section:first-child {
+    page-break-after: avoid;
+    width: 148mm !important;
+    max-width: 148mm !important;
+    padding: 15mm !important;
+    padding-bottom: 0 !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    margin: 43.5mm 0 0 0 !important;
+    left: 52% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  /* Keep first child of second section with heading above */
+  .main-content > section:nth-child(2) > *:first-child {
+    page-break-before: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Force second child of second section to new page */
+  .main-content > section:nth-child(2) > *:nth-child(2) {
+    page-break-before: always;
+  }
+
+  /* Assignment always on new page */
+  .assignment {
     page-break-before: always;
     page-break-inside: avoid;
   }
 
-  /* Don't break before the first main */
-  main:first-child {
-    page-break-before: auto;
+  /* Allow other content to flow normally */
+  .section--content:not(.assignment) {
+    page-break-inside: auto;
   }
 
-  /* Force assignment content (2nd element in 2nd section) to start on new page */
-  .wp-block-group.assignment {
-    page-break-before: always;
-    page-break-inside: auto; /* Allow breaking across pages */
-  }
-
-  /* Body layout for A5 content on A4 paper */
+  /* Body setup for A4 */
   body {
-    width: 210mm; /* A4 width */
-    height: 297mm; /* A4 height */
+    width: 210mm;
+    height: 297mm;
     margin: 0 !important;
     padding: 0 !important;
     position: relative;
   }
 
-  /* Reset only specific elements that might interfere */
+  /* Disable grid layouts */
   html,
   body,
   main,
@@ -73,15 +108,12 @@
     padding: 0 !important;
   }
 
-  /* Disable grid layout for print */
   .grid-container,
   main.grid-container {
     display: block !important;
     grid-template-columns: none !important;
     gap: 0 !important;
     max-width: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
   }
 
   .main-content {
@@ -90,71 +122,106 @@
     grid-column: unset !important;
   }
 
-  /* Reset any parent containers that might affect assignment centering */
-  .section--content {
-    display: block !important;
-    grid-column: unset !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: auto !important;
-  }
-
-  /* Main content container sized for A5 */
-  .main-content {
-    width: 148mm !important; /* A5 width */
-    max-width: calc(148mm * .8) !important; /* Ensure content doesn't exceed A5 width */
-    padding: 15mm !important; /* Internal padding for content */
-    box-sizing: border-box !important;
-    position: relative !important;
-
-    /* Center the A5 block on A4 - slightly to the left and up */
-    margin: 35mm 0 !important; /* Reduced top margin, moved up from 43.5mm */
-    left: 50% !important; /* Moved slightly left from 50% */
-    transform: translateX(-50%) !important; /* Perfect horizontal centering */
-  }
-
-  /* Ensure ALL content (including overflow) follows A5 layout */
-  .section--content,
-  .wp-content,
-  .description {
-    max-width: 118mm !important; /* Content width within A5 minus padding (148mm - 30mm padding) */
-    box-sizing: border-box !important;
-  }
-
-  /* Ensure content section takes available space */
-  .description {
-    padding: 0 !important;
-    margin: 0 !important;
+  /* A5 CUT AREA BORDER - Single complete rectangle outline */
+  body::before {
+    content: "";
+    pointer-events: none;
+    position: fixed;
+    z-index: 1000;
+    top: 43.5mm;
+    left: 31mm;
+    width: 148mm;
+    height: 210mm;
+    border: 0.5mm dashed #666;
     box-sizing: border-box;
   }
 
-  /* Force assignment to new page */
-  .assignment {
-    padding: 0 !important;
-    margin: 0 !important;
-    break-before: page !important;
-    break-inside: avoid;
-    break-after: avoid;
-    box-sizing: border-box;
+  /* Remove other pseudo-elements */
+  body::after,
+  html::before,
+  html::after {
+    display: none !important;
   }
 
-  /* Assignment gets same A5 treatment as main content */
-  .assignment {
-    width: 148mm !important; /* A5 width */
-    max-width: calc(148mm * .8) !important; /* Ensure content doesn't exceed A5 width */
-    padding: 15mm !important; /* Internal padding for content */
+  /* PUNCH HOLES - Using html pseudo-elements */
+  .section--content:nth-of-type(2) {
+    position: relative !important;
+    overflow: visible !important; /* allow negative top pseudo-elements to show */
+  }
+
+  /* Punch holes */
+  .section--content:nth-of-type(2):before,
+  .section--content:nth-of-type(2)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 3mm; /* horizontal position of holes */
+    width: 6mm;
+    height: 6mm;
+    background: white;
+    border: 0.5mm solid #666;
+    border-radius: 50%;
+    z-index: 1000;
+  }
+
+  /* First hole above the section */
+  .section--content:nth-of-type(2)::before {
+    top: calc(65mm - 35.19px - 56.693px); /* = -26.883mm */
+  }
+
+  /* Second hole inside the section */
+  .section--content:nth-of-type(2)::after {
+    top: calc(145mm - 35.19px - 56.693px); /* = 53.117mm */
+  }
+
+  /* CONTENT CONTAINER - Regular content (description, etc.) */
+  .section--content:not(.assignment),
+  .main-content > section:nth-child(2) {
+    width: 148mm !important;
+    max-width: 148mm !important;
+    padding: 15mm !important;
+    padding-top: 0 !important;
     box-sizing: border-box !important;
-    display: block !important;
-    grid-column: unset !important;
     position: relative !important;
 
-    /* Center the A5 block on A4 - slightly to the left and up */
-    margin: 35mm 0 !important; /* Reduced top margin, moved up from 43.5mm */
-    left: 50% !important; /* Moved slightly left from 50% */
-    transform: translateX(-50%) !important; /* Perfect horizontal centering */
+    /* Center at 50% - normal centered position */
+    margin: 0 !important;
+    left: 52% !important;
+    transform: translateX(-50%) !important;
   }
 
-  /* Typography adjustments for A5 */
+  /* First section already styled above, ensure it continues to second section */
+  .main-content > section:nth-child(2) {
+    margin-top: 0 !important;
+  }
+
+  /* ASSIGNMENT CONTAINER - Offset position */
+  .assignment {
+    width: 148mm !important;
+    max-width: 148mm !important;
+    min-height: 210mm !important;
+    padding: 15mm !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+
+    /* Offset at 40% - intentionally off-center */
+    margin: 43.5mm 0 !important;
+    left: 40% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  /* Ensure content respects A5 boundaries with adjusted padding */
+  .section--content > * {
+    max-width: 108mm !important; /* 148mm - (25mm left + 15mm right padding) */
+    box-sizing: border-box !important;
+  }
+
+  .main-content > section:first-child > *,
+  .main-content > section:nth-child(2) > * {
+    max-width: 128mm !important; /* Account for 25mm left padding + 15mm right */
+  }
+
+  /* Typography */
   h1 {
     font-size: 1.375rem !important;
     margin-bottom: 1rem !important;
@@ -167,215 +234,65 @@
 
   h3 {
     font-size: 1.125rem !important;
+    margin-bottom: 0.5rem !important;
   }
 
   h4 {
     font-size: 1.075rem !important;
   }
 
-  .description p,
-  .description a,
-  .assignment a,
-  .assignment p,
-  .assignment li {
-    font-size: .875rem !important;
+  p,
+  li {
+    font-size: 0.875rem !important;
     line-height: 1.4 !important;
-  }
-
-  .wp-content > p:first-of-type {
-    font-size: 1rem !important;
-  }
-
-  /* List spacing */
-  .section--content:last-child,
-  .assignment :first-child + p,
-  .assignment :first-child + ol,
-  .assignment :first-child + ul {
-    margin-top: 0.75rem;
-  }
-
-  .assignment p + ol,
-  .assignment p + ul {
-    margin-top: 0.1rem !important;
-  }
-
-  li + li {
-    margin-top: -0.125rem !important;
-  }
-
-  p {
-    font-weight: 400 !important;
-    margin-bottom: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
   }
 
   a {
     font-weight: 500 !important;
-  }
-
-  /* Responsive text sizing using clamp() based on available space */
-
-  /* Scale text based on container height using viewport units as proxy */
-  .assignment h1,
-  .description h1,
-  .main-content h1 {
-    font-size: clamp(0.85rem, 1.375rem - 0.5vb, 1.375rem) !important;
-    margin-bottom: clamp(0.4rem, 1rem - 0.25vb, 1rem) !important;
-  }
-
-  .assignment h2,
-  .description h2,
-  .main-content h2 {
-    font-size: clamp(0.75rem, 1.25rem - 0.4vb, 1.25rem) !important;
-    margin-bottom: clamp(0.3rem, 0.75rem - 0.2vb, 0.75rem) !important;
-  }
-
-  .assignment h3,
-  .description h3,
-  .main-content h3 {
-    font-size: clamp(0.7rem, 1.125rem - 0.35vb, 1.125rem) !important;
-    margin-bottom: clamp(0.25rem, 0.5rem - 0.15vb, 0.5rem) !important;
-  }
-
-  .assignment p,
-  .assignment li,
-  .description p,
-  .description li,
-  .main-content p,
-  .main-content li {
-    font-size: clamp(0.65rem, 1rem - 0.3vb, 1rem) !important;
-    line-height: clamp(1.15, 1.4 - 0.1vb, 1.4) !important;
-    margin-bottom: clamp(0.2rem, 0.5rem - 0.2vb, 0.5rem) !important;
-  }
-
-  /* Make links the same size as their parent text */
-  .assignment a,
-  .description a,
-  .main-content a,
-  span, strong, em {
     font-size: inherit !important;
     line-height: inherit !important;
-    display: inline !important;
-    overflow-wrap: normal !important;
-  }
-}
-
-@media print and (min-width: 210mm) and (max-width: 297mm) {
-  h1 {
-    font-size: 1.75rem !important;
-  }
-  h2 {
-    font-size: 1.375rem !important;
-  }
-  h3 {
-    font-size: 1.25rem !important;
-  }
-  h4 {
-    font-size: 1.125rem !important;
-  }
-  .assignment,
-  .description {
-    padding: 1.5rem !important;
-    margin: 0 !important;
-  }
-  .description p,
-  .description a,
-  .assignment a,
-  .assignment p,
-  .assignment li {
-    font-size: 0.75rem !important;
-    line-height: 1.3 !important;
   }
 
-  /* Reduce excessive spacing in assignments */
-  .assignment {
-    margin: 0 !important;
-    padding: 0.75rem !important;
+  /* List spacing */
+  ul,
+  ol {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.75rem !important;
+    padding-left: 0 !important;
   }
 
-  .assignment > * {
-    margin-top: 0.25rem !important;
-  }
-
-  .assignment > *:first-child {
-    margin-top: 0 !important;
-  }
-  .wp-content > p:first-of-type {
-    font-size: 1.125rem !important;
-  }
   li + li {
     margin-top: 0.25rem !important;
   }
-  .assignment p + ol,
-  .assignment p + ul {
-    margin-top: 0.5rem !important;
-  }
-  .section--content:last-child,
-  .assignment :first-child + p,
-  .assignment :first-child + ol,
-  .assignment :first-child + ul {
-    margin-top: 0.75rem;
-  }
-}
 
-/* A4 print with A5 cut lines */
-@media print {
-  /* Cut lines to show A5 boundaries on A4 paper */
-  body::before,
-  body::after {
-    content: "";
-    position: fixed;
-    z-index: 1000;
-    background: transparent;
-  }
+  /* Responsive scaling */
+  @supports (font-size: clamp(1rem, 1vw, 2rem)) {
+    h1 {
+      font-size: clamp(1rem, 1.375rem, 1.5rem) !important;
+    }
 
-  /* Horizontal cut lines (top and bottom) */
-  body::before {
-    left: 31mm; /* Start from A5 left boundary */
-    right: 31mm; /* End at A5 right boundary */
-    height: 0.5mm;
-    top: 43.5mm; /* Top A5 boundary */
-    border-top: 0.5mm dashed #000;
-  }
+    h2 {
+      font-size: clamp(0.9rem, 1.25rem, 1.375rem) !important;
+    }
 
-  body::after {
-    left: 31mm; /* Start from A5 left boundary */
-    right: 31mm; /* End at A5 right boundary */
-    height: 0.5mm;
-    bottom: 43.5mm; /* Bottom A5 boundary */
-    border-bottom: 0.5mm dashed #000;
-  }
+    h3 {
+      font-size: clamp(0.85rem, 1.125rem, 1.25rem) !important;
+    }
 
-  /* Vertical cut lines (left and right) */
-  html::before,
-  html::after {
-    content: "";
-    position: fixed;
-    width: 0.5mm;
-    top: 43.5mm; /* Start from A5 top boundary */
-    bottom: 43.5mm; /* End at A5 bottom boundary */
-    background: transparent;
-    border-left: 0.5mm dashed #000;
-    z-index: 1000;
-  }
-
-  html::before {
-    left: 31mm; /* Left A5 boundary: (210-148)/2 = 31mm */
-  }
-
-  html::after {
-    right: 31mm; /* Right A5 boundary */
-    border-left: none;
-    border-right: 0.5mm dashed #000;
+    p,
+    li {
+      font-size: clamp(0.75rem, 0.875rem, 1rem) !important;
+      line-height: clamp(1.3, 1.4, 1.5) !important;
+    }
   }
 
   /* Hide unnecessary elements */
   .no-print,
-  .assignment button,
+  button,
   body > header,
   body > footer,
-  body > .no-print,
-  .section--content__block--intro,
-  .section--content__block--intro p {
+  .section--content__block--intro {
     display: none !important;
   }
 
@@ -385,5 +302,13 @@
 
   .print-all.no-print {
     display: none !important;
+  }
+
+  html:nth-child(2)::before {
+    background-color: red;
+  }
+
+  html:nth-of-type(2)::before {
+    background-color: lime;
   }
 }
