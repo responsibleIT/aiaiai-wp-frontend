@@ -120,8 +120,9 @@ p {
   padding-top: max(3rem, 4.375rem); /* min 3rem, up to 70px */
   padding-bottom: max(2.5rem, 7.5rem); /* min 2.5rem, up to 120px */
   height: fit-content;
-  border-radius: 0.625rem;
+  border-radius: 0.625rem .625rem 0 0;
   border: 2px solid var(--assignment-color-d);
+  border-bottom: 0;
 }
 
 :root[data-color-scheme="dark"] .assignment {
