@@ -61,6 +61,8 @@
 
   --outline-medium--d: dashed 0.125em var(--brdr-clr);
   --outline-thick--d: dashed 0.2em var(--brdr-clr);
+
+  --clr-button-disabled: hsl(0, 0%, 35%);
 }
 
 /* CONTRAST */

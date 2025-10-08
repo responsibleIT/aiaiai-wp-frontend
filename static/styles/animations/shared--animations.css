@@ -1,0 +1,9 @@
+/* Timings */
+body {
+  --general-delay: 0.2s;
+  --general-animation-duration: 0.65s;
+
+  --list-item-delay: .3s;
+
+  --bouncy-bezier: cubic-bezier(0.33, 1.65, 0.66, 1) forwards;
+}

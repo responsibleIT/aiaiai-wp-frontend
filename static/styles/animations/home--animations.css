@@ -1,8 +1,6 @@
 body {
   /* General h1 animation timings */
-  --general-delay: 0.2s;
   --h1-individual-delay: 0.175s;
-  --general-animation-duration: 0.65s;
 
   /* How many span items are in the h1 */
   --h1-count: 3;
@@ -64,6 +62,27 @@ IF NO PREFERENCE IS SET */
     animation: a--slide-up var(--general-animation-duration)
       calc(var(--h1-total-duration) + (var(--index) * var(--list-item-delay)))
       var(--bouncy-bezier);
+  }
+
+  /* First 3 */
+  .wp-block-page-list li{
+    /* anim here */
+    opacity: 0;
+    transform: translateY(30%);
+    scale: .2 .2;
+    animation: test var(--general-animation-duration) calc(var(--h1-total-duration) + (1 * var(--list-item-delay))) var(--bouncy-bezier);
+  }
+}
+
+@keyframes test {
+  30%{
+    scale: .5 .3;
+  }
+
+  100%{
+    scale: 1 1;
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 

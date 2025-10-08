@@ -58,8 +58,8 @@ summary:focus-visible {
 
 button:disabled,
 summary:disabled {
-  color: var(--clr-button--disabled);
-  border-color: var(--brdr-clr-button--disabled);
+  color: var(--clr-button-disabled);
+  border-color: var(--clr-button-disabled);
 }
 
 /***************************/

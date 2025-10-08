@@ -18,3 +18,18 @@ main.grid-container {
   margin-top: 3.125rem;
 }
 
+a {
+  text-decoration: none;
+  color: var(--clr);
+  transition: color 0.25s ease-out;
+}
+
+a p {
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+a:hover p {
+  color: black;
+  opacity: 1;
+}
