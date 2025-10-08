@@ -43,6 +43,8 @@ if (!WP_API_URL) {
   process.exit(1);
 }
 
+let assignmentColors = [];
+
 // Ensure build directory exists
 async function ensureDir(dir) {
   try {
@@ -227,9 +229,8 @@ async function processTemplate(
     let pageTitle;
     if (pageName === "index") {
       // For the homepage use the WordPress title when available, otherwise default to "Home"
-      pageTitle = "<span style='--index:0'>AI</span><span style='--index:1'>AI</span><span style='--index:2'>AI</span>";
-      console.log($content.html());
-      
+      pageTitle =
+        "<span style='--index:0'>AI</span><span style='--index:1'>AI</span><span style='--index:2'>AI</span>";
     } else {
       // Use WordPress title if available, otherwise use default
       pageTitle = capitalizeFirstLetter(
@@ -260,10 +261,13 @@ async function processTemplate(
       const $body = $("body");
 
       const previousStyle = $body.attr("style") || "";
-      const needsSemicolon = previousStyle && !previousStyle.trim().endsWith(";");
-      const updatedStyle = `${previousStyle}${needsSemicolon ? ";" : ""}${previousStyle ? " " : ""}--assignment-color: var(--${color}); --assignment-color-l: var(--${color}-l); --assignment-color-d: var(--${color}-d);`;
+      const needsSemicolon =
+        previousStyle && !previousStyle.trim().endsWith(";");
+      const updatedStyle = `${previousStyle}${needsSemicolon ? ";" : ""}${
+        previousStyle ? " " : ""
+      }--assignment-color: var(--${color}); --assignment-color-l: var(--${color}-l); --assignment-color-d: var(--${color}-d);`;
       $body.attr("style", updatedStyle);
-      $body.attr("data-color_theme", color)
+      $body.attr("data-color_theme", color);
     }
 
     // Add hero image if available
@@ -300,8 +304,6 @@ async function processTemplate(
             // Add it after the wp-content block
             $(".wp-content").after(assignmentContent);
           }
-        } else {
-          console.log("hoi");
         }
         // For homepage, enhance assignment links with grid images
         if (pageName === "index" && assignmentImages) {
@@ -322,40 +324,45 @@ async function processTemplate(
 }
 
 function enhanceHomepageAssignmentLinks($content, assignmentImages) {
-  // Find all list items with assignment links and add grid images
   $content("li.wp-block-pages-list__item").each((i, listItem) => {
     const $listItem = $content(listItem);
     const $link = $listItem.find("a.wp-block-pages-list__item__link");
 
-    if ($link.length) {
-      // Wrap existing text content in a <p> tag
-      const linkText = $link.text().trim();
-      $link.text(""); // Clear the text
-      $link.append(`<p>${linkText}</p>`); // Add text wrapped in <p>
+    if (!$link.length) return;
 
-      const href = $link.attr("href");
-      if (href) {
-        // Extract slug from href (e.g., "./assignment-slug" -> "assignment-slug")
-        const slugMatch = href.match(/\.\/([^\.]+)(?:\.html)?$/);
-        if (slugMatch) {
-          const slug = slugMatch[1];
-          const imageData = assignmentImages[slug];
+    $listItem.attr("style", `--index:${i}`)
 
-          if (imageData) {
-            // Create grid image HTML and prepend it to the link
-            const gridImageHTML = createGridImageHTML(imageData);
-            if (gridImageHTML) {
-              $link.prepend(gridImageHTML);
-              console.log(
-                `[homepage] Added grid image for assignment: ${slug}`
-              );
-            }
-          }
-        }
+    // Wrap existing text content in a <p> tag
+    const linkText = $link.text().trim();
+    $link.text("");
+    $link.append(`<p>${linkText}</p>`);
+
+    const href = $link.attr("href");
+    if (!href) return;
+
+    // Extract slug from href (e.g., "./assignment-slug" -> "assignment-slug")
+    const slugMatch = href.match(/\.\/([^\.]+)(?:\.html)?$/);
+    if (!slugMatch) return;
+
+    const slug = slugMatch[1];
+
+    // Lookup color and image using the slug
+    const colorData = assignmentColors.find((c) => c.name === slug);
+    if (colorData) {
+      $link.attr("style", `--assignment-color: var(--${colorData.color}); --assignment-color-l: var(--${colorData.color}-l); --assignment-color-d: var(--${colorData.color}-d);`)
+    }
+
+    const imageData = assignmentImages[slug];
+    if (imageData) {
+      const gridImageHTML = createGridImageHTML(imageData);
+      if (gridImageHTML) {
+        $link.prepend(gridImageHTML);
+        console.log(`[homepage] Added grid image for assignment: ${slug}`);
       }
     }
   });
 }
+
 
 async function copyStaticAssets() {
   try {
@@ -406,6 +413,17 @@ async function findTemplate(pageName, wpContent) {
   }
 }
 
+function getAssignmentColor(classList = []) {
+  if (!Array.isArray(classList)) return "lilia"; // default fallback
+  const colorCandidates = classList
+    .map((cls) => {
+      const match = cls.match(/^category-(.+)$/);
+      return match ? match[1] : null;
+    })
+    .filter((name) => name && name !== "oefening");
+  return (colorCandidates[0] || "lilia").toLowerCase();
+}
+
 export async function buildSite() {
   try {
     // Clear and recreate build directory
@@ -422,7 +440,6 @@ export async function buildSite() {
     // Get all other pages to collect assignment images
     const pages = await fetchWordPressContent("pages");
     let assignmentImages = {};
-
     if (Array.isArray(pages)) {
       // Skip the homepage since we'll handle it later
       const otherPages = pages.filter((page) => page.id !== frontPageId);
@@ -441,6 +458,8 @@ export async function buildSite() {
           page.class_list?.includes("category-oefening") &&
           page.featured_media
         ) {
+          console.log(page);
+
           console.log(
             `[${page.slug}] Downloading featured image (ID: ${page.featured_media})`
           );
@@ -484,6 +503,18 @@ export async function buildSite() {
               );
             }
           }
+        }
+
+        if (page.class_list?.includes("category-oefening")) {
+          const color = getAssignmentColor(page.class_list);
+
+          // Add to global color array
+          assignmentColors.push({
+            name: page.slug,
+            color: color,
+          });
+
+          console.log(`[${page.slug}] Assigned color: ${color}`);
         }
 
         await processTemplate(
