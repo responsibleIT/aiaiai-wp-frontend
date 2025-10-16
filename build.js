@@ -228,9 +228,7 @@ async function processTemplate(
     // Set page title and h1
     let pageTitle;
     if (pageName === "index") {
-      // For the homepage use the WordPress title when available, otherwise default to "Home"
-      pageTitle =
-        "<span style='--index:0'>AI</span><span style='--index:1'>AI</span><span style='--index:2'>AI</span>";
+      // skip!
     } else {
       // Use WordPress title if available, otherwise use default
       pageTitle = capitalizeFirstLetter(
@@ -241,10 +239,11 @@ async function processTemplate(
 
     // Set the h1 content and page title
     if (pageName === "index") {
-      $(".section--content__block--hero h1").html(pageTitle);
+      // ! change this !
+      $("h1").html(pageTitle);
       $("title").text("AIAIAI | Lectoraat Responsible IT");
     } else {
-      $(".section--content__block--hero h1").text(pageTitle);
+      $("h1").text(pageTitle);
       $("title").text(`${pageTitle} | Lectoraat Responsible IT`);
     }
 
@@ -269,11 +268,18 @@ async function processTemplate(
       $body.attr("style", updatedStyle);
       $body.attr("data-color_theme", color);
     }
+    console.log(isAssignment);
 
     // Add hero image if available
     if (wpContent.featured_image) {
-      const heroImage = createHeroImageHTML(wpContent.featured_image);
-      $(".section--content__block--hero").append(heroImage);
+      let heroImage = createHeroImageHTML(wpContent.featured_image);
+      const $hero = cheerio.load(heroImage);
+      $hero("figure img").attr(
+        "style",
+        `--vt-name:${pageTitle.trim().replace(/[.,\/\-]/g, '').replace(/\s+/g, "-").toLowerCase()}`
+      );
+      heroImage = $hero.html();
+      $(".section--content__block--hero").prepend(heroImage);
     }
 
     // Replace content markers with WordPress content
@@ -330,10 +336,11 @@ function enhanceHomepageAssignmentLinks($content, assignmentImages) {
 
     if (!$link.length) return;
 
-    $listItem.attr("style", `--index:${i}`)
+    $listItem.attr(
+      "style",
+      `--vt-name:${$link.text().trim().replace(/[.,\/\-]/g, '').replace(/\s+/g, "-").toLowerCase()}`
+    );
 
-    // Wrap existing text content in a <p> tag
-    const linkText = $link.text().trim();
     $link.text("");
 
     const href = $link.attr("href");
@@ -348,7 +355,10 @@ function enhanceHomepageAssignmentLinks($content, assignmentImages) {
     // Lookup color and image using the slug
     const colorData = assignmentColors.find((c) => c.name === slug);
     if (colorData) {
-      $link.attr("style", `--assignment-color: var(--${colorData.color}); --assignment-color-l: var(--${colorData.color}-l); --assignment-color-d: var(--${colorData.color}-d);`)
+      $link.attr(
+        "style",
+        `--assignment-color: var(--${colorData.color}); --assignment-color-l: var(--${colorData.color}-l); --assignment-color-d: var(--${colorData.color}-d);`
+      );
     }
 
     const imageData = assignmentImages[slug];
@@ -361,7 +371,6 @@ function enhanceHomepageAssignmentLinks($content, assignmentImages) {
     }
   });
 }
-
 
 async function copyStaticAssets() {
   try {
@@ -457,7 +466,6 @@ export async function buildSite() {
           page.class_list?.includes("category-oefening") &&
           page.featured_media
         ) {
-
           featuredImage = await imageCollection(
             page.featured_media,
             WP_API_URL
