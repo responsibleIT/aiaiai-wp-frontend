@@ -1,7 +1,4 @@
-body {
-  overflow-y: hidden;
-  overflow-y: clip;
-}
+
 h1 {
   font-size: clamp(2rem, 6vw, 4rem);
 }
@@ -262,6 +259,7 @@ li::marker {
   color: var(--white);
   font-size: clamp(1.5rem, 6vw, 3.75rem);
   border-radius: 4rem;
+  margin: 0;
   color: var(--assignment-color-d);
 }
 

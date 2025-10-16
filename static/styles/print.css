@@ -10,6 +10,10 @@
     display: none !important;
   }
 
+  main{
+    overflow: unset !important;
+  }
+
   /* Reset hero blocks */
   .section--content__block--hero:has(img) {
     margin-top: unset !important;
@@ -43,6 +47,12 @@
     padding: 0 !important;
     margin: 0 !important;
     display: block !important;
+  }
+
+  .assignment::before, .assignment::after{
+    content: unset;
+    display: none;
+    border: none !important;
   }
 
   /* Make inline elements actually inline */

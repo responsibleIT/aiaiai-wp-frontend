@@ -2,7 +2,7 @@
   navigation: auto;
 }
 
-img{
+img.hero-image, li{
   view-transition-name: var(--vt-name);
 }
 
