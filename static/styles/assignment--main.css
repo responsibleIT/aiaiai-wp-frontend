@@ -4,7 +4,8 @@ body{
 }
 
 h1 {
-  font-size: clamp(2rem, 6vw, 4rem);
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-family: Atkinson;
 }
 
 header {
@@ -274,10 +275,14 @@ li::marker {
   z-index: 1;
 }
 
-a{
+.wp-content a{
   font-size: inherit;
   text-decoration: underline;
   color: var(--link);
+}
+
+.wp-content a:hover{
+  color: var(--link-hover);
 }
 
 :root[data-color-scheme="dark"] :is(h1, .assignment, .assignment button) {

@@ -297,7 +297,7 @@ async function processTemplate(
             // Remove it from the main content
             $firstP.remove();
             // Add it to the intro section
-            $(".section--content__block--intro").html(`<p>${introText}</p>`);
+            $(".section--content__block--intro").append(`<p>${introText}</p>`);
           }
 
           // Find and extract the assignment block
