@@ -1,5 +1,10 @@
+
 h1 {
   font-size: clamp(2rem, 6vw, 4rem);
+}
+
+header {
+  z-index: 1;
 }
 
 p {
@@ -12,6 +17,8 @@ p {
   line-height: 1.2;
   margin: 0;
   margin-top: 1rem;
+  z-index: 1;
+  position: relative;
 }
 
 .wp-content p {
@@ -34,7 +41,7 @@ p {
   font-size: clamp(1.5rem, 5vw, 1.875rem);
   font-weight: 600;
   margin: 0;
-  margin-bottom: .875rem;
+  margin-bottom: 0.875rem;
 }
 
 .main-content {
@@ -51,13 +58,14 @@ p {
 }
 
 .section--content__block--hero:has(img) {
+  z-index: 1;
   margin-inline: -2rem;
   position: relative;
 }
 
 @media (min-width: 900px) {
   .section--content__block--hero:has(img) {
-    margin-top: -10rem;
+    margin-top: -5rem;
   }
 }
 
@@ -74,10 +82,6 @@ p {
   /* just a test */
 
   padding-inline: 2rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   text-align: center;
 }
 
@@ -88,29 +92,19 @@ p {
 }
 
 .wp-content {
-  text-align: center;
+  text-align: left;
   padding: 4.3125rem 2.75rem;
   background: var(--bg);
   border-radius: 0.625rem;
   height: fit-content;
 }
 
-.section--content__block + .assignment {
-  margin-top: calc(3rem + 2vw);
+.wp-content p + p {
+  margin-top: 1vw;
 }
 
-@media (min-width: 75rem) {
-  .section--content:last-child > div.section--content__block {
-    grid-column: 1 / 5;
-  }
-
-  .assignment {
-    grid-column: 5 / -1;
-  }
-
-  .section--content__block + .assignment {
-    margin-top: unset;
-  }
+.section--content__block + .assignment {
+  margin-top: calc(3rem + 2vw);
 }
 
 .assignment {
@@ -120,9 +114,25 @@ p {
   padding-top: max(3rem, 4.375rem); /* min 3rem, up to 70px */
   padding-bottom: max(2.5rem, 7.5rem); /* min 2.5rem, up to 120px */
   height: fit-content;
-  border-radius: 0.625rem .625rem 0 0;
-  border: 2px solid var(--assignment-color-d);
   border-bottom: 0;
+  position: relative;
+}
+
+.assignment::before,
+.assignment::after {
+  z-index: 0;
+  content: "";
+  background: inherit;
+  position: absolute;
+  top: 100%;
+  left: -0.125rem;
+  height: 100%;
+  width: calc(100% + 0.125rem);
+  border-left: 0.125rem solid var(--assignment-color-d);
+}
+
+.assignment::after {
+  top: -100%;
 }
 
 :root[data-color-scheme="dark"] .assignment {
@@ -227,7 +237,10 @@ li::marker {
   text-transform: uppercase;
   font-size: clamp(1.625rem, 5vw, 3.125rem);
   width: 100%;
-  gap: .75rem;
+  gap: 0.75rem;
+  color: var(--assignment-color);
+  font-weight: 800;
+  font-family: Atkinson;
 }
 
 .inspired p {
@@ -238,20 +251,27 @@ li::marker {
   line-height: normal;
 }
 
-.inspired p{
-  line-height: 1;
-}
-
-.inspired + .description{
+.inspired + .description {
   margin: 1.75rem 0;
 }
 
 .inspired p:last-child {
-  background: var(--blue-d);
   color: var(--white);
   font-size: clamp(1.5rem, 6vw, 3.75rem);
   border-radius: 4rem;
-  padding: 3.125rem 1.5rem 2.5rem 1.5rem;
+  margin: 0;
+  color: var(--assignment-color-d);
+}
+
+.print-page {
+  grid-column: 1 / -1;
+  align-self: end;
+  justify-self: end;
+  z-index: 1;
+}
+
+:root[data-color-scheme="dark"] :is(h1, .assignment, .assignment button) {
+  color: var(--bg);
 }
 
 @media (min-width: 32rem) and (max-width: 75rem) {
@@ -266,6 +286,23 @@ li::marker {
   }
 }
 
-:root[data-color-scheme="dark"] :is(h1, .assignment, .assignment button) {
-  color: var(--bg);
+@media (min-width: 75rem) {
+  .section--content:last-child > div.section--content__block {
+    grid-column: 1 / 6;
+  }
+
+  .section--content:last-child {
+    margin-right: -2rem;
+  }
+
+  .assignment {
+    grid-column: 6 / -1;
+    border-radius: 0;
+    border-color: transparent;
+    border-left: 0.125rem solid var(--assignment-color-d);
+  }
+
+  .section--content__block + .assignment {
+    margin-top: unset;
+  }
 }

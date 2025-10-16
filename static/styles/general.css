@@ -2,6 +2,10 @@
   navigation: auto;
 }
 
+img.hero-image, li{
+  view-transition-name: var(--vt-name);
+}
+
 *,
 *::before,
 *::after {
@@ -44,6 +48,9 @@ body {
   background-image: radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px);
   background-size: 8px 8px;
   background-repeat: repeat;
+
+  /* Global ease */
+  --bouncy-bezier: cubic-bezier(0.33, 1.65, 0.66, 1) forwards;
 }
 
 :root[data-color-scheme="dark"] body {

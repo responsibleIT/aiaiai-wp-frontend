@@ -5,7 +5,7 @@ const printAll = document.querySelector(".print-all");
 let currentPrintContent = null; // 'all', ['slug1', 'slug2'], 'single-slug', or null
 
 // Print listener
-const printButton = document.querySelector(".assignment button");
+const printButton = document.querySelector(".print-page button");
 printButton.addEventListener("click", () => {
   currentMain.classList.remove("no-print");
   printAll.classList.add("no-print");
