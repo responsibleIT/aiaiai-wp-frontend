@@ -335,7 +335,6 @@ function enhanceHomepageAssignmentLinks($content, assignmentImages) {
     // Wrap existing text content in a <p> tag
     const linkText = $link.text().trim();
     $link.text("");
-    $link.append(`<p>${linkText}</p>`);
 
     const href = $link.attr("href");
     if (!href) return;
@@ -458,22 +457,10 @@ export async function buildSite() {
           page.class_list?.includes("category-oefening") &&
           page.featured_media
         ) {
-          console.log(page);
 
-          console.log(
-            `[${page.slug}] Downloading featured image (ID: ${page.featured_media})`
-          );
           featuredImage = await imageCollection(
             page.featured_media,
             WP_API_URL
-          );
-
-          // Log image sizes to verify they're coming through
-          console.log(
-            `[${page.slug}] Image sizes:`,
-            featuredImage.downloads
-              .map((data) => `${data.size}: ${data.width}x${data.height}`)
-              .join(", ")
           );
 
           // Download the image files
@@ -550,9 +537,6 @@ export async function buildSite() {
         await ensureDir(assetsJsonDir);
         const manifestPath = join(assetsJsonDir, "assignments.json");
         await writeFile(manifestPath, JSON.stringify(assignmentPages, null, 2));
-        console.log(
-          `Wrote assignments manifest: ${manifestPath} (${assignmentPages.length} items)`
-        );
       } catch (manifestError) {
         console.error("Failed to write assignments manifest:", manifestError);
       }
