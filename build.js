@@ -249,14 +249,9 @@ async function processTemplate(
 
     // Set body data-color for assignment pages, derived from category-<suffix> (fallback: purple)
     if (isAssignment) {
-      const colorCandidates = (wpContent.class_list || [])
-        .map((cls) => {
-          const match = cls.match(/^category-(.+)$/);
-          return match ? match[1] : null;
-        })
-        .filter((name) => name && name !== "oefening");
+      // Use the centralized helper so it's consistent with other code
+      const color = getAssignmentColor(wpContent.class_list);
 
-      const color = (colorCandidates[0] || "lilia").toLowerCase();
       const $body = $("body");
 
       const previousStyle = $body.attr("style") || "";
@@ -266,7 +261,9 @@ async function processTemplate(
         previousStyle ? " " : ""
       }--assignment-color: var(--${color}); --assignment-color-l: var(--${color}-l); --assignment-color-d: var(--${color}-d);`;
       $body.attr("style", updatedStyle);
-      $body.attr("data-color_theme", color);
+
+      // Use kebab-case data attribute name (consistent with HTML data-* conventions)
+      $body.attr("data-color-theme", color);
     }
     console.log(isAssignment);
 
@@ -276,7 +273,11 @@ async function processTemplate(
       const $hero = cheerio.load(heroImage);
       $hero("figure img").attr(
         "style",
-        `--vt-name:${pageTitle.trim().replace(/[.,\/\-]/g, '').replace(/\s+/g, "-").toLowerCase()}`
+        `--vt-name:${pageTitle
+          .trim()
+          .replace(/[.,\/\-]/g, "")
+          .replace(/\s+/g, "-")
+          .toLowerCase()}`
       );
       heroImage = $hero.html();
       $(".section--content__block--hero").prepend(heroImage);
@@ -290,14 +291,15 @@ async function processTemplate(
 
         // For assignment pages, handle special content placement
         if (isAssignment) {
-          const $firstP = $wpContent("p").first();
-          if ($firstP.length) {
+          const $inspired = $wpContent(".inspired");
+          if ($inspired.length) {
             // Store the paragraph content
-            const introText = $firstP.html();
+            const introText = $inspired.html();
             // Remove it from the main content
-            $firstP.remove();
+            $inspired.remove();
+            $wpContent(".description").prepend(`<h1>${pageTitle}</h1>`)
             // Add it to the intro section
-            $(".section--content__block--intro").append(`<p>${introText}</p>`);
+            $(".section--content__block--intro").append(`<div class="inspired">${introText}</div>`);
           }
 
           // Find and extract the assignment block
@@ -338,7 +340,12 @@ function enhanceHomepageAssignmentLinks($content, assignmentImages) {
 
     $listItem.attr(
       "style",
-      `--vt-name:${$link.text().trim().replace(/[.,\/\-]/g, '').replace(/\s+/g, "-").toLowerCase()}`
+      `--vt-name:${$link
+        .text()
+        .trim()
+        .replace(/[.,\/\-]/g, "")
+        .replace(/\s+/g, "-")
+        .toLowerCase()}`
     );
 
     $link.text("");
@@ -422,14 +429,29 @@ async function findTemplate(pageName, wpContent) {
 }
 
 function getAssignmentColor(classList = []) {
-  if (!Array.isArray(classList)) return "lilia"; // default fallback
-  const colorCandidates = classList
-    .map((cls) => {
-      const match = cls.match(/^category-(.+)$/);
-      return match ? match[1] : null;
-    })
-    .filter((name) => name && name !== "oefening");
-  return (colorCandidates[0] || "lilia").toLowerCase();
+  // handle DOMTokenList or single string or array
+  const list = Array.isArray(classList)
+    ? classList
+    : classList &&
+      typeof classList === "object" &&
+      typeof classList.length === "number"
+    ? Array.from(classList)
+    : String(classList).split(/\s+/);
+
+  const excluded = new Set(["oefening", "inspired-by", "made-by"]);
+
+  for (const cls of list) {
+    if (!cls) continue;
+    const match = cls.match(/^category-(.+)$/i);
+    if (!match) continue;
+    const name = match[1].toLowerCase().trim();
+    if (!name || excluded.has(name)) continue;
+    console.log(name);
+
+    return name;
+  }
+
+  return "lilia";
 }
 
 export async function buildSite() {
@@ -502,6 +524,7 @@ export async function buildSite() {
 
         if (page.class_list?.includes("category-oefening")) {
           const color = getAssignmentColor(page.class_list);
+          console.log("color", color);
 
           // Add to global color array
           assignmentColors.push({

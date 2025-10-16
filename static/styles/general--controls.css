@@ -124,7 +124,7 @@ a {
   text-underline-offset: 0.15em;
 }
 
-a:focus-visible {
+header a:focus-visible {
   position: relative;
   z-index: 1;
 

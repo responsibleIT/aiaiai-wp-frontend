@@ -83,7 +83,7 @@
   transition: scale .2s ease;
   transition-delay: .15s;
 }
-[data-display="grid"] li :is(:hover, :focus, :active) {
+[data-display="grid"] li:is(:hover, :focus-within, :active) {
   scale: 1 1;
   border-radius: 2rem;
   transition-delay: 0s;
