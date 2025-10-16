@@ -24,12 +24,13 @@ summary {
   border-color: inherit;
   outline: none;
   font-family: Pinky;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--clr-button);
 }
 
 button:not([disabled], [inert]) {
   cursor: pointer;
+  font-weight: 600;
 }
 
 button[data-type="printAll"] {
