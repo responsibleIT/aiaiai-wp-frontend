@@ -63,27 +63,6 @@ IF NO PREFERENCE IS SET */
       calc(var(--h1-total-duration) + (var(--index) * var(--list-item-delay)))
       var(--bouncy-bezier);
   }
-
-  /* First 3 */
-  .wp-block-page-list li{
-    /* anim here */
-    opacity: 0;
-    transform: translateY(30%);
-    scale: .2 .2;
-    animation: test var(--general-animation-duration) calc(var(--h1-total-duration) + (1 * var(--list-item-delay))) var(--bouncy-bezier);
-  }
-}
-
-@keyframes test {
-  30%{
-    scale: .5 .3;
-  }
-
-  100%{
-    scale: 1 1;
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
 
 /* MARK: Overwrite system no-preference */
