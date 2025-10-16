@@ -1,3 +1,7 @@
+body{
+  overflow: hidden;
+  overflow: clip;
+}
 
 h1 {
   font-size: clamp(2rem, 6vw, 4rem);
@@ -50,8 +54,14 @@ p {
   gap: inherit;
 }
 
+.main-content > .section--content:first-child {
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
 .main-content,
 .section--content,
+.section--content__block--intro,
 .assignment,
 .section--content:last-child > div.section--content__block {
   grid-column: 1 / -1;
@@ -93,9 +103,8 @@ p {
 
 .wp-content {
   text-align: left;
-  padding: 4.3125rem 2.75rem;
+  padding: 1.5rem 3rem;
   background: var(--bg);
-  border-radius: 0.625rem;
   height: fit-content;
 }
 
@@ -109,10 +118,8 @@ p {
 
 .assignment {
   background: var(--assignment-color, #b8e6ff);
-  padding-left: 2.25rem; /* 36px */
-  padding-right: 2.25rem; /* 36px */
-  padding-top: max(3rem, 4.375rem); /* min 3rem, up to 70px */
-  padding-bottom: max(2.5rem, 7.5rem); /* min 2.5rem, up to 120px */
+  padding: 1.5rem 3rem;
+  padding-right: clamp(2rem, 10vw, 5rem);
   height: fit-content;
   border-bottom: 0;
   position: relative;
@@ -124,6 +131,7 @@ p {
   content: "";
   background: inherit;
   position: absolute;
+  display: none;
   top: 100%;
   left: -0.125rem;
   height: 100%;
@@ -175,9 +183,6 @@ p {
   align-items: center;
   text-transform: inherit;
   border-radius: unset;
-}
-
-.assignment header button:hover {
 }
 
 .assignment :first-child + p {
@@ -258,7 +263,6 @@ li::marker {
 .inspired p:last-child {
   color: var(--white);
   font-size: clamp(1.5rem, 6vw, 3.75rem);
-  border-radius: 4rem;
   margin: 0;
   color: var(--assignment-color-d);
 }
@@ -268,6 +272,12 @@ li::marker {
   align-self: end;
   justify-self: end;
   z-index: 1;
+}
+
+a{
+  font-size: inherit;
+  text-decoration: underline;
+  color: var(--link);
 }
 
 :root[data-color-scheme="dark"] :is(h1, .assignment, .assignment button) {
@@ -291,6 +301,10 @@ li::marker {
     grid-column: 1 / 6;
   }
 
+  .section--content__block--intro {
+    grid-column: 1 / 6;
+  }
+
   .section--content:last-child {
     margin-right: -2rem;
   }
@@ -300,6 +314,11 @@ li::marker {
     border-radius: 0;
     border-color: transparent;
     border-left: 0.125rem solid var(--assignment-color-d);
+  }
+
+  .assignment::before,
+  .assignment::after {
+    display: block;
   }
 
   .section--content__block + .assignment {
