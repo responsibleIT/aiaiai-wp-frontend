@@ -1,15 +1,49 @@
 h1 {
   text-transform: lowercase;
-  font-size: clamp(6.25rem, 35vw, 28.125rem);
+  font-size: clamp(1.75rem, 4.125vw, 3rem);
   line-height: 100%;
   display: flex;
+  justify-content: center;
+  margin: 0 2rem;
   gap: clamp(0.25rem, 2vw, 1rem);
+  margin-top: 2.25rem;
+  font-family: Atkinson;
+  text-transform: uppercase;
+  color: var(--dark-green);
+  text-align: center;
 }
 
-.section--content__block--hero {
+.main-content > .section--content:first-child {
+  margin: 0 -2rem;
+  position: relative;
+  z-index: 1;
+  background: var(--green);
+  height: fit-content;
+  overflow: hidden;
+  overflow: clip;
+  padding: 10rem 0 8rem 0;
+  @media (min-width: 32rem) {
+    padding: 6rem 0 8rem 0;
+  }
+}
+
+.section--content:first-child .section--content__block--hero {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.section--content__block--subhero {
+  padding: 0 2rem;
+}
+
+.main-content > .section--content:last-child {
+  margin-top: 6.5rem;
+}
+
+header.header--body {
+  top: 0;
+  position: absolute;
 }
 
 h2:first-of-type {
@@ -23,7 +57,6 @@ h2:first-of-type {
 }
 
 .main-content .section--content + .section--content {
-  margin-top: -4.5vw;
   display: flex;
   align-items: center;
   flex-direction: column;

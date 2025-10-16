@@ -1,3 +1,11 @@
+.section--content__block--hero.main img {
+  width: 24%;
+}
+
+.section--content__block--hero.main img:last-child{
+  width: 19%;
+}
+
 p:first-of-type {
   font-weight: 500;
   line-height: 1.33;

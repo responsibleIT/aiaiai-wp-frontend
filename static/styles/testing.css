@@ -13,7 +13,7 @@
   margin: 0;
   display: inherit;
   grid-template-columns: 1fr;
-  gap: 1.5rem 1rem;
+  gap: 2.5rem 1.5rem;
 }
 
 @media (min-width: 35rem) {
@@ -78,8 +78,13 @@
   justify-content: center;
   z-index: 1;
 }
-
-[data-display="grid"] li:hover a {
-  background: transparent;
-  color: var(--link-hover);
+[data-display="grid"] li{
+  scale: .9 .8;
+  transition: scale .2s ease;
+  transition-delay: .15s;
+}
+[data-display="grid"] li :is(:hover, :focus, :active) {
+  scale: 1 1;
+  border-radius: 2rem;
+  transition-delay: 0s;
 }

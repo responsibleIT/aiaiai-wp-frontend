@@ -12,8 +12,6 @@ body {
 
   /* List item timings */
   --list-item-delay: .3s;
-
-  --bouncy-bezier: cubic-bezier(0.33, 1.65, 0.66, 1) forwards;
 }
 
 .header--body {
@@ -25,23 +23,23 @@ body {
 IF NO PREFERENCE IS SET */
 @media (prefers-reduced-motion: no-preference) {
   /* Heading (h1) */
-  h1 span {
+  
+  .section--content__block--hero img{
     scale: 0.2 0;
     opacity: 0;
     transform: translateY(30%) rotateX(5deg);
     animation: h1--bounce-in var(--general-animation-duration)
       calc(var(--general-delay) + (var(--h1-individual-delay) * var(--index)))
       var(--bouncy-bezier);
-    backface-visibility: hidden;
     transform-style: preserve-3d;
   }
 
-  h1 span:nth-child(2) {
+  .section--content__block--hero img:nth-child(2) {
     transform: translateY(-30%) rotateX(-5deg);
   }
 
   /* Subheading (h2) */
-  h2 {
+  .section--content__block--subhero {
     scale: 0.4 0;
     opacity: 0;
     animation: h2--scale-in var(--general-animation-duration)
@@ -72,7 +70,7 @@ IF NO PREFERENCE IS SET */
     --general-animation-duration: 0.8s;
   }
   /* Heading (h1) */
-  h1 span {
+  .section--content__block--hero img {
     scale: 0.8 0.8;
     opacity: 0;
     transform: translateY(10%) rotateX(5deg);
@@ -83,7 +81,7 @@ IF NO PREFERENCE IS SET */
     transform-style: preserve-3d;
   }
 
-  h1 span:nth-child(2) {
+  .section--content__block--hero img:nth-child(2) {
     transform: translateY(-10%) rotateX(-5deg);
   }
 
@@ -140,16 +138,5 @@ IF NO PREFERENCE IS SET */
 @keyframes li--slide-in {
   to {
     transform: translateX(0);
-  }
-}
-
-@keyframes a--slide-up {
-  40% {
-    scale: 1.1 0.8;
-  }
-  100% {
-    scale: 1 1;
-    opacity: 1;
-    transform: translateY(0%);
   }
 }
