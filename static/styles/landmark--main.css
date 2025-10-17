@@ -23,7 +23,7 @@ main.grid-container {
 }
 
 .section--content + .section--content {
-
+  margin-top: 3.125rem;
 }
 
 a {
