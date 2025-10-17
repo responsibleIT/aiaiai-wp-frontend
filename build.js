@@ -297,9 +297,11 @@ async function processTemplate(
             const introText = $inspired.html();
             // Remove it from the main content
             $inspired.remove();
-            $wpContent(".description").prepend(`<h1>${pageTitle}</h1>`)
+            $wpContent(".description").prepend(`<h1>${pageTitle}</h1>`);
             // Add it to the intro section
-            $(".section--content__block--intro").append(`<div class="inspired">${introText}</div>`);
+            $(".section--content__block--intro").append(
+              `<div class="inspired">${introText}</div>`
+            );
           }
 
           // Find and extract the assignment block
@@ -465,6 +467,7 @@ export async function buildSite() {
 
     // First get homepage to get the frontPageId
     const homepage = await fetchWordPressContent("frontpage");
+    let aboutpage;
     const frontPageId = homepage?.id;
 
     // Get all other pages to collect assignment images
@@ -559,6 +562,14 @@ export async function buildSite() {
           if (featuredImage) {
             assignmentImages[page.slug] = featuredImage;
           }
+        }
+
+        if (page.class_list?.includes("category-about")) {
+          aboutpage = {
+            slug: page.slug,
+            path: `./aiaiai-art.html`,
+            featured_image: featuredImage?.slug || null,
+          };
         }
       }
 
