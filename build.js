@@ -417,16 +417,29 @@ async function findTemplate(pageName, wpContent) {
   const baseTemplate = join(TEMPLATES_DIR, "template.html");
   const normalizedPageName = pageName.toLowerCase().replace(/ /g, "-");
 
-  // First check for category-specific template
+  // First check for category-specific templates
   if (wpContent.class_list?.includes("category-oefening")) {
     const categoryTemplate = join(TEMPLATES_DIR, "assignment.html");
     try {
       await readFile(categoryTemplate, "utf8");
-      console.log(`[${pageName}] Using category template: ${categoryTemplate}`);
+      console.log(`[${pageName}] Using assignment template: ${categoryTemplate}`);
       return categoryTemplate;
     } catch (error) {
       console.log(
-        `[${pageName}] Category template not found, falling back to specific/base template`
+        `[${pageName}] Assignment template not found, falling back to specific/base template`
+      );
+    }
+  }
+
+  if (wpContent.class_list?.includes("category-about")) {
+    const categoryTemplate = join(TEMPLATES_DIR, "aiaiai-art.html");
+    try {
+      await readFile(categoryTemplate, "utf8");
+      console.log(`[${pageName}] Using about template: ${categoryTemplate}`);
+      return categoryTemplate;
+    } catch (error) {
+      console.log(
+        `[${pageName}] About template not found, falling back to specific/base template`
       );
     }
   }
