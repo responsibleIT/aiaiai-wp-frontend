@@ -263,10 +263,6 @@ li::marker {
   font-weight: 600;
 }
 
-.print-all {
-  display: none;
-}
-
 /* INSPIRED BLOCK */
 .inspired {
   text-transform: uppercase;
