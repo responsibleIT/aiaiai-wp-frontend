@@ -3,12 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Pagina niet gevonden - Lectoraat Responsible IT"
-    />
+    <meta name="description" content="Lectoraat Responsible IT" />
 
-    <title>Pagina niet gevonden | Lectoraat Responsible IT</title>
+    <title>AIAIAI</title>
 
     <script>
       document.documentElement.classList.add("js");
@@ -23,75 +20,190 @@
 
     <link rel="stylesheet" href="styles/landmark--header.css" />
     <link rel="stylesheet" href="styles/landmark--header__accessibility.css" />
-
+    <link rel="stylesheet" href="styles/home--general.css" />
     <link rel="stylesheet" href="styles/landmark--main.css" />
 
+    <link rel="stylesheet" href="styles/testing.css" />
+
+    <link rel="stylesheet" href="styles/animations/shared--animations.css" />
+    <link rel="stylesheet" href="styles/animations/home--animations.css" />
+
+    <!-- <link rel="stylesheet" href="styles/print.css" />
+    <link rel="stylesheet" href="styles/print--assignment.css" /> -->
+
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
     <script src="scripts/general--helpers.js" defer></script>
 
-    <script src="scripts/landmark--header.js" defer></script>
     <script src="scripts/landmark--header__accessibility.js" defer></script>
+
+    <script type="module" src="scripts/printer.js" defer></script>
   </head>
   <body>
-    <header class="header--body">
-      <div class="header--body__block">
-        <a href="index.html" class="link--logo" aria-label="naar de homepage">
-          <svg
-            class="logo--hva-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 246.207 29.653"
-          >
-            <use xlink:href="images/logo-nl.svg#logo"></use>
-          </svg>
-        </a>
-
+    <header class="header--body no-print">
+      <nav class="header--body__block">
         <a href="#main" class="visually-hidden link--skip"
-          >direct naar hoofdinhoud</a
-        >
+          >direct naar hoofdinhoud
+        </a>
+        <ul>
+          <li>
+            <a
+              style="--index: 3"
+              href="/"
+              class="link--logo"
+              aria-label="naar de homepage"
+            >
+              aiaiai
+            </a>
+          </li>
+          <li>
+            <a
+              style="--index: 2"
+              href="/aiaiai-art"
+              class="link--logo"
+              aria-label="naar de about"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <details style="--index: 1" class="details--accessibility">
+              <summary>Access&shy;ibility</summary>
 
-        <button class="button--disclosure button--menu" hidden>Menu</button>
+              <div class="details--accessibility__block">
+                <form>
+                  <fieldset>
+                    <legend>Font size</legend>
 
-        <nav class="nav--main">
-          <ul>
-            <li><a href="/" lang="en">Home</a></li>
-            <li><a href="/projecten">Projecten</a></li>
-            <li><a href="/responsible-it">Over Responsible IT</a></li>
-          </ul>
-        </nav>
+                    <button
+                      type="button"
+                      name="setting--fontsize--min"
+                      class="setting--fontsize--button setting--fontsize--button--min"
+                      value="min"
+                      hidden
+                    >
+                      <span aria-hidden="true"> A<span>A</span> </span>
+                      Smaller
+                    </button>
 
-        <details class="details--accessibility">
-          <summary>Toeganke&shy;lijkheid</summary>
+                    <select name="setting--fontsize" class="setting--fontsize">
+                      <option value="-.2">-20%</option>
+                      <option value="-.1">-10%</option>
+                      <hr />
+                      <option value="0" selected>standaard</option>
+                      <hr />
+                      <option value=".1">+10%</option>
+                      <option value=".2">+20%</option>
+                      <option value=".3">+30%</option>
+                      <option value=".4">+40%</option>
+                      <option value=".5">+50%</option>
+                    </select>
 
-          <div class="details--accessibility__block">
-            <form>
-              <fieldset>
-                <legend>Driehoeken</legend>
+                    <button
+                      type="button"
+                      name="setting--fontsize--plus"
+                      class="setting--fontsize--button setting--fontsize--button--plus"
+                      value="plus"
+                      hidden
+                    >
+                      <span aria-hidden="true"> <span>A</span>A </span>
+                      Larger
+                    </button>
+                  </fieldset>
 
-                <label>
-                  <input type="checkbox" name="setting--no-images" />
-                  Driehoeken verbergen
-                </label>
-              </fieldset>
+                  <fieldset>
+                    <legend>All or fewer animations</legend>
 
-              <button type="submit">Toepassen</button>
-            </form>
-          </div>
-        </details>
-      </div>
+                    <label aria-label="volg het systeem qua animaties">
+                      <input
+                        type="radio"
+                        name="setting--motion"
+                        value="system"
+                        checked
+                      />
+                      Auto
+                    </label>
+
+                    <label aria-label="minder animaties">
+                      <input
+                        type="radio"
+                        name="setting--motion"
+                        value="reduce"
+                      />
+                      Take it easy
+                    </label>
+
+                    <label aria-label="alle animaties">
+                      <input
+                        type="radio"
+                        name="setting--motion"
+                        value="no-preference"
+                      />
+                      Animations!
+                    </label>
+                  </fieldset>
+
+                  <fieldset>
+                    <legend>Light or dark colors</legend>
+
+                    <label aria-label="kleurenthema van het systeem">
+                      <input
+                        type="radio"
+                        name="setting--color-theme"
+                        value="system"
+                        checked
+                      />
+                      Auto
+                    </label>
+
+                    <label aria-label="donker kleurenthema">
+                      <input
+                        type="radio"
+                        name="setting--color-theme"
+                        value="dark"
+                      />
+                      Dark
+                    </label>
+
+                    <label aria-label="licht kleurenthema">
+                      <input
+                        type="radio"
+                        name="setting--color-theme"
+                        value="light"
+                      />
+                      Light
+                    </label>
+                  </fieldset>
+
+                  <fieldset>
+                    <legend>Contrast</legend>
+
+                    <label>
+                      <input type="checkbox" name="setting--contrast" />
+                      More contrast
+                    </label>
+                  </fieldset>
+
+                  <button type="submit">Toepassen</button>
+                </form>
+              </div>
+            </details>
+          </li>
+        </ul>
+      </nav>
     </header>
 
     <main id="main">
       <section class="section--content">
         <div class="section--content__block section--content__block--hero">
-          <h1>Pagina niet gevonden</h1>
+          <h1>Nothing found</h1>
         </div>
       </section>
       <section class="section--content">
         <div class="section--content__block wp-content">
-          <p>De pagina die u zoekt bestaat niet of is verplaatst.</p>
+          <p>Seems like you've found a dead end!</p>
           <p>
-            U kunt teruggaan naar de <a href="/">homepage</a> of een van de
-            andere pagina's in het menu bezoeken.
+            Let's take you back to <a class="back" href="/">aiaiai</a>
           </p>
         </div>
       </section>

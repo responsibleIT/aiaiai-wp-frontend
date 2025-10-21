@@ -391,7 +391,7 @@ label:has( input:focus-visible ) input {
     display: none;
   }
 
-  .details--accessibility fieldset {
+  .details--accessibility fieldset:not(:nth-child(2)) {
     flex-wrap: nowrap;
   }
 
