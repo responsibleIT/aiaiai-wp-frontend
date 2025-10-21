@@ -33,17 +33,6 @@ button:not([disabled], [inert]) {
   font-weight: 600;
 }
 
-button[data-type="printAll"] {
-  display: flex;
-  flex-direction: row;
-  gap: 0.33em;
-  align-items: center;
-}
-
-button[data-type="printAll"] svg {
-  height: 1.125em;
-}
-
 summary::-webkit-details-marker {
   display: none;
 }

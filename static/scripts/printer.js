@@ -8,7 +8,7 @@ let currentPrintContent = null; // 'all', ['slug1', 'slug2'], 'single-slug', or 
 const printButton = document.querySelector(".print-page button");
 printButton &&
   printButton.addEventListener("click", () => {
-    currentMain.classList.remove("no-print");
+    currentMain?.classList.remove("no-print");
     printAll?.classList.add("no-print");
 
     window.print();

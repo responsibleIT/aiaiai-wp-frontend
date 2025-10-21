@@ -22,10 +22,12 @@ nav {
   }
 }
 
-main {
+main.grid-container {
   padding-top: 5rem;
   overflow-y: hidden;
   overflow-y: clip;
+  margin-bottom: unset;
+
   @media (min-width: 75rem) {
     padding-top: 3rem;
   }
@@ -163,15 +165,15 @@ p {
   background: inherit;
   position: absolute;
   display: none;
-  top: 300%;
+  top: 600%;
   left: -0.125rem;
-  height: 600%;
+  height: 1200%;
   width: calc(100% + 0.125rem);
   border-left: 0.125rem solid var(--assignment-color-d);
 }
 
 .assignment::after {
-  top: -300%;
+  top: -600%;
 }
 
 :root[data-color-scheme="dark"] .assignment {
@@ -211,6 +213,11 @@ p {
 .pointer {
   display: flex;
   gap: 1rem;
+  max-width: 90%;
+
+  @media (min-width: 75rem) {
+    padding-right: 3rem;
+  }
 }
 
 .pointer img {
@@ -228,30 +235,41 @@ p {
 }
 
 .pointer img {
-  width: calc(100% - 10vw);
+  width: calc(100% - 20vw);
   object-fit: contain;
 }
 
 .print-page button {
+  max-width: 20vw;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
   padding: 0.125rem 0.375rem;
   background: unset;
   border: unset;
-  font-size: 1em;
+  font-size: clamp(1.2em, 2vw, 2em);
+  text-transform: uppercase;
   align-items: center;
-  text-transform: inherit;
   border-radius: unset;
   font-family: Atkinson;
   color: var(--assignment-color-d);
   width: 8vw;
   min-width: 4rem;
+  scale: 0.8;
+  flex: 1;
+  line-height: 1;
   transition: scale 0.2s cubic-bezier(0.33, 1.65, 0.66, 1),
     filter 0.2s cubic-bezier(0.33, 1.65, 0.66, 1);
+  font-weight: 800;
+}
+
+.print-page button span {
+  font-size: 1rem;
 }
 
 .print-page button:hover {
   filter: contrast(1.5);
-  scale: 1.1;
+  scale: 1;
 }
 
 .print-page svg,
@@ -261,6 +279,10 @@ p {
 
 .assignment :first-child + p {
   margin-top: 5.5rem;
+}
+
+.assignment li {
+  overflow-wrap: break-word;
 }
 
 .assignment p + ol,

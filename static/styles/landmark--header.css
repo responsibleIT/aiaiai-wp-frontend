@@ -58,13 +58,6 @@ a.link--skip {
   max-width: 8em;
 }
 
-[data-type="printAll"] {
-  display: flex;
-  align-items: center;
-  gap: 0.33em;
-  height: fit-content;
-}
-
 /**************/
 /* NAV - MAIN */
 /**************/
