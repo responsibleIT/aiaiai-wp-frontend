@@ -485,10 +485,11 @@ export async function buildSite() {
         const outputPath = join(BUILD_DIR, `${page.slug}.html`);
         const pageTemplate = await findTemplate(page.slug, page);
 
-        // Download featured image for assignment pages
+        // Download featured image for assignment pages and about pages
         let featuredImage = null;
         if (
-          page.class_list?.includes("category-oefening") &&
+          (page.class_list?.includes("category-oefening") || 
+           page.class_list?.includes("category-about")) &&
           page.featured_media
         ) {
           featuredImage = await imageCollection(
