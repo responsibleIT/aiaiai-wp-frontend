@@ -4,7 +4,6 @@
 
 .header--body {
   padding: 2em;
-  view-transition-name: header;
   position: relative;
   z-index: 2;
   right: 0;
@@ -137,10 +136,6 @@ header a {
   pointer-events: none;
 }
 
-.nav--main a[aria-current="page"]::after {
-  opacity: 1;
-  view-transition-name: line;
-}
 
 /* interaction */
 .nav--main a:hover::after {
