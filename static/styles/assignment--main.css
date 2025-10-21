@@ -203,12 +203,17 @@ p {
   aspect-ratio: 1;
 }
 
+.print-page {
+  margin-inline: -2rem;
+}
+
 .pointer {
   display: flex;
   gap: 1rem;
 }
 
 .pointer img {
+  margin-left: -10%;
   transform: translateX(-10%);
   transition: filter 0.2s cubic-bezier(0.33, 1.65, 0.66, 1),
     transform 0.5s cubic-bezier(0.33, 1.65, 0.66, 1);
@@ -218,12 +223,11 @@ p {
   display: flex;
   gap: 1rem;
   transform: translateX(0);
-  filter: contrast(2);
+  filter: contrast(1.5);
 }
 
 .pointer img {
   width: calc(100% - 10vw);
-  margin-left: -10vw;
   object-fit: contain;
 }
 
@@ -245,7 +249,7 @@ p {
 }
 
 .print-page button:hover {
-  filter: contrast(2);
+  filter: contrast(1.5);
   scale: 1.1;
 }
 

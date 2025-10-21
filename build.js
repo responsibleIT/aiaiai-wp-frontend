@@ -283,6 +283,20 @@ async function processTemplate(
       $(".section--content__block--hero").prepend(heroImage);
     }
 
+    // Set appropriate hand image based on color theme
+    const color = getAssignmentColor(wpContent.class_list);
+    const handImageSrc = color === "green" 
+      ? "../images/hands/hand_dondergroen.png" 
+      : "../images/hands/hand_paars.png";
+    
+    // Update hand image src and alt text
+    $(".hand-image").attr("src", handImageSrc);
+    $(".hand-image").attr("alt", 
+      color === "green" 
+        ? "dark green hand pointing to the right; towards the print button!" 
+        : "dark purple hand pointing to the right; towards the print button!"
+    );
+
     // Replace content markers with WordPress content
     $(".wp-content").each((i, elem) => {
       const contentType = $(elem).data("wp-content");
