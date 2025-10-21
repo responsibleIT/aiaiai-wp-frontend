@@ -6,12 +6,13 @@ let currentPrintContent = null; // 'all', ['slug1', 'slug2'], 'single-slug', or 
 
 // Print listener
 const printButton = document.querySelector(".print-page button");
-printButton.addEventListener("click", () => {
-  currentMain.classList.remove("no-print");
-  printAll?.classList.add("no-print");
+printButton &&
+  printButton.addEventListener("click", () => {
+    currentMain.classList.remove("no-print");
+    printAll?.classList.add("no-print");
 
-  window.print();
-});
+    window.print();
+  });
 
 const currentMain = document.querySelector("main#main");
 
@@ -20,7 +21,7 @@ const printAllButton = document.querySelector("[data-type=printAll]");
 printAllButton &&
   printAllButton.addEventListener("click", () => {
     printAll.classList.remove("no-print");
-    currentMain.classList.add("no-print");
+    currentMain ? currentMain.classList.add("no-print") : document.querySelector("body").classList.add("no-print");
 
     // Default is print all
     selectivePrint();
