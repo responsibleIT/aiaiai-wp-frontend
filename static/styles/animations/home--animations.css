@@ -11,7 +11,7 @@ body {
   );
 
   /* List item timings */
-  --list-item-delay: .3s;
+  --list-item-delay: 0.3s;
 }
 
 .header--body {
@@ -23,8 +23,8 @@ body {
 IF NO PREFERENCE IS SET */
 @media (prefers-reduced-motion: no-preference) {
   /* Heading (h1) */
-  
-  .section--content__block--hero img{
+
+  .section--content__block--hero img {
     scale: 0.2 0;
     opacity: 0;
     transform: translateY(30%) rotateX(5deg);
@@ -36,6 +36,11 @@ IF NO PREFERENCE IS SET */
 
   .section--content__block--hero img:nth-child(2) {
     transform: translateY(-30%) rotateX(-5deg);
+  }
+
+  .section--content__block--subhero {
+    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /* Subheading (h2) */
@@ -50,7 +55,8 @@ IF NO PREFERENCE IS SET */
   .header--body .header--body__block li {
     transform: translateX(-30%);
     animation: li--slide-in var(--general-animation-duration)
-      calc(var(--h1-total-duration) + (var(--list-item-delay) * 2)) var(--bouncy-bezier);
+      calc(var(--h1-total-duration) + (var(--list-item-delay) * 2))
+      var(--bouncy-bezier);
   }
 
   .header--body .header--body__block :is(a, details) {
