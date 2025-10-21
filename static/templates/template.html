@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Lectoraat Responsible IT" />
 
-    <title>Homepage - Lectoraat Responsible IT</title>
+    <title>AIAIAI</title>
 
     <script>
       document.documentElement.classList.add("js");
@@ -28,15 +28,22 @@
     <link rel="stylesheet" href="styles/animations/shared--animations.css" />
     <link rel="stylesheet" href="styles/animations/home--animations.css" />
 
+    <link rel="stylesheet" href="styles/print.css" />
+
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
 
     <script src="scripts/general--helpers.js" defer></script>
 
     <script src="scripts/landmark--header__accessibility.js" defer></script>
+
+    <script type="module" src="scripts/printer.js" defer></script>
   </head>
   <body>
     <header class="header--body">
       <nav class="header--body__block">
+        <a href="#main" class="visually-hidden link--skip"
+          >direct naar hoofdinhoud
+        </a>
         <ul>
           <li>
             <a
@@ -182,10 +189,6 @@
             </details>
           </li>
         </ul>
-
-        <a href="#main" class="visually-hidden link--skip"
-          >direct naar hoofdinhoud
-        </a>
       </nav>
     </header>
 
@@ -216,7 +219,11 @@
             of artists working with AI. They guide you step by step through a
             creative exploration of, and with, AI.
           </p>
-          <img class="main-hand" src="../images/hands/hand_palm_paars.png" alt="">
+          <img
+            class="main-hand"
+            src="../images/hands/hand_palm_paars.png"
+            alt=""
+          />
         </section>
         <section class="section--content">
           <div

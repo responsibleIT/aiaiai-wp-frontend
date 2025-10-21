@@ -16,50 +16,39 @@
 
     <link rel="stylesheet" href="styles/general.css" />
     <link rel="stylesheet" href="styles/general--controls.css" />
-    <link rel="stylesheet" href="styles/general--text.css" />
 
+    <link rel="stylesheet" href="styles/general--text.css" />
     <link rel="stylesheet" href="styles/landmark--header.css" />
+
     <link rel="stylesheet" href="styles/landmark--header__accessibility.css" />
-    <link rel="stylesheet" href="styles/home--general.css" />
+
     <link rel="stylesheet" href="styles/landmark--main.css" />
 
-    <link rel="stylesheet" href="styles/testing.css" />
-
-    <link rel="stylesheet" href="styles/animations/shared--animations.css" />
-    <link rel="stylesheet" href="styles/animations/home--animations.css" />
+    <link rel="stylesheet" href="styles/about.css" />
 
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
 
     <script src="scripts/general--helpers.js" defer></script>
 
-    <script src="scripts/landmark--header__accessibility.js" defer></script>
+    <script
+      defer
+      src="scripts/landmark--header__accessibility.js"
+      defer
+    ></script>
   </head>
   <body>
     <header class="header--body">
       <nav class="header--body__block">
+        <a href="#main" class="visually-hidden link--skip"
+          >direct naar hoofdinhoud</a
+        >
         <ul>
+          <li><a href="/" aria-label="naar de homepagina">AI AI AI</a></li>
           <li>
-            <a
-              style="--index: 3"
-              href="/"
-              class="link--logo"
-              aria-label="naar de homepage"
-            >
-              aiaiai
-            </a>
+            <a href="/aiaiai-art" aria-label="naar de about pagina"> About </a>
           </li>
           <li>
-            <a
-              style="--index: 2"
-              href="/aiaiai-art"
-              class="link--logo"
-              aria-label="naar de about"
-            >
-              About
-            </a>
-          </li>
-          <li>
-            <details style="--index: 1" class="details--accessibility">
+            <details class="details--accessibility">
               <summary>Toeganke&shy;lijkheid</summary>
 
               <div class="details--accessibility__block">
@@ -182,31 +171,38 @@
             </details>
           </li>
         </ul>
-
-        <a href="#main" class="visually-hidden link--skip"
-          >direct naar hoofdinhoud
-        </a>
       </nav>
     </header>
 
-    <main class="grid-container">
+    <main id="main" class="grid-container">
       <div class="main-content">
         <section class="section--content">
-          <div
-            class="section--content__block section--content__block--hero main"
-          >
-            <h1>ABOUT AIAIAI</h1>
+          <div class="section--content__block section--content__block--hero">
+            <h1>test</h1>
           </div>
-          <div class="section--content__block--subhero"></div>
+          <div class="section--content__block section--content__block--intro">
+            <!-- Inspired block will be inserted here -->
+          </div>
         </section>
         <section class="section--content">
           <div
             class="section--content__block wp-content"
             data-wp-content="content"
-            id="main"
           >
             <!-- WordPress content will be inserted here -->
           </div>
+          <!-- Assignment content will be inserted here -->
+          <footer>
+            <div class="companies">
+              <img
+                src="../images/companies/hva.png"
+                alt="Logo of the University of applied sciences Amsterdam"
+              /><img
+                src="../images/companies/theHmm.png"
+                alt="Logo of the Hmm, a platform for internet cultures"
+              />
+            </div>
+          </footer>
         </section>
       </div>
     </main>
