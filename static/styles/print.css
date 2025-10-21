@@ -18,6 +18,10 @@
     overflow: unset !important;
   }
 
+  footer{
+    display: none !important;
+  }
+
   /* Reset hero blocks */
   .section--content__block--hero:has(img) {
     margin-top: unset !important;
