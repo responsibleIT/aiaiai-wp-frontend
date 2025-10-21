@@ -288,7 +288,7 @@ li::marker {
   color: var(--link-hover);
 }
 
-:root[data-color-scheme="dark"] :is(h1, .assignment, .assignment button) {
+:root[data-color-scheme="dark"] :is(.assignment, .assignment button) {
   color: var(--bg);
 }
 
@@ -322,6 +322,14 @@ li::marker {
     border-radius: 0;
     border-color: transparent;
     border-left: 0.125rem solid var(--assignment-color-d);
+  }
+
+  .assignment a{
+    color: var(--link);
+  }
+
+  .assignment a:hover{
+    color: var(--link-hover);
   }
 
   .assignment::before,
