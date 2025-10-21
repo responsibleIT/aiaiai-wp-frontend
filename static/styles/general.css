@@ -90,7 +90,7 @@ body {
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
   gap: var(--grid-gap);
   max-width: var(--max-width);
-  padding: 0 2rem;
+  padding-inline: 2rem;
   margin: 0 auto;
 
   @media (min-width: 768px) {
