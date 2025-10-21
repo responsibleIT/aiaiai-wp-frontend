@@ -35,10 +35,19 @@ main {
 h1 {
   font-size: clamp(2rem, 6vw, 5rem);
   font-family: Pinky;
+}
+
+.section--content__block--hero:has(img) h1 {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -75%);
+}
+
+.section--content__block--hero:has(:not(img)) {
+  padding-inline: 3rem;
+  grid-column: 5 / -1;
+  z-index: 1;
 }
 
 h2 {
@@ -90,7 +99,6 @@ p {
 .main-content,
 .section--content,
 .section--content__block--intro,
-.assignment,
 .section--content:last-child > div.section--content__block {
   grid-column: 1 / -1;
 }
@@ -173,126 +181,6 @@ p {
   margin-top: 1vw;
 }
 
-.section--content__block + .assignment {
-  margin-top: calc(3rem + 2vw);
-}
-
-.assignment {
-  background: var(--green, #b8e6ff);
-  padding: 1.5rem 3rem;
-  padding-right: clamp(2rem, 10vw, 5rem);
-  height: fit-content;
-  border-bottom: 0;
-  position: relative;
-}
-.assignment > * {
-  z-index: 1;
-  position: relative;
-}
-
-.assignment::before,
-.assignment::after {
-  z-index: 0;
-  content: "";
-  background: inherit;
-  position: absolute;
-  display: none;
-  top: 300%;
-  left: -0.125rem;
-  height: 600%;
-  width: calc(100% + 0.125rem);
-  border-left: 0.125rem solid var(--green-d);
-}
-
-.assignment::after {
-  top: -300%;
-}
-
-:root[data-color-scheme="dark"] .assignment {
-  background: var(--green, #134384);
-  border-color: var(--assignment-color-l);
-}
-
-.assignment > * {
-  margin: 0;
-  padding: 0;
-}
-
-.assignment header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-transform: uppercase;
-  font-size: clamp(1.375rem, 3vw, 1.875rem);
-}
-
-.assignment header h2 {
-  margin: inherit;
-  line-height: 1;
-  font-weight: 600;
-  font-size: inherit;
-}
-
-.assignment header svg {
-  height: 2.5rem;
-  aspect-ratio: 1;
-}
-
-.assignment header button {
-  gap: 1rem;
-  padding: 0.125rem 0.375rem;
-  background: unset;
-  border: unset;
-  font-size: calc(1em * 0.85);
-  display: flex;
-  align-items: center;
-  text-transform: inherit;
-  border-radius: unset;
-}
-
-.assignment :first-child + p {
-  margin-top: 5.5rem;
-}
-
-.assignment p + ol,
-.assignment p + ul {
-  margin-top: 2rem;
-}
-
-.assignment :first-child + ol,
-.assignment :first-child + ul {
-  margin-top: 5.5rem;
-}
-
-.assignment > ol,
-.assignment > ul {
-  list-style: inside;
-  list-style-type: auto;
-}
-
-.assignment ol,
-.assignment ul {
-  font-size: clamp(1.125rem, 2.5vw, 1.75rem);
-  line-height: 1.43;
-  font-weight: 500;
-}
-
-.assignment ol li + li,
-.assignment ul li + li {
-  margin-top: 2.25rem;
-}
-
-.assignment li > ul,
-.assignment li > ol {
-  font-size: calc(1em * 0.85);
-  margin-top: 1.25rem;
-}
-
-.assignment li > ul li,
-.assignment li > ol li {
-  margin-top: 1rem;
-}
-
 li::marker {
   font-size: calc(1em * 1.15);
   font-weight: 600;
@@ -346,10 +234,6 @@ li::marker {
   color: var(--link-hover);
 }
 
-:root[data-color-scheme="dark"] :is(.assignment, .assignment button) {
-  color: var(--bg);
-}
-
 :root[data-color-scheme="dark"] .wp-content {
   color: var(--bg);
 }
@@ -358,8 +242,8 @@ li::marker {
   margin-top: 0;
 }
 
-footer{
-    grid-column: 1 / 5;
+footer {
+  grid-column: 1 / 5;
 }
 footer .companies {
   height: 3.3125rem;
@@ -379,6 +263,10 @@ footer .companies {
   .companies img:nth-child(1) {
     filter: invert(1);
   }
+}
+
+[data-color-scheme="light"] .companies img:nth-child(1) {
+  filter: invert(0);
 }
 
 @media (min-width: 32rem) and (max-width: 75rem) {
@@ -419,29 +307,5 @@ footer .companies {
   .wp-content::before,
   .wp-content::after {
     display: block;
-  }
-
-  .assignment {
-    grid-column: 5 / -1;
-    border-radius: 0;
-    border-color: transparent;
-    border-left: 0.125rem solid var(--green-d);
-  }
-
-  .assignment a {
-    color: var(--link);
-  }
-
-  .assignment a:hover {
-    color: var(--link-hover);
-  }
-
-  .assignment::before,
-  .assignment::after {
-    display: block;
-  }
-
-  .section--content__block + .assignment {
-    margin-top: unset;
   }
 }
