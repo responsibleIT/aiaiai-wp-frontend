@@ -371,6 +371,10 @@ footer .companies {
   object-fit: contain;
 }
 
+[data-color-scheme="dark"] .companies img:nth-child(1) {
+  filter: invert(1);
+}
+
 @media (min-width: 32rem) and (max-width: 75rem) {
   .inspired {
     display: flex;

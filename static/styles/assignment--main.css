@@ -59,6 +59,7 @@ p {
 }
 
 .wp-content p {
+  color: var(--clr);
   line-height: 1.8;
   font-size: clamp(1rem, 2vw, 1.25rem);
   font-weight: 500;
@@ -374,6 +375,10 @@ footer .companies {
 .companies img {
   width: 50%;
   object-fit: contain;
+}
+
+[data-color-scheme="dark"] .companies img:nth-child(1) {
+  filter: invert(1);
 }
 
 @media (min-width: 32rem) and (max-width: 75rem) {

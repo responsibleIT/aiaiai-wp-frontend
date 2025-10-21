@@ -27,6 +27,7 @@ h1 + p {
   bottom: 0;
   transform: translateY(20%);
   width: calc(100% - 2rem);
+  pointer-events: none;
 }
 
 .main-content > .section--content:first-child {

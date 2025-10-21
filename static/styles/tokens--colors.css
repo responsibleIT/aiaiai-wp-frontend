@@ -74,9 +74,9 @@
   /* DARK */
   [data-color-scheme="dark"] {
     --blue-d: #274a7f;
-    --lilia-d: #8769b0;
+    --lilia-d: #593569;
     --purple-d: #3a1856;
-    --green-d: #a6c37f;
+    --green-d: #08561e;
     --dark-green-d: #0a6a22;
   }
 }
