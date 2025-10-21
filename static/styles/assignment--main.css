@@ -27,7 +27,7 @@ main {
   overflow-y: hidden;
   overflow-y: clip;
   @media (min-width: 75rem) {
-    padding-top: 2rem;
+    padding-top: 3rem;
   }
 }
 
@@ -162,15 +162,15 @@ p {
   background: inherit;
   position: absolute;
   display: none;
-  top: 150%;
+  top: 300%;
   left: -0.125rem;
-  height: 300%;
+  height: 600%;
   width: calc(100% + 0.125rem);
   border-left: 0.125rem solid var(--assignment-color-d);
 }
 
 .assignment::after {
-  top: -150%;
+  top: -300%;
 }
 
 :root[data-color-scheme="dark"] .assignment {
