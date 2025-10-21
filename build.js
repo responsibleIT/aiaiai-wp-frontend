@@ -241,10 +241,10 @@ async function processTemplate(
     if (pageName === "index") {
       // ! change this !
       $("h1").html(pageTitle);
-      $("title").text("AIAIAI | Lectoraat Responsible IT");
+      $("title").text(`AIAIAI | Learn how to play, fail & tinker with machines`);
     } else {
       $("h1").text(pageTitle);
-      $("title").text(`${pageTitle} | Lectoraat Responsible IT`);
+      $("title").text(`AIAIAI | ${pageTitle}`);
     }
 
     // Set body data-color for assignment pages, derived from category-<suffix> (fallback: purple)
