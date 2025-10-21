@@ -2,7 +2,8 @@
   navigation: auto;
 }
 
-img.hero-image, li{
+img.hero-image,
+li {
   view-transition-name: var(--vt-name);
 }
 
@@ -224,4 +225,8 @@ strong,
 b,
 a {
   font-family: inherit;
+}
+
+.print-all {
+  display: none;
 }
