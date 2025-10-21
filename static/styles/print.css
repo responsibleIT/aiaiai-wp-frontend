@@ -10,6 +10,10 @@
     display: none !important;
   }
 
+  img{
+    display: none !important;
+  }
+
   body {
     overflow: unset !important;
   }

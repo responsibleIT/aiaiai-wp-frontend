@@ -28,7 +28,8 @@
     <link rel="stylesheet" href="styles/animations/shared--animations.css" />
     <link rel="stylesheet" href="styles/animations/home--animations.css" />
 
-    <link rel="stylesheet" href="styles/print.css" />
+    <!-- <link rel="stylesheet" href="styles/print.css" />
+    <link rel="stylesheet" href="styles/print--assignment.css" /> -->
 
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
 
@@ -39,7 +40,7 @@
     <script type="module" src="scripts/printer.js" defer></script>
   </head>
   <body>
-    <header class="header--body">
+    <header class="header--body no-print">
       <nav class="header--body__block">
         <a href="#main" class="visually-hidden link--skip"
           >direct naar hoofdinhoud
@@ -192,7 +193,7 @@
       </nav>
     </header>
 
-    <main class="grid-container">
+    <main class="grid-container no-print">
       <div class="main-content">
         <section class="section--content">
           <div
@@ -240,7 +241,7 @@
     <div class="print-all">
       <!-- Print all content will be inserted here -->
     </div>
-    <footer>
+    <footer class="no-print">
       <button data-type="printAll">
         <svg
           fill="currentColor"
