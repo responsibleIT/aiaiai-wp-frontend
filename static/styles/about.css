@@ -42,7 +42,7 @@ div.point {
 div.point img {
   object-fit: contain;
   position: absolute;
-  width: 70vw - 5rem;
+  width: calc(70vw - 5rem);
   top: 50%;
   right: 0;
   transform: translate(50%, -46%) rotateY(180deg);
@@ -61,6 +61,7 @@ div.point img {
 }
 
 .buy a {
+  width: 100%;
   font-family: Pinky;
   border: none;
   font-size: 2.25rem;
@@ -73,7 +74,8 @@ div.point img {
 }
 
 .buy {
-  width: fit-content;
+  width: 100%;
+  text-align: center;
   background-color: var(--green-d);
   border-radius: 4rem;
 }
@@ -264,6 +266,10 @@ footer .companies {
 @media (min-width: 33.75rem) {
   div.point img {
     display: block;
+  }
+
+  .buy {
+    width: fit-content;
   }
 }
 
