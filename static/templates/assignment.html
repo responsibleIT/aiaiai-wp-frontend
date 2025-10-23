@@ -36,8 +36,9 @@
     <script
       defer
       src="scripts/landmark--header__accessibility.js"
-      defer
     ></script>
+
+    <script defer src="scripts/print-height.js"></script>
 
     <script type="module" src="scripts/printer.js" defer></script>
   </head>
@@ -183,14 +184,6 @@
       <div class="main-content">
         <section class="section--content">
           <div
-            class="section--content__block section--content__block--hero"
-          ></div>
-          <div class="section--content__block section--content__block--intro">
-            <!-- Inspired block will be inserted here -->
-          </div>
-        </section>
-        <section class="section--content">
-          <div
             class="section--content__block wp-content"
             data-wp-content="content"
           >
@@ -199,17 +192,6 @@
           <!-- Assignment content will be inserted here -->
         </section>
       </div>
-      <footer>
-        <div class="companies">
-          <img
-            src="../images/companies/hva.png"
-            alt="Logo of the University of applied sciences Amsterdam"
-          /><img
-            src="../images/companies/theHmm.png"
-            alt="Logo of the Hmm, a platform for internet cultures"
-          />
-        </div>
-      </footer>
       <div class="print-page">
         <div class="pointer">
           <img
@@ -234,18 +216,29 @@
             >
               <path
                 d="M12.5,30.504V33.5h15v-2.996H12.5z M12.5,25.504V28.5h15v-2.996H12.5z M3.5,28.5h3v8.002c-0.01,2.43,0.548,2.998,3,2.998h21
-	c2.452,0,3-0.452,3-2.998V28.5h3c2.55,0.04,3.029-0.527,3-2.998v-11c0-2.35-0.38-3.002-3-3.002h-3V6.502
-	c0.029-2.47-0.45-3.002-3-3.002h-21c-2.4,0-3.01,0.572-3,3.002V11.5h-3c-2.58,0-3,0.562-3,3.002v11C0.49,27.932,1.1,28.54,3.5,28.5z
-	 M30.5,36.5h-21v-13h21V36.5z M32.38,18.002c0-0.9,0.72-1.619,1.62-1.619s1.62,0.719,1.62,1.619s-0.72,1.62-1.62,1.62
-	S32.38,18.902,32.38,18.002z M9.5,6.5h21v5.004h-21V6.5z"
+  c2.452,0,3-0.452,3-2.998V28.5h3c2.55,0.04,3.029-0.527,3-2.998v-11c0-2.35-0.38-3.002-3-3.002h-3V6.502
+  c0.029-2.47-0.45-3.002-3-3.002h-21c-2.4,0-3.01,0.572-3,3.002V11.5h-3c-2.58,0-3,0.562-3,3.002v11C0.49,27.932,1.1,28.54,3.5,28.5z
+   M30.5,36.5h-21v-13h21V36.5z M32.38,18.002c0-0.9,0.72-1.619,1.62-1.619s1.62,0.719,1.62,1.619s-0.72,1.62-1.62,1.62
+  S32.38,18.902,32.38,18.002z M9.5,6.5h21v5.004h-21V6.5z"
               ></path>
             </svg>
             print
-            <br/>
+            <br />
             <span>assignment</span>
           </button>
         </div>
       </div>
+      <footer>
+        <div class="companies">
+          <img
+            src="../images/companies/hva.png"
+            alt="Logo of the University of applied sciences Amsterdam"
+          /><img
+            src="../images/companies/theHmm.png"
+            alt="Logo of the Hmm, a platform for internet cultures"
+          />
+        </div>
+      </footer>
     </main>
   </body>
 </html>

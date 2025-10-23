@@ -242,6 +242,9 @@ async function processTemplate(
       // ! change this !
       $("h1").html(pageTitle);
       $("title").text(`AIAIAI | Learn how to play, fail & tinker with machines`);
+    } else if (isAssignment) {
+      // Skip h1 for assignment pages, only set title
+      $("title").text(`AIAIAI | ${pageTitle}`);
     } else {
       $("h1").text(pageTitle);
       $("title").text(`AIAIAI | ${pageTitle}`);
@@ -305,19 +308,6 @@ async function processTemplate(
 
         // For assignment pages, handle special content placement
         if (isAssignment) {
-          const $inspired = $wpContent(".inspired");
-          if ($inspired.length) {
-            // Store the paragraph content
-            const introText = $inspired.html();
-            // Remove it from the main content
-            $inspired.remove();
-            $wpContent(".description").prepend(`<h1>${pageTitle}</h1>`);
-            // Add it to the intro section
-            $(".section--content__block--intro").append(
-              `<div class="inspired">${introText}</div>`
-            );
-          }
-
           // Find and extract the assignment block
           const $assignmentBlock = $wpContent(".wp-block-group.assignment");
           if ($assignmentBlock.length) {
@@ -329,6 +319,28 @@ async function processTemplate(
             $(".wp-content").after(assignmentContent);
           }
         }
+
+        // For about pages, handle special content placement
+        if (pageName === "aiaiai-art") {
+          // Find the p tag with buy class and add hand image to it
+          const $buyP = $wpContent("p.buy").first();
+          if ($buyP.length) {
+            // Create a wrapper div with class "point"
+            const $pointDiv = $('<div class="point"></div>');
+            
+            // Clone the buy p tag content
+            const buyContent = $buyP.clone();
+            
+            // Add the cloned content and hand image to the point div
+            $pointDiv.append(buyContent);
+            const handImage = $('<img src="images/hands/hand_lichtgroen.png" alt="Light green hand pointing to the left; towards the buy button!" />');
+            $pointDiv.append(handImage);
+            
+            // Replace the original p tag with the new point div
+            $buyP.replaceWith($pointDiv);
+          }
+        }
+
         // For homepage, enhance assignment links with grid images
         if (pageName === "index" && assignmentImages) {
           enhanceHomepageAssignmentLinks($wpContent, assignmentImages);
