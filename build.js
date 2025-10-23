@@ -224,6 +224,7 @@ async function processTemplate(
     const cleanedContent = cleanWordPressUrls(wpContent.content || "");
     const $content = cheerio.load(cleanedContent);
     const isAssignment = wpContent.class_list?.includes("category-oefening");
+    const isAbout = wpContent.class_list?.includes("category-about");
 
     // Set page title and h1
     let pageTitle;
@@ -327,6 +328,20 @@ async function processTemplate(
             $assignmentBlock.remove();
             // Add it after the wp-content block
             $(".wp-content").after(assignmentContent);
+          }
+        }
+
+        // For about pages, handle special content placement
+        if (isAbout) {
+          // Find and extract the first wp-block-group
+          const $buyBlock = $wpContent(".buy").first();
+          if ($buyBlock.length) {
+            // Store the wp-block-group content
+            const buyContent = $buyBlock.clone();
+            // Remove it from the main content
+            $buyBlock.remove();
+            // Add it to the intro section
+            $(".section--content__block--intro").append(buyContent);
           }
         }
         // For homepage, enhance assignment links with grid images
@@ -494,7 +509,6 @@ export async function buildSite() {
 
     // First get homepage to get the frontPageId
     const homepage = await fetchWordPressContent("frontpage");
-    let aboutpage;
     const frontPageId = homepage?.id;
 
     // Get all other pages to collect assignment images
@@ -590,14 +604,6 @@ export async function buildSite() {
           if (featuredImage) {
             assignmentImages[page.slug] = featuredImage;
           }
-        }
-
-        if (page.class_list?.includes("category-about")) {
-          aboutpage = {
-            slug: page.slug,
-            path: `./aiaiai-art.html`,
-            featured_image: featuredImage?.slug || null,
-          };
         }
       }
 

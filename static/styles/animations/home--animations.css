@@ -1,6 +1,6 @@
 body {
   /* General h1 animation timings */
-  --h1-individual-delay: 0.175s;
+  --h1-individual-delay: 0.25s;
 
   /* How many span items are in the h1 */
   --h1-count: 3;
@@ -25,9 +25,10 @@ IF NO PREFERENCE IS SET */
   /* Heading (h1) */
 
   .section--content__block--hero img {
-    scale: 0.2 0;
+    scale: 0.5 0;
     opacity: 0;
-    transform: translateY(30%) rotateX(5deg);
+    transform-origin: left;
+    transform: translate(75%, calc(-3rem - 2vw)) rotateZ(12deg);
     animation: h1--bounce-in var(--general-animation-duration)
       calc(var(--general-delay) + (var(--h1-individual-delay) * var(--index)))
       var(--bouncy-bezier);
@@ -35,7 +36,10 @@ IF NO PREFERENCE IS SET */
   }
 
   .section--content__block--hero img:nth-child(2) {
-    transform: translateY(-30%) rotateX(-5deg);
+    transform: translate(75%, calc(3rem + 2vw)) rotateZ(-12deg);
+    animation: h1--off--bounce-in var(--general-animation-duration)
+      calc(var(--general-delay) + (var(--h1-individual-delay) * var(--index)))
+      var(--bouncy-bezier);
   }
 
   .section--content__block--subhero {
@@ -100,13 +104,29 @@ IF NO PREFERENCE IS SET */
 /* heading (h1) */
 @keyframes h1--bounce-in {
   40% {
-    scale: 0.8 1.2;
+    scale: 0.8 1.1;
   }
   85% {
-    transform: translateY(0) rotateX(0deg);
+    transform: translate(0%, calc(-3rem - 2vw)) rotateZ(0deg);
+    opacity: 1;
   }
   100% {
-    transform: translateY(0) rotateX(0deg);
+    transform: translate(0%, calc(-3rem - 2vw)) rotateZ(0deg);
+    opacity: 1;
+    scale: 1 1;
+  }
+}
+
+@keyframes h1--off--bounce-in {
+  40% {
+    scale: 0.8 1.1;
+  }
+  85% {
+    transform: translate(0%, calc(3rem + 2vw)) rotateZ(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0%, calc(3rem + 2vw)) rotateZ(0deg);
     opacity: 1;
     scale: 1 1;
   }
