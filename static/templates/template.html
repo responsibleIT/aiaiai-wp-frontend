@@ -28,9 +28,6 @@
     <link rel="stylesheet" href="styles/animations/shared--animations.css" />
     <link rel="stylesheet" href="styles/animations/home--animations.css" />
 
-    <!-- <link rel="stylesheet" href="styles/print.css" />
-    <link rel="stylesheet" href="styles/print--assignment.css" /> -->
-
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
 
     <script src="scripts/general--helpers.js" defer></script>
@@ -46,9 +43,19 @@
           >direct naar hoofdinhoud
         </a>
         <ul>
-          <li><a href="/" aria-label="to the home page" style="--index: 3">aiaiai</a></li>
           <li>
-            <a href="/aiaiai-art" aria-label="to the about page" style="--index: 2"> About </a>
+            <a href="/" aria-label="to the home page" style="--index: 3"
+              >aiaiai</a
+            >
+          </li>
+          <li>
+            <a
+              href="/aiaiai-art"
+              aria-label="to the about page"
+              style="--index: 2"
+            >
+              About
+            </a>
           </li>
           <li>
             <details style="--index: 1" class="details--accessibility">
@@ -183,14 +190,13 @@
           <div
             class="section--content__block section--content__block--hero main"
           >
-            <img style="--index: 0" src="../images/home/ai_comma.png" alt="" />
-            <img style="--index: 1" src="../images/home/ai_comma.png" alt="" />
+            <img style="--index: 2" src="../images/home/ai_comma.png" alt="image displaying text; 'AI,'" />
+            <img style="--index: 1" src="../images/home/ai_comma.png" alt="image displaying text; 'AI,'" />
             <img
-              style="--index: 2"
+              style="--index: 0"
               src="../images/home/ai_no_comma.png"
-              alt=""
+              alt="image displaying text; 'AI'"
             />
-            <!-- <h1>AIAIAI</h1> -->
           </div>
           <h1>Learn how to play, fail & tinker with machines</h1>
           <p>
@@ -219,7 +225,10 @@
     </div>
     <footer class="no-print">
       <div class="pointer">
-        <img src="../images/hands/hand_lichtgroen.png" alt="a light green hand pointing to the right; towards the print all button!">
+        <img
+          src="../images/hands/hand_lichtgroen.png"
+          alt="a light green hand pointing to the right; towards the print all button!"
+        />
         <button data-type="printAll">
           PRINT
           <svg

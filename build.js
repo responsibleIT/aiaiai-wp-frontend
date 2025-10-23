@@ -224,6 +224,7 @@ async function processTemplate(
     const cleanedContent = cleanWordPressUrls(wpContent.content || "");
     const $content = cheerio.load(cleanedContent);
     const isAssignment = wpContent.class_list?.includes("category-oefening");
+    const isAbout = wpContent.class_list?.includes("category-about");
 
     // Set page title and h1
     let pageTitle;
@@ -235,7 +236,13 @@ async function processTemplate(
         decodeHtmlEntities(wpContent.title?.rendered) || "No title"
       );
     }
-    console.log(`[${pageName}] Final page title:`, pageTitle);
+    
+    // Ensure pageTitle is always defined for featured image processing
+    if (!pageTitle) {
+      pageTitle = capitalizeFirstLetter(
+        decodeHtmlEntities(wpContent.title?.rendered) || "No title"
+      );
+    }
 
     // Set the h1 content and page title
     if (pageName === "index") {
@@ -268,7 +275,6 @@ async function processTemplate(
       // Use kebab-case data attribute name (consistent with HTML data-* conventions)
       $body.attr("data-color-theme", color);
     }
-    console.log(isAssignment);
 
     // Add hero image if available
     if (wpContent.featured_image) {
@@ -506,7 +512,6 @@ export async function buildSite() {
 
     // First get homepage to get the frontPageId
     const homepage = await fetchWordPressContent("frontpage");
-    let aboutpage;
     const frontPageId = homepage?.id;
 
     // Get all other pages to collect assignment images
@@ -567,15 +572,12 @@ export async function buildSite() {
 
         if (page.class_list?.includes("category-oefening")) {
           const color = getAssignmentColor(page.class_list);
-          console.log("color", color);
 
           // Add to global color array
           assignmentColors.push({
             name: page.slug,
             color: color,
           });
-
-          console.log(`[${page.slug}] Assigned color: ${color}`);
         }
 
         await processTemplate(
@@ -602,14 +604,6 @@ export async function buildSite() {
           if (featuredImage) {
             assignmentImages[page.slug] = featuredImage;
           }
-        }
-
-        if (page.class_list?.includes("category-about")) {
-          aboutpage = {
-            slug: page.slug,
-            path: `./aiaiai-art.html`,
-            featured_image: featuredImage?.slug || null,
-          };
         }
       }
 

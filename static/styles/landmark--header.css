@@ -93,7 +93,7 @@ a.link--skip {
 }
 
 /* LINK */
-header a {
+header a, .buy a{
   font-family: Pinky, Arial, sans-serif;
   text-decoration: none;
   padding: 0.25rem 0.75rem;
