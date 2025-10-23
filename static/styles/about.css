@@ -44,17 +44,33 @@ h1 {
   transform: translate(-50%, -75%);
 }
 
-.buy a{
-  background-color: var(--green-d);
+.buy a {
   font-family: Pinky;
   border: none;
   font-size: 2.25rem;
   color: var(--white);
+  background: unset;
   padding: 0.25rem 1.25rem;
+  transition: transform 0.3s cubic-bezier(0.33, 1.65, 0.66, 1);
+  will-change: scale;
 }
 
-.section--content__block--hero{
-    grid-column: 1 / -1;
+.buy p {
+  width: fit-content;
+  background-color: var(--green-d);
+  border-radius: 4rem;
+}
+
+.buy a:is(:hover, :focus-visible) {
+  transform: scale(.9);
+}
+
+.buy a:active{
+  transform: scale(1.05);
+}
+
+.section--content__block--hero {
+  grid-column: 1 / -1;
 }
 
 .section--content__block--hero:not(:has(figure)) {
