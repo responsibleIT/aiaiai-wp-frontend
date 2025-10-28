@@ -25,6 +25,10 @@
   gap: var(--grid-gap) 1em;
 }
 
+ul li:first-child{
+  font-style: italic;
+}
+
 .header--body__block ul{
   display: flex;
 }

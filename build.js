@@ -244,7 +244,6 @@ async function processTemplate(
       // Skip h1 for assignment pages, only set title
       $("title").text(`AIAIAI | ${pageTitle}`);
     } else {
-      $("h1").text(pageTitle);
       $("title").text(`AIAIAI | ${pageTitle}`);
     }
 
