@@ -54,7 +54,7 @@ p {
   margin-bottom: 1.75rem;
 }
 
-.wp-content .description :is(.wp-title, :first-child, h2, h3) {
+.wp-content .description :is(.wp-title, :first-child, h2, h3):not(.inspired) {
   margin: 0;
   margin-bottom: 0.75rem;
   font-family: Atkinson, sans-serif;
