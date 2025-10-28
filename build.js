@@ -239,12 +239,12 @@ async function processTemplate(
     // Set the h1 content and page title
     if (pageName === "index") {
       $("h1").text(pageTitle);
-      $("title").text(`AIAIAI | ${pageTitle}`);
+      $("title").text(`ai, ai, ai | ${pageTitle}`);
     } else if (isAssignment) {
       // Skip h1 for assignment pages, only set title
-      $("title").text(`AIAIAI | ${pageTitle}`);
+      $("title").text(`ai, ai, ai | ${pageTitle}`);
     } else {
-      $("title").text(`AIAIAI | ${pageTitle}`);
+      $("title").text(`ai, ai, ai | ${pageTitle}`);
     }
 
     // Set body data-color for assignment pages, derived from category-<suffix> (fallback: purple)
