@@ -1,17 +1,15 @@
 h1 {
-  text-transform: lowercase;
-  font-size: clamp(1.75rem, 4.125vw, 2.75rem);
+  font-size: clamp(1.75rem, 4.125vw, 2.375rem);
   line-height: 100%;
   display: flex;
-  font-weight: 800;
   justify-content: center;
   margin: 0 2rem;
   gap: clamp(0.25rem, 2vw, 1rem);
   padding-top: 3.25rem;
   font-family: Atkinson;
-  text-transform: uppercase;
   color: var(--green-d);
   text-align: center;
+  
 }
 
 h1 + p {

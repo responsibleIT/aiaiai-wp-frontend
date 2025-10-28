@@ -5,7 +5,7 @@
 :root {
   --grey-hue: 240;
 
-  --white: hsl(0 0 100%);
+  --white: hsla(0, 0%, 100%, 1);
   --white--t2: hsl(0 0 100% / 0.02);
   --white--t5: hsl(0 0 100% / 0.05);
   --white--t10: hsl(0 0 100% / 0.1);
