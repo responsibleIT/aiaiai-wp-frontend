@@ -351,24 +351,30 @@ async function processTemplate(
 
         // For about pages, handle special content placement
         if (pageName === "aiaiai-art") {
-          // Find the p tag with buy class and add hand image to it
-          const $buyP = $wpContent("p.buy").first();
-          if ($buyP.length) {
-            // Create a wrapper div with class "point"
-            const $pointDiv = $('<div class="point"></div>');
+          // Find all p tags with buy class and add hand image to each
+          const $buyButtons = $wpContent("p.buy");
+          if ($buyButtons.length) {
+            $buyButtons.each((_, el) => {
+              const $buyP = $wpContent(el);
+              // Create a wrapper div with class "point"
+              const $pointDiv = $('<div class="point"></div>');
 
-            // Clone the buy p tag content
-            const buyContent = $buyP.clone();
+              // Clone the buy p tag content
+              const buyContent = $buyP.clone();
 
-            // Add the cloned content and hand image to the point div
-            $pointDiv.append(buyContent);
-            const handImage = $(
-              '<img src="images/hands/hand_lichtgroen.png" alt="Light green hand pointing to the left; towards the buy button!" />'
-            );
-            $pointDiv.append(handImage);
+              // Add the cloned content and hand image to the point div
+              $pointDiv.append(buyContent);
+              // Measure anchor text length and pass to the parent wrapper
+              const linkTextLength = ($buyP.find('a').first().text() || '').trim().length;
+              $pointDiv.attr('style', `--text-length:${linkTextLength}ch`);
+              const handImage = $(
+                '<img src="images/hands/hand_lichtgroen.png" alt="Light green hand pointing to the left; towards the buy button!" />'
+              );
+              $pointDiv.append(handImage);
 
-            // Replace the original p tag with the new point div
-            $buyP.replaceWith($pointDiv);
+              // Replace the original p tag with the new point div
+              $buyP.replaceWith($pointDiv);
+            });
           }
         }
 

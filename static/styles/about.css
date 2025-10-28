@@ -45,7 +45,8 @@ div.point img {
   width: calc(70vw - 5rem);
   top: 50%;
   right: 0;
-  transform: translate(50%, -46%) rotateY(180deg);
+  font-size: inherit;
+  transform: translate(calc(20% + var(--text-length)), -46%) rotateY(180deg);
   transition: transform 0.3s cubic-bezier(0.33, 1.65, 0.66, 1);
   display: none;
 }
@@ -59,12 +60,19 @@ div.point img {
 .wp-content a:hover {
   color: var(--link-hover);
 }
+.point {
+  --text-length: 0;
+  font-size: 2.25rem;
+}
+
+.buy {
+  width: fit-content;
+}
 
 .buy a {
-  width: 100%;
   font-family: Pinky;
   border: none;
-  font-size: 2.25rem;
+  font-size: inherit;
   color: var(--white);
   background: unset;
   text-decoration: none;
@@ -73,8 +81,8 @@ div.point img {
   will-change: scale;
 }
 
-.buy {
-  width: 100%;
+.point .buy {
+  font-size: inherit;
   text-align: center;
   background-color: var(--green-d);
   border-radius: 4rem;
@@ -90,7 +98,7 @@ div.point img {
 }
 
 .point:has(.buy:is(:hover, :focus-visible, :active)) img {
-  transform: translate(40%, -46%) rotateY(180deg);
+  transform: translate(calc(10% + var(--text-length)), -46%) rotateY(180deg);
 }
 
 .section--content__block--hero {
