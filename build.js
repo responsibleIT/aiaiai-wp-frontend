@@ -228,7 +228,7 @@ async function processTemplate(
 
     // Set page title and h1
     let pageTitle;
-    
+
     // Ensure pageTitle is always defined for featured image processing
     if (!pageTitle) {
       pageTitle = capitalizeFirstLetter(
@@ -284,15 +284,17 @@ async function processTemplate(
 
     // Set appropriate hand image based on color theme
     const color = getAssignmentColor(wpContent.class_list);
-    const handImageSrc = color === "green" 
-      ? "../images/hands/hand_dondergroen.png" 
-      : "../images/hands/hand_paars.png";
-    
+    const handImageSrc =
+      color === "green"
+        ? "../images/hands/hand_dondergroen.png"
+        : "../images/hands/hand_paars.png";
+
     // Update hand image src and alt text
     $(".hand-image").attr("src", handImageSrc);
-    $(".hand-image").attr("alt", 
-      color === "green" 
-        ? "dark green hand pointing to the right; towards the print button!" 
+    $(".hand-image").attr(
+      "alt",
+      color === "green"
+        ? "dark green hand pointing to the right; towards the print button!"
         : "dark purple hand pointing to the right; towards the print button!"
     );
 
@@ -309,6 +311,37 @@ async function processTemplate(
           if ($assignmentBlock.length) {
             // Store the assignment content
             const assignmentContent = $assignmentBlock.clone();
+
+            // Find, clone and remove the existing button from the cloned assignment content
+            const $existingButton = assignmentContent.find("button").first();
+            const $clonedButton = $existingButton.length
+              ? $existingButton.clone()
+              : null;
+            if ($existingButton.length) {
+              $existingButton.remove();
+            }
+
+            if ($clonedButton) {
+              // Build the footer print area with pointer and hand image
+              const $footer = $('<div class="print-page"><div class="pointer"></div></div>');
+
+              // Insert hand image before the button in the pointer
+              const pointerHandAlt =
+                color === "green"
+                  ? "dark green hand pointing to the right; towards the print button!"
+                  : "dark purple hand pointing to the right; towards the print button!";
+              const $handImg = $(`
+                <img src="${handImageSrc}" alt="${pointerHandAlt}" />
+              `);
+              $footer.find('.pointer').append($handImg);
+
+              // Insert the cloned button into the pointer after the hand image
+              $footer.find('.pointer').append($clonedButton);
+
+              // Append footer to the cloned assignment content
+              assignmentContent.append($footer);
+            }
+
             // Remove it from the main content
             $assignmentBlock.remove();
             // Add it after the wp-content block
@@ -323,15 +356,17 @@ async function processTemplate(
           if ($buyP.length) {
             // Create a wrapper div with class "point"
             const $pointDiv = $('<div class="point"></div>');
-            
+
             // Clone the buy p tag content
             const buyContent = $buyP.clone();
-            
+
             // Add the cloned content and hand image to the point div
             $pointDiv.append(buyContent);
-            const handImage = $('<img src="images/hands/hand_lichtgroen.png" alt="Light green hand pointing to the left; towards the buy button!" />');
+            const handImage = $(
+              '<img src="images/hands/hand_lichtgroen.png" alt="Light green hand pointing to the left; towards the buy button!" />'
+            );
             $pointDiv.append(handImage);
-            
+
             // Replace the original p tag with the new point div
             $buyP.replaceWith($pointDiv);
           }
@@ -430,7 +465,9 @@ async function findTemplate(pageName, wpContent) {
     const categoryTemplate = join(TEMPLATES_DIR, "assignment.html");
     try {
       await readFile(categoryTemplate, "utf8");
-      console.log(`[${pageName}] Using assignment template: ${categoryTemplate}`);
+      console.log(
+        `[${pageName}] Using assignment template: ${categoryTemplate}`
+      );
       return categoryTemplate;
     } catch (error) {
       console.log(
@@ -522,8 +559,8 @@ export async function buildSite() {
         // Download featured image for assignment pages and about pages
         let featuredImage = null;
         if (
-          (page.class_list?.includes("category-oefening") || 
-           page.class_list?.includes("category-about")) &&
+          (page.class_list?.includes("category-oefening") ||
+            page.class_list?.includes("category-about")) &&
           page.featured_media
         ) {
           featuredImage = await imageCollection(

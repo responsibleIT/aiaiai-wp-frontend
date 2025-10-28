@@ -1,3 +1,7 @@
+body {
+  position: relative;
+}
+
 header.header--body {
   position: relative;
   padding: 0;
@@ -54,7 +58,9 @@ p {
   margin-bottom: 1.75rem;
 }
 
-.wp-content .description :is(.wp-title, :first-child, h2, h3):not(.inspired) {
+.wp-content
+  .description
+  :is(.wp-title, :first-child, h2, h3):not(.inspired, .inspired *) {
   margin: 0;
   margin-bottom: 0.75rem;
   font-family: Atkinson, sans-serif;
@@ -151,28 +157,12 @@ strong {
   padding: 3rem;
   padding-bottom: 2rem;
   height: fit-content;
-  position: relative;
   border: 0.1875rem dashed var(--assignment-color-d);
   transform: translateY(-2.5rem);
-  border-bottom: none;
-}
-
-.assignment::after {
-  content: "";
-  z-index: -1;
-  background: var(--assignment-color);
-  border: var(--border-width) dashed var(--assignment-color-d);
-  border-top: none;
-  width: calc(100% + (var(--border-width) * 2));
-  height: var(--print-height);
-  position: absolute;
-  left: calc(-1 * var(--border-width));
-  bottom: calc(var(--print-height) * -1);
 }
 
 .assignment > * {
   z-index: 1;
-  position: relative;
 }
 
 :root[data-color-scheme="dark"] .assignment {
@@ -209,40 +199,14 @@ strong {
 }
 
 .print-page {
-  margin-inline: -2rem;
-}
-
-.pointer {
-  display: flex;
-  gap: 1rem;
-  max-width: 90%;
-
-  @media (min-width: 75rem) {
-    padding-right: 3rem;
-  }
-}
-
-.pointer img {
-  margin-left: -10%;
-  transform: translateX(-20%);
-  transition: filter 0.2s cubic-bezier(0.33, 1.65, 0.66, 1),
-    transform 0.5s cubic-bezier(0.33, 1.65, 0.66, 1);
-}
-
-.pointer:has(button:hover) img {
-  display: flex;
-  gap: 1rem;
-  transform: translateX(-5%);
-  filter: contrast(1.5);
-}
-
-.pointer img {
-  width: calc(100% - 20vw);
-  object-fit: contain;
+  margin-top: 1.75rem;
+  position: relative;
+  width: 100%;
+  z-index: 1;
 }
 
 .print-page button {
-  max-width: 20vw;
+  max-width: calc(7.5rem + 5vw);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -263,6 +227,7 @@ strong {
   transition: scale 0.2s cubic-bezier(0.33, 1.65, 0.66, 1),
     filter 0.2s cubic-bezier(0.33, 1.65, 0.66, 1);
   font-weight: 800;
+  margin-left: auto;
 }
 
 .print-page button span {
@@ -277,6 +242,32 @@ strong {
 .print-page svg,
 .print-page svg path {
   fill: currentColor;
+}
+
+.pointer:has(button:hover) img {
+  transform: translate(-40%, -50%);
+  filter: contrast(1.5);
+}
+
+.pointer img {
+  object-fit: contain;
+  position: absolute;
+  width: 90vw;
+  top: 50%;
+  left: -20%;
+  transform: translate(-50%, -50%);
+  transition: filter 0.2s cubic-bezier(0.33, 1.65, 0.66, 1),
+    transform 0.3s cubic-bezier(0.33, 1.65, 0.66, 1);
+}
+
+@media (min-width: 33.75rem) {
+  .pointer img {
+    transform: translate(-30%, -50%);
+  }
+  .pointer:has(button:hover) img {
+    transform: translate(-20%, -50%);
+    filter: contrast(1.5);
+  }
 }
 
 .assignment li {
@@ -361,15 +352,6 @@ li::marker {
   margin-top: 2.125rem;
 }
 
-.print-page {
-  grid-column: 1 / -1;
-  align-self: end;
-  justify-self: end;
-  z-index: 1;
-  /* accounting for grid-gap & transform on above element */
-  margin-top: -3.5rem;
-}
-
 .wp-content a {
   font-size: inherit;
   text-decoration: underline;
@@ -386,10 +368,10 @@ li::marker {
   font-weight: inherit;
   color: var(--link);
   text-decoration: underline;
-  transition: color .2s ease;
+  transition: color 0.2s ease;
 }
 
-.assignment a:is(:hover,:focus-visible){
+.assignment a:is(:hover, :focus-visible) {
   color: var(--link-hover);
 }
 
@@ -449,6 +431,14 @@ footer .companies {
 }
 
 @media (min-width: 75rem) {
+  .pointer img {
+    transform: translate(-45%, -50%);
+  }
+  .pointer:has(button:hover) img {
+    transform: translate(-38%, -50%);
+    filter: contrast(1.5);
+  }
+
   .section--content:last-child > div.section--content__block {
     grid-column: 2 / 12;
     padding-inline: 0;
