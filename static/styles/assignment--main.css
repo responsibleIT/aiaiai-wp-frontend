@@ -389,8 +389,7 @@ li::marker {
 }
 
 footer {
-  margin-block: 3rem;
-  grid-column: 1 / -1;
+  margin-block: 2rem;
 }
 
 footer .companies {
@@ -428,7 +427,7 @@ footer .companies {
 
 @media (min-width: 47.5rem) {
   footer .companies {
-    height: 3.375rem;
+    height: 5rem;
     flex-wrap: nowrap;
   }
   .companies img {
