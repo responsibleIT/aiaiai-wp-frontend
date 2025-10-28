@@ -380,6 +380,19 @@ li::marker {
   color: var(--link-hover);
 }
 
+.assignment a {
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  color: var(--link);
+  text-decoration: underline;
+  transition: color .2s ease;
+}
+
+.assignment a:is(:hover,:focus-visible){
+  color: var(--link-hover);
+}
+
 :root[data-color-scheme="dark"] :is(.assignment, .assignment button) {
   color: var(--bg);
 }
