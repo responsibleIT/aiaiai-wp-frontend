@@ -10,7 +10,7 @@
   --white--t5: hsl(0 0 100% / 0.05);
   --white--t10: hsl(0 0 100% / 0.1);
 
-  --black: hsl(0 0 0%);
+  --black: hsla(0, 0%, 0%, 1);
   --black--t2: hsl(0 0 0% / 0.02);
   --black--t5: hsl(0 0 0% / 0.05);
   --black--t10: hsl(0 0 0% / 0.1);
