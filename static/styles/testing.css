@@ -66,6 +66,10 @@
 [data-display="grid"] a img {
   object-fit: fill;
   height: 100%;
+
+  @supports (view-transition-name: hi) {
+    view-transition-name: var(--vt-name);
+  }
 }
 
 [data-display="grid"] a p {
@@ -78,10 +82,10 @@
   justify-content: center;
   z-index: 1;
 }
-[data-display="grid"] li{
-  scale: .9 .8;
-  transition: scale .2s ease;
-  transition-delay: .15s;
+[data-display="grid"] li {
+  scale: 0.9 0.8;
+  transition: scale 0.2s ease;
+  transition-delay: 0.15s;
 }
 [data-display="grid"] li:is(:hover, :focus-within, :active) {
   scale: 1 1;

@@ -397,15 +397,12 @@ function enhanceHomepageAssignmentLinks($content, assignmentImages) {
 
     if (!$link.length) return;
 
-    $listItem.attr(
-      "style",
-      `--vt-name:${$link
-        .text()
-        .trim()
-        .replace(/[.,\/\-]/g, "")
-        .replace(/\s+/g, "-")
-        .toLowerCase()}`
-    );
+    const vtName = `${$link
+      .text()
+      .trim()
+      .replace(/[.,\/\-]/g, "")
+      .replace(/\s+/g, "-")
+      .toLowerCase()}`;
 
     $link.text("");
 
@@ -432,6 +429,13 @@ function enhanceHomepageAssignmentLinks($content, assignmentImages) {
       const gridImageHTML = createGridImageHTML(imageData);
       if (gridImageHTML) {
         $link.prepend(gridImageHTML);
+        // Apply vt-name to the injected figure when present, otherwise the first image inside the link
+        const $img = $link.find('figure.grid-image img').first();
+        if ($img.length) {
+          $img.attr('style', `--vt-name:${vtName}`);
+        } else {
+          $link.find('img').first().attr('style', `--vt-name:${vtName}`);
+        }
         console.log(`[homepage] Added grid image for assignment: ${slug}`);
       }
     }
