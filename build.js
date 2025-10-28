@@ -228,14 +228,6 @@ async function processTemplate(
 
     // Set page title and h1
     let pageTitle;
-    if (pageName === "index") {
-      // skip!
-    } else {
-      // Use WordPress title if available, otherwise use default
-      pageTitle = capitalizeFirstLetter(
-        decodeHtmlEntities(wpContent.title?.rendered) || "No title"
-      );
-    }
     
     // Ensure pageTitle is always defined for featured image processing
     if (!pageTitle) {
@@ -246,9 +238,8 @@ async function processTemplate(
 
     // Set the h1 content and page title
     if (pageName === "index") {
-      // ! change this !
-      $("h1").html(pageTitle);
-      $("title").text(`AIAIAI | Learn how to play, fail & tinker with machines`);
+      $("h1").text(pageTitle);
+      $("title").text(`AIAIAI | ${pageTitle}`);
     } else if (isAssignment) {
       // Skip h1 for assignment pages, only set title
       $("title").text(`AIAIAI | ${pageTitle}`);
