@@ -283,10 +283,6 @@ strong {
   fill: currentColor;
 }
 
-.assignment :first-child + p {
-  margin-top: 1.25rem;
-}
-
 .assignment li {
   overflow-wrap: break-word;
 }
@@ -297,8 +293,9 @@ strong {
 }
 
 .assignment :first-child + ol,
-.assignment :first-child + ul {
-  margin-top: 1.25rem;
+.assignment :first-child + ul,
+.assignment :first-child + p {
+  margin-top: 3rem;
 }
 
 .assignment > ol,
