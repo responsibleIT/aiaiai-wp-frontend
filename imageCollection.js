@@ -26,8 +26,8 @@ const imageCollection = async (mediaId, apiUrl) => {
 const prepareDownloadList = (imageData) => {
     const downloads = [];
     const sizes = imageData.media_details?.sizes || {};
-    
-    // Add full size image with dimensions from main media_details
+
+    // Add full size image
     if (imageData.source_url) {
         downloads.push({
             url: imageData.source_url,
@@ -37,9 +37,10 @@ const prepareDownloadList = (imageData) => {
             height: imageData.media_details?.height || null
         });
     }
-    
-    // Add all size variants with their specific dimensions
+
+    // Add all size variants, except thumbnail
     for (const [sizeName, sizeData] of Object.entries(sizes)) {
+        if (sizeName === 'thumbnail') continue; // Skip thumbnails
         if (sizeData.source_url) {
             downloads.push({
                 url: sizeData.source_url,
@@ -50,9 +51,10 @@ const prepareDownloadList = (imageData) => {
             });
         }
     }
-    
+
     return downloads;
 };
+
 
 const getFileExtension = (url) => {
     const match = url.match(/\.(png|jpg|jpeg|gif|webp)$/i);
