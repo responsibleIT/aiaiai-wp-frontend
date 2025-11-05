@@ -5,10 +5,10 @@
 :root {
   --grey-hue: 240;
 
-  --white: hsla(0, 0%, 100%, 1);
-  --white--t2: hsl(0 0 100% / 0.02);
-  --white--t5: hsl(0 0 100% / 0.05);
-  --white--t10: hsl(0 0 100% / 0.1);
+  --white: hsl(0, 0%, 94%);
+  --white--t2: hsl(0 0 94% / 0.02);
+  --white--t5: hsl(0 0 94% / 0.05);
+  --white--t10: hsl(0 0 94% / 0.1);
 
   --black: hsla(0, 0%, 0%, 1);
   --black--t2: hsl(0 0 0% / 0.02);
@@ -192,9 +192,6 @@
 
 /* LIGHT - CONTRAST */
 
-[data-setting--contrast="true"] {
-}
-
 @media only screen {
   /********/
   /* DARK */
@@ -211,9 +208,6 @@
   }
 
   /* DARK - CONTRAST */
-
-  :root[data-color-scheme="dark"][data-setting--contrast="true"] {
-  }
 }
 
 /***************************/
