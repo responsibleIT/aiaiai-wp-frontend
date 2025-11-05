@@ -280,7 +280,7 @@ footer .companies {
   fill: #080A25;
 }
 
-:root[data-color-scheme="dark"] svg path{
+:root[data-color-scheme="dark"] .companies svg path{
   fill: #FEFEFE;
 }
 
