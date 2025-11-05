@@ -21,7 +21,9 @@ const printAllButton = document.querySelector("[data-type=printAll]");
 printAllButton &&
   printAllButton.addEventListener("click", async () => {
     printAll.classList.remove("no-print");
-    currentMain ? currentMain.classList.add("no-print") : document.querySelector("body").classList.add("no-print");
+    currentMain
+      ? currentMain.classList.add("no-print")
+      : document.querySelector("body").classList.add("no-print");
 
     // Default is print all - wait for content to load
     await selectivePrint();
@@ -48,7 +50,6 @@ function createPrintIframe() {
     <link rel="stylesheet" href="styles/tokens--colors.css">
     <link rel="stylesheet" href="styles/general.css">
     <link rel="stylesheet" href="styles/general--text.css">
-    <link rel="stylesheet" href="styles/landmark--main.css">
     <link rel="stylesheet" href="styles/assignment--main.css">
     <link rel="stylesheet" href="styles/print.css">
   </head><body><div id="print-root"></div></body></html>`);
@@ -58,11 +59,22 @@ function createPrintIframe() {
 }
 
 async function printHTMLInIsolatedStyles(html) {
-  const iframe = createPrintIframe();
-  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  let iframe = document.querySelector("iframe");
 
-  const printRoot = doc.getElementById("print-root");
+  // If no iframe exists, create one
+  if (!iframe) {
+    iframe = createPrintIframe();
+  }
+
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  const printRoot = doc.getElementById("print-root") || doc.createElement("div");
+  printRoot.id = "print-root";
   printRoot.innerHTML = html;
+
+  // Ensure the print-root is in the iframe's body
+  if (!doc.body.contains(printRoot)) {
+    doc.body.appendChild(printRoot);
+  }
 
   // Wait for stylesheets to load
   await new Promise((resolve) => setTimeout(resolve, 150));
@@ -78,13 +90,14 @@ async function printHTMLInIsolatedStyles(html) {
   window.addEventListener("afterprint", cleanup);
 }
 
+
 const selectivePrint = async (option = "all") => {
   if (option === "all") {
     // Only fetch and build content if we don't already have ALL content
     if (currentPrintContent !== "all") {
       console.log("Current print content:", currentPrintContent);
       console.log("Print-all element:", printAll);
-      
+
       // Fetch all assignments
       try {
         const response = await fetch(`./assets/json/assignments.json`);
@@ -100,7 +113,9 @@ const selectivePrint = async (option = "all") => {
           try {
             const htmlResponse = await fetch(`${assignment.slug}.html`);
             if (!htmlResponse.ok) {
-              console.warn(`Failed to fetch ${assignment.slug}.html: ${htmlResponse.status}`);
+              console.warn(
+                `Failed to fetch ${assignment.slug}.html: ${htmlResponse.status}`
+              );
               continue;
             }
             const htmlText = await htmlResponse.text();
@@ -117,19 +132,23 @@ const selectivePrint = async (option = "all") => {
             console.error(`Error processing ${assignment.slug}:`, error);
           }
         }
-        
+
         printAll.innerHTML = allContent;
         currentPrintContent = "all";
-        
+
         // Wait a moment for DOM to update
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise((resolve) => setTimeout(resolve, 100));
       } catch (error) {
         console.error("Error loading print content:", error);
         return;
       }
     }
     // Print in isolated iframe with specific stylesheets
-    console.log("Print-all content loaded:", (printAll.innerHTML || "").length || 0, "characters");
+    console.log(
+      "Print-all content loaded:",
+      (printAll.innerHTML || "").length || 0,
+      "characters"
+    );
     await printHTMLInIsolatedStyles(printAll.innerHTML || "");
   } else if (Array.isArray(option)) {
     // Check if we already have this exact combination
