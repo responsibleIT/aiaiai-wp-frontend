@@ -228,7 +228,6 @@ strong {
   align-items: center;
   border-radius: unset;
   font-family: Atkinson;
-  color: var(--assignment-color-d);
   width: 8vw;
   min-width: 4rem;
   scale: 0.75;
@@ -238,6 +237,7 @@ strong {
     filter 0.2s cubic-bezier(0.33, 1.65, 0.66, 1);
   font-weight: 800;
   margin-left: auto;
+  color: var(--assignment-color-d);
 }
 
 .print-page button span {
