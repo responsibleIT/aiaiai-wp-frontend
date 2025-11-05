@@ -4,34 +4,21 @@ body {
   --general-animation-duration: 0.65s;
 
   --list-item-delay: 0.3s;
-
-  --bouncy-bezier: cubic-bezier(0.33, 1.65, 0.66, 1) forwards;
+  --bounce-bezier: cubic-bezier(0.33, 1.65, 0.66, 1);
+  --bouncy-bezier: var(--bounce-bezier) forwards;
 }
 
-/* Header */
-.header--body .header--body__block li {
-  transform: translateX(-30%);
-  animation: li--slide-in var(--general-animation-duration)
-    calc(var(--h1-total-duration) + (var(--list-item-delay) * 2))
-    var(--bouncy-bezier);
+/* :root[data-color-scheme="dark"] .companies img, :root[data-color-scheme="dark"] .companies svg path:not(:first-child) {
+  animation: hue-shifting 120s linear infinite;
 }
 
-.header--body .header--body__block :is(a, details) {
-  /* opacity: 0; */
-  scale: 0.2 0;
-  transform: translateY(30%);
-  animation: a--slide-up var(--general-animation-duration)
-    calc(var(--h1-total-duration) + (var(--index) * var(--list-item-delay)))
-    var(--bouncy-bezier);
-}
-
-@keyframes a--slide-up {
-  40% {
-    scale: 1.1 0.8;
+@keyframes hue-shifting {
+  0% {
+    filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(5000%)
+      hue-rotate(80deg);
   }
   100% {
-    scale: 1 1;
-    opacity: 1;
-    transform: translateY(0%);
+    filter: brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(5000%)
+      hue-rotate(800deg);
   }
-}
+} */
