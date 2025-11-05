@@ -140,6 +140,8 @@
     box-sizing: border-box !important;
     position: relative !important;
     padding-block: 42mm !important;
+    padding-top: 42mm !important;
+    padding-bottom: 42mm !important;
     left: 52% !important;
     transform: translateX(-50%) !important;
   }
