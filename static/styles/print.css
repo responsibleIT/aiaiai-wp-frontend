@@ -10,7 +10,7 @@
     display: none !important;
   }
 
-  img{
+  div.print-page {
     display: none !important;
   }
 
@@ -22,8 +22,25 @@
     overflow: unset !important;
   }
 
-  footer{
+  footer {
     display: none !important;
+  }
+
+  img,
+  figure {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    max-width: 100% !important;
+    grid-column: unset !important;
+    display: block !important;
+    margin: 0 !important;
+    margin-inline: 0 !important;
+  }
+
+  .main-content > section:first-child > *,
+  .main-content > section:nth-child(2) > * {
+    max-width: unset !important;
   }
 
   /* Reset hero blocks */
@@ -45,7 +62,7 @@
   }
 
   /* Hide figures */
-  figure {
+  figure:not(:first-of-type) {
     display: none !important;
   }
 
@@ -62,6 +79,39 @@
     font-size: 8pt !important;
     break-inside: auto !important;
     page-break-inside: auto !important;
+  }
+
+  .assignment h2 {
+    font-weight: 400 !important;
+    padding-block: 0.75rem !important;
+    padding-inline: clamp(1.25rem, 4vw, 2.125rem) !important;
+    background-color: var(--assignment-color-d) !important;
+    color: var(--white) !important;
+    font-family: Pinky, Arial, Helvetica !important;
+    display: inline-block !important;
+    border-radius: 4rem !important;
+  }
+
+  .inspired {
+    gap: 0.33ch !important;
+    font-weight: 400 !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    background: var(--assignment-color-d, #000) !important;
+    color: var(--white) !important;
+    width: fit-content !important;
+    padding-inline: 0.75rem !important;
+    padding: 0.5rem !important;
+    border-radius: 4rem !important;
+  }
+
+  .inspired * {
+    font-size: 10pt !important;
+    font-family: Pinky !important;
+    color: inherit !important;
+    margin: 0 !important;
   }
 
   .assignment::before,
@@ -89,7 +139,7 @@
     padding-bottom: 0 !important;
     box-sizing: border-box !important;
     position: relative !important;
-    padding: 15mm 15mm 58.5mm 15mm !important;
+    padding-block: 42mm !important;
     left: 52% !important;
     transform: translateX(-50%) !important;
   }
@@ -206,7 +256,7 @@
     width: 148mm !important;
     max-width: 148mm !important;
     padding: 15mm !important;
-    padding-top: 0 !important;
+    /* padding-top: 0 !important; */
     box-sizing: border-box !important;
     position: relative !important;
 
@@ -229,11 +279,9 @@
     padding: 15mm !important;
     box-sizing: border-box !important;
     position: relative !important;
+    padding: 46mm 15mm 15mm 15mm !important;
 
     /* Offset at 40% - intentionally off-center */
-    padding: 58.5mm 15mm 15mm 15mm !important;
-
-    /* margin: 43.5mm 0 0 0 !important; */
     left: 40% !important;
     transform: translateX(-50%) !important;
   }
@@ -244,25 +292,26 @@
     box-sizing: border-box !important;
   }
 
-  .main-content > section:first-child > *,
-  .main-content > section:nth-child(2) > * {
-    max-width: 128mm !important; /* Account for 25mm left padding + 15mm right */
-  }
-
   /* Typography */
   h1 {
-    font-size: 1.375rem !important;
-    margin-bottom: 1rem !important;
+    font-size: 1.5rem !important;
+    margin-block: 0.5rem !important;
+    margin-top: 1.25rem !important;
   }
 
   h2 {
     font-size: 1.25rem !important;
+    margin-top: 0.75rem !important;
+  }
+
+  .assignment h2:first-child {
+    font-size: 1.5rem !important;
     margin-bottom: 0.75rem !important;
   }
 
   h3 {
     font-size: 1.125rem !important;
-    margin-bottom: 0.5rem !important;
+    margin-top: 0.75rem !important;
   }
 
   h4 {
@@ -273,7 +322,11 @@
   li {
     font-size: 0.875rem !important;
     line-height: 1.4 !important;
-    margin-bottom: 0.5rem !important;
+  }
+
+  .description p:not(:last-of-type),
+  li {
+    margin-bottom: 0.75rem !important;
   }
 
   a {
