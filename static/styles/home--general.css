@@ -9,7 +9,10 @@ h1 {
   font-family: Atkinson;
   color: var(--green-d);
   text-align: center;
-  
+}
+
+:root[data-color-scheme="dark"] h1 {
+  color: var(--green);
 }
 
 h1 + p {
@@ -21,6 +24,7 @@ h1 + p {
 .main-hand {
   margin-left: 2vw;
   z-index: 2;
+  margin-top: 4rem;
   width: calc(100% - 2vw);
   pointer-events: none;
 }
@@ -39,11 +43,21 @@ h1 + p {
 
 .section--content:first-child .section--content__block--hero {
   display: flex;
+  margin-top: 10rem;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: calc(4rem + 2vw);
   margin-inline: 2vw;
   gap: 1.5vw;
+}
+
+@media (min-width: 30rem) {
+  .section--content:first-child .section--content__block--hero {
+    margin-top: calc(4rem + 2vw);
+  }
+
+  .main-hand {
+    margin-top: unset;
+  }
 }
 
 .section--content__block--subhero {
