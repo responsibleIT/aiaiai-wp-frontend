@@ -1,9 +1,9 @@
 .section--content__block--hero.main img {
-  width: calc(20vw + 3rem);
+  width: calc(20vw + 1rem);
 }
 
 .section--content__block--hero.main img:last-child{
-  width: calc(14vw + 3rem);
+  width: calc(14vw + 1rem);
 }
 
 p:first-of-type {
