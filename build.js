@@ -274,7 +274,7 @@ async function processTemplate(
         "style",
         `--vt-name:${pageTitle
           .trim()
-          .replace(/[.,\/\-]/g, "")
+          .replace(/[.,\/\-\(\)]/g, "")
           .replace(/\s+/g, "-")
           .toLowerCase()}`
       );
@@ -323,7 +323,9 @@ async function processTemplate(
 
             if ($clonedButton) {
               // Build the footer print area with pointer and hand image
-              const $footer = $('<div class="print-page"><div class="pointer"></div></div>');
+              const $footer = $(
+                '<div class="print-page"><div class="pointer"></div></div>'
+              );
 
               // Insert hand image before the button in the pointer
               const pointerHandAlt =
@@ -333,10 +335,10 @@ async function processTemplate(
               const $handImg = $(`
                 <img src="${handImageSrc}" alt="${pointerHandAlt}" />
               `);
-              $footer.find('.pointer').append($handImg);
+              $footer.find(".pointer").append($handImg);
 
               // Insert the cloned button into the pointer after the hand image
-              $footer.find('.pointer').append($clonedButton);
+              $footer.find(".pointer").append($clonedButton);
 
               // Append footer to the cloned assignment content
               assignmentContent.append($footer);
@@ -365,8 +367,10 @@ async function processTemplate(
               // Add the cloned content and hand image to the point div
               $pointDiv.append(buyContent);
               // Measure anchor text length and pass to the parent wrapper
-              const linkTextLength = ($buyP.find('a').first().text() || '').trim().length;
-              $pointDiv.attr('style', `--text-length:${linkTextLength}ch`);
+              const linkTextLength = (
+                $buyP.find("a").first().text() || ""
+              ).trim().length;
+              $pointDiv.attr("style", `--text-length:${linkTextLength}ch`);
               const handImage = $(
                 '<img src="images/hands/hand_lichtgroen.png" alt="Light green hand pointing to the left; towards the buy button!" />'
               );
@@ -406,7 +410,7 @@ function enhanceHomepageAssignmentLinks($content, assignmentImages) {
     const vtName = `${$link
       .text()
       .trim()
-      .replace(/[.,\/\-]/g, "")
+      .replace(/[.,\/\-\(\)]/g, "")
       .replace(/\s+/g, "-")
       .toLowerCase()}`;
 
@@ -436,11 +440,11 @@ function enhanceHomepageAssignmentLinks($content, assignmentImages) {
       if (gridImageHTML) {
         $link.prepend(gridImageHTML);
         // Apply vt-name to the injected figure when present, otherwise the first image inside the link
-        const $img = $link.find('figure.grid-image img').first();
+        const $img = $link.find("figure.grid-image img").first();
         if ($img.length) {
-          $img.attr('style', `--vt-name:${vtName}`);
+          $img.attr("style", `--vt-name:${vtName}`);
         } else {
-          $link.find('img').first().attr('style', `--vt-name:${vtName}`);
+          $link.find("img").first().attr("style", `--vt-name:${vtName}`);
         }
         console.log(`[homepage] Added grid image for assignment: ${slug}`);
       }
