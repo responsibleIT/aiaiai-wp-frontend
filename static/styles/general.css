@@ -56,7 +56,7 @@ body {
 
 :root[data-color-scheme="dark"] body {
   background-image: radial-gradient(
-    rgba(255, 255, 255, 0.2) 1px,
+    rgba(240, 240, 240, 0.2) 1px,
     transparent 1px
   );
 }
@@ -231,15 +231,69 @@ a {
   display: none;
 }
 
-.back{
-  margin-left: .25rem;
+.back {
+  margin-left: 0.25rem;
   font-size: 2em;
   font-family: Pinky;
   color: var(--link);
-  transition: scale .2s cubic-bezier(0.33, 1.65, 0.66, 1), color .2s ease;
+  transition: scale 0.2s cubic-bezier(0.33, 1.65, 0.66, 1), color 0.2s ease;
 }
 
-.back:hover{
+.back:hover {
   color: var(--link-hover);
   scale: 1.1;
+}
+
+/* footer */
+footer {
+  overflow-x: clip;
+}
+
+footer .companies {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  row-gap: 1.5rem;
+}
+
+@media (min-width: 47.5rem) {
+  footer .companies {
+    flex-wrap: nowrap;
+  }
+}
+
+.companies > *,
+.companies > * :is(img, svg) {
+  height: 5rem;
+  width: 100%;
+  object-fit: contain;
+}
+
+.companies img,
+.companies svg {
+  scale: 0.8;
+  rotate: 0deg;
+  transition: scale 0.2s var(--bounce-bezier), rotate 0.5s var(--bounce-bezier);
+}
+
+.companies svg path:not(:first-child) {
+  fill: #080A25;
+}
+
+:root[data-color-scheme="dark"] svg path{
+  fill: #FEFEFE;
+}
+
+[data-color-scheme="dark"] .companies img:nth-child(1) {
+  filter: invert(1);
+}
+
+
+.companies a:is(:hover, :focus-visible) :is(img, svg) {
+  scale: 0.9;
+}
+
+.companies a:active {
+  scale: 0.9;
+  rotate: 3deg;
 }
