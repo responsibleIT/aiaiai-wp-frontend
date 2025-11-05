@@ -1,5 +1,4 @@
 h1 {
-  color:var(--clr-h1);
   font-size:2em;
   font-size:clamp(2em, 5vw, 3.125em);
   font-family: Pinky, Arial, sans-serif;
@@ -25,7 +24,7 @@ h3 {
 
 h1 + p {
   font-size:clamp(1.125em, 2.5vw, 1.25em);
-  color: black;
+  color: var(--clr);
 }
 
 h1, h2, h3, h4, h5{
